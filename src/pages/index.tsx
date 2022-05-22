@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
+import CardPost from '../components/CardPost';
 
 const Title = styled.h1`
     color: red;
@@ -22,10 +23,13 @@ export default function Home({ posts, setting }: StrapiPostAndSettings) {
                 <meta name="description" content={setting.data.attributes.blogDescription} />
             </Head>
             {posts.data.map((post) => (
-                <div key={post.id}>
-                    <img src={post.attributes.cover.data.attributes.url} />
-                    <p>{post.attributes.content}</p>
-                </div>
+                <CardPost
+                    key={post.id}
+                    content={post.attributes.content}
+                    id={post.id}
+                    image={post.attributes.cover.data.attributes.url}
+                    title={post.attributes.title}
+                />
             ))}
         </>
     );
