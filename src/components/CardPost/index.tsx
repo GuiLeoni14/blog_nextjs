@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Heading } from '../Heading';
 import * as S from './styles';
 
 export type TCardPostProps = {
@@ -12,7 +13,9 @@ export function CardPost({ content, image, title }: TCardPostProps) {
         <S.Container>
             <img src={image} />
             <S.Text>
-                <h4>{title}</h4>
+                <Heading as="h4" size="small">
+                    {title}
+                </Heading>
                 <p>{content}</p>
             </S.Text>
         </S.Container>

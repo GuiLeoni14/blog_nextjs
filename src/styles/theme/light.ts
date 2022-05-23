@@ -1,3 +1,4 @@
+import standard from './standard';
 export default {
     title: 'light',
     colors: {
@@ -8,5 +9,5 @@ export default {
         white: '#fff',
         title: '#0e0e0e',
     },
-    font_family: `'Open Sans', sans-serif`,
+    ...standard,
 };

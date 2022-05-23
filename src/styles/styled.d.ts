@@ -11,6 +11,20 @@ declare module 'styled-components' {
             white: string;
             title: string;
         };
-        font_family: string;
+        font: {
+            family: {
+                default: string;
+            };
+            sizes: {
+                xsmall: string;
+                small: string;
+                medium: string;
+                large: string;
+                xlarge: string;
+                xxlarge: string;
+                huge: string;
+                xhuge: string;
+            };
+        };
     }
 }
