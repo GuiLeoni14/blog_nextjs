@@ -1,11 +1,11 @@
-import CardPost, { TCardPostProps } from '.';
+import { CardPost, TCardPostProps } from '.';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import muck from './muck';
+import muck from './mock';
 
 export default {
     title: 'Card Post',
     component: CardPost,
-    args: { id: muck.id, image: muck.attributes.cover.data.attributes.url, ...muck.attributes },
+    args: { ...muck },
 } as Meta<TCardPostProps>;
 
 export const Card: Story<TCardPostProps> = (args) => <CardPost {...args} />;

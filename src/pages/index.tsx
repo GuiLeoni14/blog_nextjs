@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
-import CardPost from '../components/CardPost';
+import { CardPost } from '../components/CardPost';
 
 const Title = styled.h1`
     color: red;
@@ -54,5 +54,6 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async () =>
             posts: data.posts,
             setting: data.setting,
         },
+        revalidate: 24 * 60,
     };
 };

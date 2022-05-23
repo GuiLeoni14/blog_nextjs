@@ -7,7 +7,7 @@ export type TCardPostProps = {
     content: string;
     title: string;
 };
-function CardPost({ content, image, title }: TCardPostProps) {
+export function CardPost({ content, image, title }: TCardPostProps) {
     return (
         <S.Container>
             <img src={image} />
@@ -18,5 +18,3 @@ function CardPost({ content, image, title }: TCardPostProps) {
         </S.Container>
     );
 }
-
-export default CardPost;
