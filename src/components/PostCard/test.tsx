@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { TCardPostProps, CardPost } from '.';
+import { TPostCardProps, PostCard } from '.';
 import { renderTheme } from '../../styles/theme/render-theme';
 
 import mock from './mock';
 
-const props: TCardPostProps = mock;
+const props: TPostCardProps = mock;
 
-describe('<CardPost />', () => {
+describe('<PostCard />', () => {
     it('should render a heading, cover and excerpt', () => {
-        renderTheme(<CardPost {...props} />);
+        renderTheme(<PostCard {...props} />);
         expect(screen.getByRole('heading', { name: mock.title })).toBeInTheDocument();
         //expect(screen.getByRole('img', { name: mock.title })).toBeInTheDocument();
         //expect(screen.getByText(mock.excerpt)).toBeInTheDocument();

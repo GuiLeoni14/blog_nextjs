@@ -7,14 +7,12 @@ export type MenuPropsLinks = {
     text: string;
 };
 export type SettingsStrapi = {
-    data: {
-        attributes: {
-            id: string;
-            blogName: string;
-            blogDescription: string;
-            logo: StrapiImage;
-            menuLink: MenuPropsLinks[];
-            text: string;
-        };
+    attributes: {
+        id: string;
+        blogName: string;
+        blogDescription: string;
+        logo: StrapiImage;
+        menuLink: MenuPropsLinks[];
+        text: string;
     };
 };

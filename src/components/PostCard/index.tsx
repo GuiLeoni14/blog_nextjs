@@ -2,13 +2,13 @@ import Image from 'next/image';
 import { Heading } from '../Heading';
 import * as S from './styles';
 
-export type TCardPostProps = {
+export type TPostCardProps = {
     id: string;
     image: string;
-    content: string;
+    excerpt: string;
     title: string;
 };
-export function CardPost({ content, image, title }: TCardPostProps) {
+export function PostCard({ excerpt, image, title }: TPostCardProps) {
     return (
         <S.Container>
             <img src={image} />
@@ -16,7 +16,7 @@ export function CardPost({ content, image, title }: TCardPostProps) {
                 <Heading as="h4" size="small">
                     {title}
                 </Heading>
-                <p>{content}</p>
+                <p>{excerpt}</p>
             </S.Text>
         </S.Container>
     );

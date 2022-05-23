@@ -7,6 +7,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background-color: ${({ theme }) => theme.colors.second};
     img {
         max-width: 100%;
     }
