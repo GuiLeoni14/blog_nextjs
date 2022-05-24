@@ -1,8 +1,7 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import styled from 'styled-components';
 import { loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
-import { PostCard } from '../components/PostCard';
+import PostGrid from '../components/PostGrid';
 
 export default function Home({ posts, setting }: StrapiPostAndSettings) {
     return (
@@ -11,15 +10,7 @@ export default function Home({ posts, setting }: StrapiPostAndSettings) {
                 <title>{setting.data.attributes.blogName}</title>
                 <meta name="description" content={setting.data.attributes.blogDescription} />
             </Head>
-            {posts.data.map((post) => (
-                <PostCard
-                    key={post.id}
-                    excerpt={post.attributes.content}
-                    id={post.id}
-                    image={post.attributes.cover.data.attributes.url}
-                    title={post.attributes.title}
-                />
-            ))}
+            <PostGrid posts={posts.data} />
         </>
     );
 }

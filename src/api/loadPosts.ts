@@ -4,7 +4,7 @@ import { GRAPHQL_QUERY } from '../graphql/queries';
 import { Author } from '../shared-typed/author';
 import { Category } from '../shared-typed/category';
 import { Metadata } from '../shared-typed/metadata';
-import { PostStrapi } from '../shared-typed/post-strapi';
+import { TPostStrapi } from '../shared-typed/post-strapi';
 import { MenuPropsLinks, SettingsStrapi } from '../shared-typed/settings-strapi';
 import { StrapiImage } from '../shared-typed/strapi-image';
 import { refactorObjPost } from '../utils';
@@ -38,6 +38,7 @@ export type TPostProps = {
     };
     tags: Metadata[];
     slug: string;
+    excerpt: string;
     content: string;
     allowComments: boolean;
     title: string;
@@ -46,7 +47,7 @@ export type TPostProps = {
 
 export type StrapiPostAndSettings = {
     setting: { data: SettingsStrapi };
-    posts: { data: PostStrapi[] };
+    posts: { data: TPostStrapi[] };
     variables?: TLoadPostsVariables;
 };
 

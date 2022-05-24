@@ -3,7 +3,7 @@ const {
     attributes: {
         cover: {
             data: {
-                attributes: { url },
+                attributes: { url, alternativeText },
             },
         },
         content,
@@ -15,9 +15,10 @@ const {
 } = data.posts.data[0];
 export default {
     id,
-    image: url,
+    url_image: url,
     content,
     title,
     excerpt,
+    alt: alternativeText,
     slug,
 };

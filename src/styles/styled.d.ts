@@ -10,6 +10,10 @@ declare module 'styled-components' {
             gray: string;
             white: string;
             title: string;
+            darkText: string;
+            secondary: string;
+            mediumGray: string;
+            darkerGray: string;
         };
         font: {
             family: {
@@ -25,6 +29,20 @@ declare module 'styled-components' {
                 huge: string;
                 xhuge: string;
             };
+        };
+        spacings: {
+            xsmall: string;
+            small: string;
+            medium: string;
+            large: string;
+            xlarge: string;
+            xxlarge: string;
+            huge: string;
+            xhuge: string;
+        };
+        media: {
+            lteMedium: string;
+            lteSmall: string;
         };
     }
 }

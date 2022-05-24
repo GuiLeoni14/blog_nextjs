@@ -1,22 +1,32 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Heading } from '../Heading';
+import { HtmlContent } from '../HtmlContent';
 import * as S from './styles';
 
 export type TPostCardProps = {
     id: string;
-    image: string;
+    slug: string;
+    url_image: string;
     excerpt: string;
     title: string;
+    alt: string;
 };
-export function PostCard({ excerpt, image, title }: TPostCardProps) {
+export function PostCard({ excerpt, url_image, title, id, slug }: TPostCardProps) {
     return (
         <S.Container>
-            <img src={image} />
+            <Link href={`/post/${slug}`}>
+                <a>
+                    <S.Image src={url_image} alt={title} />
+                </a>
+            </Link>
             <S.Text>
-                <Heading as="h4" size="small">
+                <Heading as="h6" size="small">
                     {title}
                 </Heading>
-                <p>{excerpt}</p>
+                <p>
+                    <HtmlContent html={excerpt} />
+                </p>
             </S.Text>
         </S.Container>
     );

@@ -23,6 +23,9 @@ export default createGlobalStyle`
     font-weight: 800;
     color: ${({ theme }) => theme.colors.primary};
     }
+    p{
+        ${({ theme }) => theme.colors.title};
+    }
     html{
         font-size: 62.5%;
     }
