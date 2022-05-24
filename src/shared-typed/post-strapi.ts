@@ -1,6 +1,6 @@
 import { PostTag } from './tag';
 
-export type PostStrapi = {
+export type TPostStrapi = {
     id: string;
     attributes: {
         tags: PostTag[];
@@ -8,6 +8,7 @@ export type PostStrapi = {
         content: string;
         allowComments: boolean;
         title: string;
+        excerpt: string;
         cover: {
             data: {
                 id: string;
