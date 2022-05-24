@@ -6,16 +6,19 @@ export const Container = styled.header`
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    padding: 2rem 0rem;
+    padding: ${({ theme: { spacings } }) => spacings.medium} 0rem;
+    margin-bottom: ${({ theme: { spacings } }) => spacings.medium};
+    border-bottom: 0.2rem solid ${({ theme: { colors } }) => colors.mediumGray};
 `;
 
 export const Excerpt = styled.p`
-    font-size: 1.8rem;
-    margin: 2rem 0rem;
+    font-size: ${({ theme: { font } }) => font.sizes.small};
+    margin: ${({ theme: { spacings } }) => spacings.medium} 0rem;
     text-align: justify;
 `;
 
 export const Cover = styled.img`
-    margin-bottom: 2rem;
+    display: block;
     width: 100%;
+    margin-bottom: ${({ theme: { spacings } }) => spacings.medium};
 `;

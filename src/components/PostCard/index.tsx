@@ -7,7 +7,7 @@ import * as S from './styles';
 
 export type TPostCardProps = TPostStrapi;
 
-export function PostCard({ id, attributes: { cover, slug, title, excerpt, content } }: TPostCardProps) {
+export function PostCard({ attributes: { cover, slug, title, excerpt } }: TPostCardProps) {
     return (
         <S.Container>
             <Link href={`/post/${slug}`}>
@@ -19,9 +19,7 @@ export function PostCard({ id, attributes: { cover, slug, title, excerpt, conten
                 <Heading as="h6" size="small">
                     {title}
                 </Heading>
-                <p>
-                    <HtmlContent html={excerpt} />
-                </p>
+                <HtmlContent html={excerpt} />
             </S.Text>
         </S.Container>
     );
