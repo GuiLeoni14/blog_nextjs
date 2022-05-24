@@ -7,7 +7,7 @@ import * as S from './styles';
 
 export type TPostCardProps = TPostStrapi;
 
-export function PostCard({ id, attributes: { cover, slug, title, excerpt } }: TPostCardProps) {
+export function PostCard({ id, attributes: { cover, slug, title, excerpt, content } }: TPostCardProps) {
     return (
         <S.Container>
             <Link href={`/post/${slug}`}>

@@ -26,6 +26,9 @@ export default createGlobalStyle`
     p{
         ${({ theme }) => theme.colors.title};
     }
+    img {
+        max-width: 100%;
+    }
     html{
         font-size: 62.5%;
     }
