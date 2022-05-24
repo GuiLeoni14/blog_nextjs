@@ -1,9 +1,9 @@
 import { request } from 'graphql-request';
 import config from '../config';
 import { GRAPHQL_QUERY } from '../graphql/queries';
-import { Author } from '../shared-typed/author';
-import { Category } from '../shared-typed/category';
-import { Metadata } from '../shared-typed/metadata';
+import { TAuthor } from '../shared-typed/author';
+import { TCategory } from '../shared-typed/category';
+import { TMetadata } from '../shared-typed/metadata';
 import { TPostStrapi } from '../shared-typed/post-strapi';
 import { MenuPropsLinks, TSettingsStrapi } from '../shared-typed/settings-strapi';
 import { TStrapiImage } from '../shared-typed/strapi-image';
@@ -20,8 +20,8 @@ export type TLoadPostsVariables = {
 };
 export type ArticleMetaProps = {
     createdAt: string;
-    author?: Author;
-    categories?: Category[];
+    author?: TAuthor;
+    categories?: TCategory[];
 };
 export type ArticleHeaderProps = {
     id: string;
@@ -32,7 +32,7 @@ export type ArticleHeaderProps = {
 
 export type TPostProps = {
     cover: TStrapiImage;
-    tags: Metadata[];
+    tags: TMetadata[];
     slug: string;
     excerpt: string;
     content: string;

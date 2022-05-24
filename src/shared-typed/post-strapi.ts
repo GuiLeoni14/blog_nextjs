@@ -11,5 +11,8 @@ export type TPostStrapi = {
         title: string;
         excerpt: string;
         cover: TStrapiImage;
+        createdAt: string;
+        updatedAt: string;
+        publishedAt: string;
     };
 };

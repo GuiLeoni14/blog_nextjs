@@ -1,9 +1,9 @@
-// import { HeaderProps } from '.';
-
-// export default {
-//     blogName: 'Otávio Miranda',
-//     blogDescription:
-//         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-//     logo: '/assets/images/otavio-miranda.png',
-//     showText: true,
-// } as HeaderProps;
+import { TArticleHeaderProps } from '.';
+import { data } from '../../api/data.json';
+export default {
+    id: data.posts.data[0].id,
+    author: data.posts.data[0].attributes.autor.data,
+    ...data.posts.data[0].attributes,
+    createdAt: '2022-05-20T00:53:24.625Z',
+    categories: data.posts.data[0].attributes.categories.data,
+} as TArticleHeaderProps;

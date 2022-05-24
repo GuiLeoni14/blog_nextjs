@@ -32,17 +32,18 @@
           {
             "id": "2",
             "attributes": {
-              "slug": "aprendendo-next",
-              "title": "Aprendendo Next",
-              "excerpt": "Estou apredendo",
-              "content": "<div class=\"raw-html-embed\"><p>OPA</p></div><p>&nbsp;</p><p>aprendendo next...</p>",
+              "slug": "construindo-um-blog-com-nextjs-strapi-typescript",
+              "title": "Construindo um blog com NEXTJS + STRAPI + TYPESCRIPT",
+              "excerpt": "Estamos iniciando a construção do blog, muito conteúdo, muito aprendizado...",
+              "content": "<p><span style=\"background-color:rgb(255,255,255);color:rgb(77,81,86);font-family:arial, sans-serif;\">A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações para testar e ajustar aspectos visuais antes de utilizar conteúdo real</span></p>",
               "allowComments": true,
+              "createdAt": "2022-05-20T00:53:24.625Z",
               "cover": {
                 "data": {
-                  "id": "4",
+                  "id": "5",
                   "attributes": {
-                    "alternativeText": "download.jpg",
-                    "url": "https://res.cloudinary.com/dprfxemfh/image/upload/v1653007981/download_f62b4492fd.jpg"
+                    "alternativeText": "nextjs image.jpeg",
+                    "url": "https://res.cloudinary.com/dprfxemfh/image/upload/v1653356041/nextjs_image_d7b63b0ecb.jpg"
                   }
                 }
               },
@@ -87,6 +88,7 @@
               "excerpt": "teste",
               "content": "<p>testando</p>",
               "allowComments": true,
+              "createdAt": "2022-05-20T00:46:53.556Z",
               "cover": {
                 "data": {
                   "id": "3",

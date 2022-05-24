@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.header``;
+export const Container = styled.header``;
 
 export const Excerpt = styled.p``;
 

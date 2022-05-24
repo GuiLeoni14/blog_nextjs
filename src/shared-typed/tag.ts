@@ -1,3 +1,3 @@
-import { Metadata } from './metadata';
+import { TMetadata } from './metadata';
 
-export type PostTag = Metadata;
+export type PostTag = TMetadata;

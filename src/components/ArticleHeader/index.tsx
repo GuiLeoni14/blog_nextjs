@@ -1,25 +1,27 @@
-import { Author } from '../../shared-typed/author';
-import { Category } from '../../shared-typed/category';
-import { StrapiImage } from '../../shared-typed/strapi-image';
-import * as Styled from './styles';
+import { TAuthor } from '../../shared-typed/author';
+import { TCategory } from '../../shared-typed/category';
+import { TStrapiImage } from '../../shared-typed/strapi-image';
+import { ArticleMeta } from '../ArticleMeta';
+import { Heading } from '../Heading';
+import * as S from './styles';
 
 export type TArticleHeaderProps = {
     id: string;
     title: string;
     excerpt: string;
-    cover: StrapiImage;
-    author: Author;
-    categories: Category[];
+    cover: TStrapiImage;
+    author: TAuthor;
+    categories: TCategory[];
     createdAt: string;
 };
 
 export const ArticleHeader = ({ title, excerpt, cover, author, categories, createdAt }: TArticleHeaderProps) => {
     return (
-        <Styled.Wrapper>
-            {/* <Heading size="big">{title}</Heading> */}
-            <Styled.Excerpt>{excerpt}</Styled.Excerpt>
-            <Styled.Cover src={cover.url} alt={title} />
-            {/* <ArticleMeta categories={categories} author={author} createdAt={createdAt} /> */}
-        </Styled.Wrapper>
+        <S.Container>
+            <Heading size="big">{title}</Heading>
+            <S.Excerpt>{excerpt}</S.Excerpt>
+            <S.Cover src={cover.data.attributes.url} alt={title} />
+            <ArticleMeta categories={categories} author={author} createdAt={createdAt} />
+        </S.Container>
     );
 };
