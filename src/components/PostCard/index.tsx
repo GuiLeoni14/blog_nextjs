@@ -1,23 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { Heading } from '../Heading';
 import { HtmlContent } from '../HtmlContent';
 import * as S from './styles';
 
-export type TPostCardProps = {
-    id: string;
-    slug: string;
-    url_image: string;
-    excerpt: string;
-    title: string;
-    alt: string;
-};
-export function PostCard({ excerpt, url_image, title, id, slug }: TPostCardProps) {
+export type TPostCardProps = TPostStrapi;
+
+export function PostCard({ id, attributes: { cover, slug, title, excerpt } }: TPostCardProps) {
     return (
         <S.Container>
             <Link href={`/post/${slug}`}>
                 <a>
-                    <S.Image src={url_image} alt={title} />
+                    <S.Image src={cover.data.attributes.url} alt={cover.data.attributes.alternativeText} />
                 </a>
             </Link>
             <S.Text>

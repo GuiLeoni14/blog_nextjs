@@ -5,9 +5,9 @@ import { Author } from '../shared-typed/author';
 import { Category } from '../shared-typed/category';
 import { Metadata } from '../shared-typed/metadata';
 import { TPostStrapi } from '../shared-typed/post-strapi';
-import { MenuPropsLinks, SettingsStrapi } from '../shared-typed/settings-strapi';
-import { StrapiImage } from '../shared-typed/strapi-image';
-import { refactorObjPost } from '../utils';
+import { MenuPropsLinks, TSettingsStrapi } from '../shared-typed/settings-strapi';
+import { TStrapiImage } from '../shared-typed/strapi-image';
+
 export type TLoadPostsVariables = {
     categorySlug?: { contains: string };
     postSlug?: string;
@@ -27,15 +27,11 @@ export type ArticleHeaderProps = {
     id: string;
     title: string;
     excerpt: string;
-    cover: StrapiImage;
+    cover: TStrapiImage;
 } & ArticleMetaProps;
 
 export type TPostProps = {
-    cover: {
-        alternativeText: string;
-        url: string;
-        id: string;
-    };
+    cover: TStrapiImage;
     tags: Metadata[];
     slug: string;
     excerpt: string;
@@ -46,7 +42,7 @@ export type TPostProps = {
 };
 
 export type StrapiPostAndSettings = {
-    setting: { data: SettingsStrapi };
+    setting: { data: TSettingsStrapi };
     posts: { data: TPostStrapi[] };
     variables?: TLoadPostsVariables;
 };

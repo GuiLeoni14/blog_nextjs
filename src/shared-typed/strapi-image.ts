@@ -1,5 +1,9 @@
-export type StrapiImage = {
-    id: string;
-    alternativeText: string;
-    url: string;
+export type TStrapiImage = {
+    data: {
+        id: string;
+        attributes: {
+            alternativeText: string;
+            url: string;
+        };
+    };
 };

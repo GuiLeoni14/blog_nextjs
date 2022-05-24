@@ -1,3 +1,4 @@
+import { TStrapiImage } from './strapi-image';
 import { PostTag } from './tag';
 
 export type TPostStrapi = {
@@ -9,14 +10,6 @@ export type TPostStrapi = {
         allowComments: boolean;
         title: string;
         excerpt: string;
-        cover: {
-            data: {
-                id: string;
-                attributes: {
-                    alternativeText: string;
-                    url: string;
-                };
-            };
-        };
+        cover: TStrapiImage;
     };
 };
