@@ -5,7 +5,8 @@ import * as S from './styles';
 export type TPostTagsProps = {
     tags?: TPostTag[];
 };
-export function PostTags({ tags }: TPostTagsProps) {
+export function PostTags({ tags = [] }: TPostTagsProps) {
+    if (tags.length === 0) return null; // react não renderiza nada na tela
     return (
         <S.Container>
             {tags?.map((tag) => (

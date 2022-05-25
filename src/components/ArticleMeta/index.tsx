@@ -6,8 +6,8 @@ import * as Styled from './styles';
 
 export type TArticleMetaProps = {
     createdAt: string;
-    author: TAuthor;
-    categories: TCategory[];
+    author?: TAuthor;
+    categories?: TCategory[];
 };
 
 export const ArticleMeta = ({ createdAt, author, categories }: TArticleMetaProps) => {
