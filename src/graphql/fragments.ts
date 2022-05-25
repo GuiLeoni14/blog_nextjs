@@ -68,7 +68,7 @@ export const GRAPHQL_FRAGMENTS = gql`
     fragment menuLink on ComponentMenuMenuLink {
         id
         link
-        texto
+        text
         newTab
     }
 

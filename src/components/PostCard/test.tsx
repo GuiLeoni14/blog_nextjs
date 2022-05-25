@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { TPostCardProps, PostCard } from '.';
 import { renderTheme } from '../../styles/theme/render-theme';

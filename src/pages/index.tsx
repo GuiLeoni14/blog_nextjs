@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
-import PostGrid from '../components/PostGrid';
+import { PostsTemplate } from '../templates/PostsTemplate';
 
 export default function Home({ posts, setting }: StrapiPostAndSettings) {
     return (
@@ -10,7 +10,7 @@ export default function Home({ posts, setting }: StrapiPostAndSettings) {
                 <title>{setting.data.attributes.blogName}</title>
                 <meta name="description" content={setting.data.attributes.blogDescription} />
             </Head>
-            <PostGrid posts={posts.data} />
+            <PostsTemplate posts={posts.data} settings={setting} />
         </>
     );
 }
@@ -20,8 +20,10 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async () =>
     try {
         data = await loadPosts();
     } catch (error) {
+        console.log(error);
         data = null;
     }
+    console.log(data);
     if (!data || !data.posts || !data.posts.data.length) {
         return {
             notFound: true,

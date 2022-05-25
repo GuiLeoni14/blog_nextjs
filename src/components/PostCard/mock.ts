@@ -10,7 +10,7 @@ export default {
         content,
         title,
         excerpt,
-        tags: tags.data,
+        tags,
         allowComments,
         cover,
         slug,

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { Heading } from '../Heading';

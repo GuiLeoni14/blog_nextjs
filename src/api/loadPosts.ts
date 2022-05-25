@@ -5,7 +5,7 @@ import { TAuthor } from '../shared-typed/author';
 import { TCategory } from '../shared-typed/category';
 import { TMetadata } from '../shared-typed/metadata';
 import { TPostStrapi } from '../shared-typed/post-strapi';
-import { MenuPropsLinks, TSettingsStrapi } from '../shared-typed/settings-strapi';
+import { TSettingsStrapi } from '../shared-typed/settings-strapi';
 import { TStrapiImage } from '../shared-typed/strapi-image';
 
 export type TLoadPostsVariables = {

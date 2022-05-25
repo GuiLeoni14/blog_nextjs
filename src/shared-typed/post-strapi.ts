@@ -4,7 +4,7 @@ import { TPostTag } from './tag';
 export type TPostStrapi = {
     id: string;
     attributes: {
-        tags: TPostTag[];
+        tags: { data: TPostTag[] };
         slug: string;
         content: string;
         allowComments: boolean;
@@ -12,7 +12,7 @@ export type TPostStrapi = {
         excerpt: string;
         cover: TStrapiImage;
         createdAt: string;
-        //updatedAt: string;
-        //publishedAt: string;
+        // updatedAt: string;
+        // publishedAt: string;
     };
 };
