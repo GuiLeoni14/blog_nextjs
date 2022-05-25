@@ -1,7 +1,6 @@
-import { TPostCardProps } from '.';
 import { data } from '../../api/data.json';
 const {
-    attributes: { cover, content, excerpt, title, slug },
+    attributes: { cover, content, excerpt, title, slug, tags, allowComments, createdAt },
     id,
 } = data.posts.data[0];
 
@@ -11,7 +10,10 @@ export default {
         content,
         title,
         excerpt,
+        tags: tags.data,
+        allowComments,
         cover,
         slug,
+        createdAt,
     },
 };
