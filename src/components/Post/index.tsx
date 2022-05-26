@@ -4,11 +4,11 @@ import * as S from './styles';
 export type TPostComponentProps = TArticleHeaderProps & {
     content: string;
 };
-export function Post({ content, cover, createdAt, excerpt, id, title, author, categories }: TPostComponentProps) {
+export function Post({ content, cover, createdAt, excerpt, id, title, autor, categories }: TPostComponentProps) {
     return (
         <S.Container>
             <ArticleHeader
-                author={author}
+                autor={autor}
                 categories={categories}
                 cover={cover}
                 createdAt={createdAt}

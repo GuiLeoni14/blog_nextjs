@@ -10,18 +10,18 @@ export type TArticleHeaderProps = {
     title: string;
     excerpt: string;
     cover: TStrapiImage;
-    author: TAuthor;
-    categories: TCategory[];
+    autor: { data: TAuthor };
+    categories: { data: TCategory[] };
     createdAt: string;
 };
 
-export const ArticleHeader = ({ title, excerpt, cover, author, categories, createdAt }: TArticleHeaderProps) => {
+export const ArticleHeader = ({ title, excerpt, cover, autor, categories, createdAt }: TArticleHeaderProps) => {
     return (
         <S.Container>
             <Heading size="big">{title}</Heading>
             <S.Excerpt>{excerpt}</S.Excerpt>
             <S.Cover src={cover.data.attributes.url} alt={title} />
-            <ArticleMeta categories={categories} author={author} createdAt={createdAt} />
+            <ArticleMeta categories={categories.data} autor={autor.data} createdAt={createdAt} />
         </S.Container>
     );
 };

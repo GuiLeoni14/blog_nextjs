@@ -6,19 +6,19 @@ import * as Styled from './styles';
 
 export type TArticleMetaProps = {
     createdAt: string;
-    author?: TAuthor;
+    autor?: TAuthor;
     categories?: TCategory[];
 };
 
-export const ArticleMeta = ({ createdAt, author, categories }: TArticleMetaProps) => {
+export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps) => {
     return (
         <Styled.Wrapper>
             <p>
-                {author && typeof author !== 'undefined' && (
+                {autor && typeof autor !== 'undefined' && (
                     <>
                         <span>Por </span>
-                        <Link href={`/author/${author.attributes.slug}`}>
-                            <a>{author.attributes.name}</a>
+                        <Link href={`/author/${autor.attributes.slug}`}>
+                            <a>{autor.attributes.name}</a>
                         </Link>
                         <span className="separator"> | </span>
                     </>
