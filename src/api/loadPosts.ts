@@ -10,7 +10,7 @@ import { TStrapiImage } from '../shared-typed/strapi-image';
 
 export type TLoadPostsVariables = {
     categorySlug?: { contains: string };
-    postSlug?: string;
+    postSlug?: { contains: string };
     postSearch?: string;
     authorSlug?: string;
     tagSlug?: string;

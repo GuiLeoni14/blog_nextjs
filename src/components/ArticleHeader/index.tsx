@@ -21,7 +21,7 @@ export const ArticleHeader = ({ title, excerpt, cover, autor, categories, create
             <Heading size="big">{title}</Heading>
             <S.Excerpt>{excerpt}</S.Excerpt>
             <S.Cover src={cover.data.attributes.url} alt={title} />
-            <ArticleMeta categories={categories.data} autor={autor.data} createdAt={createdAt} />
+            <ArticleMeta categories={categories} autor={autor.data} createdAt={createdAt} />
         </S.Container>
     );
 };

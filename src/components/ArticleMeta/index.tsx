@@ -7,7 +7,7 @@ import * as Styled from './styles';
 export type TArticleMetaProps = {
     createdAt: string;
     autor?: TAuthor;
-    categories?: TCategory[];
+    categories?: { data: TCategory[] };
 };
 
 export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps) => {
@@ -26,11 +26,11 @@ export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps)
 
                 <span>{formatDate(createdAt)}</span>
 
-                {categories && categories.length > 0 && (
+                {categories && categories.data.length > 0 && (
                     <>
                         <span className="separator"> | </span>
                         <span className="categories">
-                            {categories.map((category) => {
+                            {categories.data.map((category) => {
                                 return (
                                     <span key={`article-meta-cat-${category.id}`}>
                                         <Link href={`/category/${category.attributes.slug}`}>
