@@ -1,9 +1,13 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
 import { PostsTemplate } from '../templates/PostsTemplate';
-
 export default function Home({ posts, setting }: StrapiPostAndSettings) {
+    const router = useRouter();
+    if (router.isFallback) {
+        return <p>loading..</p>;
+    }
     return (
         <>
             <Head>

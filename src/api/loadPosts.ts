@@ -12,8 +12,8 @@ export type TLoadPostsVariables = {
     categorySlug?: { contains: string };
     postSlug?: { contains: string };
     postSearch?: string;
-    authorSlug?: string;
-    tagSlug?: string;
+    authorSlug?: { contains: string };
+    tagSlug?: { contains: string };
     sort?: string[];
     start?: number;
     limit?: number;
