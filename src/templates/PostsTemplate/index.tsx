@@ -36,15 +36,17 @@ export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplat
         setStatePosts((p) => [...p, ...more_posts.posts.data]);
     };
     return (
-        <>
-            {settings && posts && (
-                <BaseTemplate settings={settings}>
+        <BaseTemplate settings={settings}>
+            {statePost.length > 0 ? (
+                <>
                     <PostGrid posts={statePost} />
                     <S.ButtonMorePosts onClick={handleLoadMorePosts} disabled={buttonDisable}>
                         {noMorePosts ? 'Sem posts para carregar' : 'Carregar mais'}
                     </S.ButtonMorePosts>
-                </BaseTemplate>
+                </>
+            ) : (
+                <p>nenhum post encontrado</p>
             )}
-        </>
+        </BaseTemplate>
     );
 }

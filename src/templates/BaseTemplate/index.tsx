@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
 import { MainContainer } from '../../styles/container';
 
@@ -9,9 +10,20 @@ export type TBaseTemplateProps = {
 };
 
 export function BaseTemplate({ children }: TBaseTemplateProps) {
+    const router = useRouter();
     return (
         <S.Container>
-            <MainContainer>{children}</MainContainer>
+            <MainContainer>
+                <form action="/search/" method="GET">
+                    <S.SearchInput
+                        type="search"
+                        placeholder="pesquisar por posts"
+                        name="q"
+                        defaultValue={router.query.q}
+                    />
+                </form>
+                {children}
+            </MainContainer>
         </S.Container>
     );
 }
