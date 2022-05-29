@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { loadPosts, StrapiPostAndSettings } from '../../api/loadPosts';
+import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../../api/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 
-export default function TagPage({ posts, setting }: StrapiPostAndSettings) {
+export default function TagPage({ posts, setting, variables }: StrapiPostAndSettings) {
     const router = useRouter();
     let tagName = '';
     if (posts) {
@@ -19,7 +19,7 @@ export default function TagPage({ posts, setting }: StrapiPostAndSettings) {
                     Tag: {tagName} - {setting.data.attributes.blogName}
                 </title>
             </Head>
-            <PostsTemplate posts={posts.data} settings={setting} />
+            <PostsTemplate posts={posts.data} settings={setting} variables={variables} />
         </>
     );
 }
@@ -33,9 +33,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (context) => {
     let data = null;
+    let variables = {};
     try {
         if (context.params) {
-            data = await loadPosts({ tagSlug: { contains: context.params.slug as string } });
+            variables = { tagSlug: { contains: context.params.slug as string } };
+            data = await loadPosts(variables);
         }
     } catch (error) {
         console.log(error);
@@ -50,6 +52,10 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (cont
         props: {
             posts: data.posts,
             setting: data.setting,
+            variables: {
+                ...defaultLoadPostsVariables,
+                ...variables,
+            },
         },
         revalidate: 24 * 60,
     };

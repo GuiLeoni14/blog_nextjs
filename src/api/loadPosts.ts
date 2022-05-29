@@ -14,7 +14,7 @@ export type TLoadPostsVariables = {
     postSearch?: string;
     authorSlug?: { contains: string };
     tagSlug?: { contains: string };
-    sort?: string[];
+    sort?: string;
     start?: number;
     limit?: number;
 };
@@ -46,16 +46,16 @@ export type StrapiPostAndSettings = {
     posts: { data: TPostStrapi[] };
     variables?: TLoadPostsVariables;
 };
-
+export const defaultLoadPostsVariables: TLoadPostsVariables = {
+    sort: 'createdAt:desc',
+    start: 0,
+    limit: 1,
+};
 export const loadPosts = async (variables: TLoadPostsVariables = {}): Promise<StrapiPostAndSettings> => {
-    const defaultVariables: TLoadPostsVariables = {
-        sort: ['createdAt:desc'],
-        start: 0,
-        limit: 10,
-    };
-    const data: StrapiPostAndSettings = await request(config.graphql_URL, GRAPHQL_QUERY, {
-        ...defaultVariables,
+    const data = await request(config.graphql_URL, GRAPHQL_QUERY, {
+        ...defaultLoadPostsVariables,
         ...variables,
     });
+
     return data;
 };
