@@ -2,11 +2,10 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
-import { useBlogTheme } from '../hooks/useBlogTheme';
+import { Featured } from '../templates/FeaturedTemplate';
 import { PostsTemplate } from '../templates/PostsTemplate';
 export default function Home({ posts, setting, variables }: StrapiPostAndSettings) {
     const router = useRouter();
-    const { toggleTheme } = useBlogTheme();
     if (router.isFallback) {
         return <p>loading..</p>;
     }
@@ -16,7 +15,7 @@ export default function Home({ posts, setting, variables }: StrapiPostAndSetting
                 <title>{setting.data.attributes.blogName}</title>
                 <meta name="description" content={setting.data.attributes.blogDescription} />
             </Head>
-            <button onClick={toggleTheme}>Alterar tema</button>
+            <Featured posts={posts.data} settings={setting} variables={variables} />
             <PostsTemplate posts={posts.data} settings={setting} variables={variables} />
         </>
     );

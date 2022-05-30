@@ -11,12 +11,12 @@ export const BlogThemeContext = createContext({} as TBlogThemeContext);
 export function BlogThemeProvider({ children }: { children: ReactNode }) {
     const [theme, setTheme] = useState(dark);
 
-    // useEffect(() => {
-    //     const theme_storage: string = getStorage('theme');
-    //     if (theme_storage) {
-    //         setTheme(theme_storage === 'dark' ? dark : light);
-    //     }
-    // }, []);
+    useEffect(() => {
+        const theme_storage: string = getStorage('theme');
+        if (theme_storage) {
+            setTheme(theme_storage === 'dark' ? dark : light);
+        }
+    }, []);
 
     useEffect(() => {
         postStorage({ name: 'theme', values: theme.title });
