@@ -7,7 +7,6 @@ export default {
     component: PostCardFeatured,
     args: mock,
 } as Meta<TPostCardFeaturedProps>;
-console.log(mock);
 
 export const Dark: Story<TPostCardFeaturedProps> = (args) => {
     return <PostCardFeatured {...args} />;

@@ -4,7 +4,6 @@ export default {
     settings: data.setting,
     posts: data.posts.data,
 } as TPostsTemplateProps;
-console.log(data.posts.data);
 // id: string;
 // attributes: {
 //     tags: TPostTag[];

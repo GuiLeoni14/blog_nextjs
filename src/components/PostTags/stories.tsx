@@ -7,5 +7,4 @@ export default {
     component: PostTags,
     args: mock,
 } as Meta<TPostTagsProps>;
-console.log(mock);
 export const Template: Story<TPostTagsProps> = (args) => <PostTags {...args} />;

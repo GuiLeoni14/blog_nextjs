@@ -23,7 +23,6 @@ export function BlogThemeProvider({ children }: { children: ReactNode }) {
     }, [theme]);
 
     const toggleTheme = useCallback(() => {
-        console.log('FUI CHAMADO');
         setTheme(theme.title === 'light' ? dark : light);
     }, [setTheme, theme]);
 

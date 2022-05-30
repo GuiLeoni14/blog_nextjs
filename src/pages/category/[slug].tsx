@@ -41,7 +41,6 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (cont
             data = await loadPosts(variables);
         }
     } catch (error) {
-        console.log(error);
         data = null;
     }
     if (!data || !data.posts || !data.posts.data.length) {

@@ -5,9 +5,7 @@ import * as S from './styles';
 import { FcCalendar } from 'react-icons/fc';
 export type TPostCardFeaturedProps = TPostStrapi;
 
-export function PostCardFeatured({
-    attributes: { cover, slug, title, autor, createdAt, categories },
-}: TPostCardFeaturedProps) {
+export function PostCardFeatured({ attributes: { cover, slug, title, autor, createdAt } }: TPostCardFeaturedProps) {
     return (
         <S.Container>
             <Link href={`/post/${slug}`}>

@@ -2,7 +2,6 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
-import { Featured } from '../templates/FeaturedTemplate';
 import { PostsTemplate } from '../templates/PostsTemplate';
 export default function Home({ posts, setting, variables }: StrapiPostAndSettings) {
     const router = useRouter();
@@ -15,7 +14,6 @@ export default function Home({ posts, setting, variables }: StrapiPostAndSetting
                 <title>{setting.data.attributes.blogName}</title>
                 <meta name="description" content={setting.data.attributes.blogDescription} />
             </Head>
-            <Featured posts={posts.data} settings={setting} variables={variables} />
             <PostsTemplate posts={posts.data} settings={setting} variables={variables} />
         </>
     );
@@ -26,10 +24,8 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async () =>
     try {
         data = await loadPosts({ limit: 3 });
     } catch (error) {
-        console.log(error);
         data = null;
     }
-    console.log(data);
     if (!data || !data.posts || !data.posts.data.length) {
         return {
             notFound: true,
