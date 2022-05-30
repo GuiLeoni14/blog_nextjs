@@ -1,0 +1,144 @@
+{
+    "data": {
+      "setting": {
+        "data": {
+          "id": "1",
+          "attributes": {
+            "blogName": "teste",
+            "blogDescription": "<p>Apenas a descrição do blog</p><p>&nbsp;</p><p><img class=\"image_resized\" style=\"width:53.65%;\" src=\"https://res.cloudinary.com/dprfxemfh/image/upload/v1653007981/download_f62b4492fd.jpg\" alt=\"download.jpg\" srcset=\"https://res.cloudinary.com/dprfxemfh/image/upload/v1653007983/thumbnail_download_f62b4492fd.jpg 174w,\" sizes=\"100vw\"> título da imagem</p>",
+            "blogLogo": {
+              "data": {
+                "id": "4",
+                "attributes": {
+                  "alternativeText": "download.jpg",
+                  "url": "https://res.cloudinary.com/dprfxemfh/image/upload/v1653007981/download_f62b4492fd.jpg"
+                }
+              }
+            },
+            "menuLink": [
+              {
+                "id": "1",
+                "link": "link 1",
+                "text": "testando",
+                "newTab": false
+              }
+            ],
+            "text": "<p>opaaaa</p>"
+          }
+        }
+      },
+      "posts": {
+        "data": [
+          {
+            "id": "2",
+            "attributes": {
+              "slug": "construindo-um-blog-com-nextjs-strapi-typescript",
+              "title": "Construindo um blog com NEXTJS + STRAPI + TYPESCRIPT",
+              "excerpt": "Estamos iniciando a construção do blog, muito conteúdo, muito aprendizado...",
+              "content": "<span lang=\"css\" dir=\"undefined\"><pre><code class=\"language-css\">        img {\r\n            max-width: 100%;\r\n        }\r\n\r\n        .image {\r\n            background: ${theme.colors.mediumGray};\r\n            line-height: 0;\r\n            margin: ${theme.spacings.medium} 0;\r\n        }\r\n\r\n        .image figcaption {\r\n            font-size: ${theme.font.sizes.small};\r\n            padding: ${theme.spacings.small};\r\n            text-align: center;\r\n            line-height: 1.3;\r\n        }\r\n\r\n        .image-style-side {\r\n            max-width: 50%;\r\n            float: right;\r\n            margin: ${theme.spacings.medium} 0;\r\n        }\r\n\r\n        hr {\r\n            border: none;\r\n            border-bottom: 0.1rem solid ${theme.colors.mediumGray};\r\n        }\r\n\r\n        ul,\r\n        ol {\r\n            margin: ${theme.spacings.medium} ${theme.spacings.xlarge};\r\n        }\r\n\r\n        .table {\r\n            width: 100%;\r\n            overflow: hidden;\r\n            overflow-x: auto;\r\n        }\r\n\r\n        table {\r\n            width: 100%;\r\n            border-collapse: collapse;\r\n            margin: ${theme.spacings.medium} 0;\r\n        }\r\n</code></pre></span><span lang=\"javascript\" dir=\"undefined\"><pre><code class=\"language-javascript\">export const loadPosts = async (variables: TLoadPostsVariables = {}): Promise&lt;StrapiPostAndSettings&gt; =&gt; {\r\n    const defaultVariables: TLoadPostsVariables = {\r\n        sort: ['createdAt:desc'],\r\n        start: 0,\r\n        limit: 10,\r\n    };\r\n    const data: StrapiPostAndSettings = await request(config.graphql_URL, GRAPHQL_QUERY, {\r\n        ...defaultVariables,\r\n        ...variables,\r\n    });\r\n    return data;\r\n};</code></pre></span>",
+              "allowComments": true,
+              "createdAt": "2022-05-20T00:53:24.625Z",
+              "cover": {
+                "data": {
+                  "id": "5",
+                  "attributes": {
+                    "alternativeText": "nextjs image.jpeg",
+                    "url": "https://res.cloudinary.com/dprfxemfh/image/upload/v1653356041/nextjs_image_d7b63b0ecb.jpg"
+                  }
+                }
+              },
+              "categories": {
+                "data": [
+                  {
+                    "id": "2",
+                    "attributes": {
+                      "name": "Python",
+                      "slug": "python"
+                    }
+                  }
+                ]
+              },
+              "tags": {
+                "data": [
+                  {
+                    "id": "1",
+                    "attributes": {
+                      "name": "useState",
+                      "slug": "use-state"
+                    }
+                  }
+                ]
+              },
+              "autor": {
+                "data": {
+                  "id": "1",
+                  "attributes": {
+                    "name": "Guilherme Leoni",
+                    "slug": "guilherme-leoni"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "1",
+            "attributes": {
+              "slug": "post",
+              "title": "Criando um blog com Strapi e React(Nextjs)",
+              "excerpt": "teste",
+              "content": "<p>testando</p>",
+              "allowComments": true,
+              "createdAt": "2022-05-20T00:46:53.556Z",
+              "cover": {
+                "data": {
+                  "id": "3",
+                  "attributes": {
+                    "alternativeText": "5294398307303424.png",
+                    "url": "https://res.cloudinary.com/dprfxemfh/image/upload/v1653007476/5294398307303424_8a44a63a43.png"
+                  }
+                }
+              },
+              "categories": {
+                "data": [
+                  {
+                    "id": "3",
+                    "attributes": {
+                      "name": "JavaScript",
+                      "slug": "java-script"
+                    }
+                  }
+                ]
+              },
+              "tags": {
+                "data": [
+                  {
+                    "id": "1",
+                    "attributes": {
+                      "name": "useState",
+                      "slug": "use-state"
+                    }
+                  },
+                  {
+                    "id": "2",
+                    "attributes": {
+                      "name": "useEffect",
+                      "slug": "use-effect"
+                    }
+                  }
+                ]
+              },
+              "autor": {
+                "data": {
+                  "id": "1",
+                  "attributes": {
+                    "name": "Guilherme Leoni",
+                    "slug": "guilherme-leoni"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }

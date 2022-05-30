@@ -1,5 +1,7 @@
-export type Metadata = {
-  id: string;
-  displayName: string;
-  slug: string;
+export type TMetadata = {
+    id: string;
+    attributes: {
+        name: string;
+        slug: string;
+    };
 };

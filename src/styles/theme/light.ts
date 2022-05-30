@@ -1,12 +1,17 @@
+import standard from './standard';
 export default {
     title: 'light',
     colors: {
-        primary: '#ffc658',
-        second: '#7e0707',
-        background: '#f0f2fc',
+        primary: '#8c4bff',
+        second: '#1d1b84',
+        darkText: '#344b80',
+        background: '#ffff',
         gray: '#3d3d3d',
         white: '#fff',
         title: '#0e0e0e',
+        secondary: '#dc143c',
+        mediumGray: '#DDDDDD',
+        darkerGray: '#AAAAAA',
     },
-    font_family: `'Open Sans', sans-serif`,
+    ...standard,
 };
