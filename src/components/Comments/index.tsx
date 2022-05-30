@@ -14,7 +14,7 @@ function Comments({ id, slug, title, allowComments }: TCommentsProps) {
             <DiscussionEmbed
                 shortname="blog-guilherme-1"
                 config={{
-                    url: `/post/${slug}`,
+                    url: `https://blog-guileoni.vercel.app/post/${slug}`,
                     identifier: id,
                     title: title,
                     language: 'pt_BR',
