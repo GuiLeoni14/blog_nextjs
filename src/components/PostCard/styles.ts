@@ -23,7 +23,7 @@ export const Text = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 2rem;
+    gap: ${({ theme: { spacings } }) => spacings.medium};
     padding: 1rem;
     p {
         font-size: 1.6rem;

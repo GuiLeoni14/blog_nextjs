@@ -8,6 +8,10 @@ export default {
         gray: '#3d3d3d',
         white: '#fff',
         title: '#f5f5f5',
+        darkText: '#344b80',
+        secondary: '#dc143c',
+        mediumGray: '#DDDDDD',
+        darkerGray: '#AAAAAA',
     },
     ...standard,
 };

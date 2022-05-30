@@ -12,15 +12,7 @@ function PostGrid({ posts }: TPostGridProps) {
             <MainContainer>
                 <S.Grid>
                     {posts.map((post) => (
-                        <PostCard
-                            key={post.id}
-                            url_image={post.attributes.cover.data.attributes.url}
-                            alt={post.attributes.cover.data.attributes.alternativeText}
-                            excerpt={post.attributes.excerpt}
-                            id={post.id}
-                            slug={post.attributes.slug}
-                            title={post.attributes.title}
-                        />
+                        <PostCard key={post.id} {...post} />
                     ))}
                 </S.Grid>
             </MainContainer>

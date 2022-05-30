@@ -1,4 +1,4 @@
-import { StrapiImage } from './strapi-image';
+import { TStrapiImage } from './strapi-image';
 
 export type MenuPropsLinks = {
     id: string;
@@ -6,12 +6,12 @@ export type MenuPropsLinks = {
     newTab?: boolean;
     text: string;
 };
-export type SettingsStrapi = {
+export type TSettingsStrapi = {
+    id: string;
     attributes: {
-        id: string;
         blogName: string;
         blogDescription: string;
-        logo: StrapiImage;
+        blogLogo: TStrapiImage;
         menuLink: MenuPropsLinks[];
         text: string;
     };

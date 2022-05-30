@@ -1,3 +1,3 @@
-import { Metadata } from './metadata';
+import { TMetadata } from './metadata';
 
-export type Category = Metadata;
+export type TCategory = TMetadata;

@@ -1,24 +1,19 @@
 import { data } from '../../api/data.json';
 const {
-    attributes: {
-        cover: {
-            data: {
-                attributes: { url, alternativeText },
-            },
-        },
-        content,
-        excerpt,
-        title,
-        slug,
-    },
+    attributes: { cover, content, excerpt, title, slug, tags, allowComments, createdAt },
     id,
 } = data.posts.data[0];
+
 export default {
     id,
-    url_image: url,
-    content,
-    title,
-    excerpt,
-    alt: alternativeText,
-    slug,
+    attributes: {
+        content,
+        title,
+        excerpt,
+        tags,
+        allowComments,
+        cover,
+        slug,
+        createdAt,
+    },
 };
