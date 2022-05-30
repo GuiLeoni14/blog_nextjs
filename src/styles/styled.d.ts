@@ -44,5 +44,9 @@ declare module 'styled-components' {
             lteMedium: string;
             lteSmall: string;
         };
+        sizes: {
+            max: string;
+            content: string;
+        };
     }
 }

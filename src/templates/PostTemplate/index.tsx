@@ -1,3 +1,4 @@
+import Comments from '../../components/Comments';
 import { Post } from '../../components/Post';
 import { PostTags } from '../../components/PostTags';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
@@ -12,12 +13,19 @@ export type TPostTemplateProps = {
 };
 
 export function PostTemplate({ settings, post }: TPostTemplateProps) {
+    console.log(post.attributes.allowComments);
     return (
         <BaseTemplate settings={settings}>
             <Post {...post.attributes} id={post.id} />
             <S.TagsContainer>
                 <PostTags tags={post.attributes.tags.data} />
             </S.TagsContainer>
+            <Comments
+                id={post.id}
+                slug={post.attributes.slug}
+                title={post.attributes.title}
+                allowComments={post.attributes.allowComments}
+            />
         </BaseTemplate>
     );
 }
