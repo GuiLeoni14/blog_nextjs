@@ -9,6 +9,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "disqus-react": "^1.1.3",
     "eslint-plugin-react-hooks": "^4.5.0",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",

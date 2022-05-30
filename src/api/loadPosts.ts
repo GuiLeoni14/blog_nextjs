@@ -1,5 +1,5 @@
 import { request } from 'graphql-request';
-import config from '../config';
+import { config } from '../config';
 import { GRAPHQL_QUERY } from '../graphql/queries';
 import { TAuthor } from '../shared-typed/author';
 import { TCategory } from '../shared-typed/category';
