@@ -28,4 +28,8 @@ export default {
         lteMedium: '(max-width: 768px)',
         lteSmall: '(max-width: 360px)',
     },
+    sizes: {
+        max: '96rem',
+        content: '80rem',
+    },
 };
