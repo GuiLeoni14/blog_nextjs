@@ -19,7 +19,7 @@ export function BaseTemplate({ children }: TBaseTemplateProps) {
                         type="search"
                         placeholder="pesquisar por posts"
                         name="q"
-                        defaultValue={router.query.q}
+                        defaultValue={router?.query?.q || ''}
                     />
                 </form>
                 {children}
