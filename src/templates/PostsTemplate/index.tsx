@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { loadPosts, TLoadPostsVariables } from '../../api/loadPosts';
 import PostGrid from '../../components/PostGrid';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
@@ -35,6 +35,12 @@ export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplat
         setStateVariables(newVariables);
         setStatePosts((p) => [...p, ...more_posts.posts.data]);
     };
+    useEffect(() => {
+        setStatePosts(posts);
+        setNoMorePosts(false);
+        setButtonDisable(false);
+        setStateVariables(variables || {});
+    }, [posts, variables]);
     return (
         <BaseTemplate settings={settings}>
             {statePost.length > 0 ? (

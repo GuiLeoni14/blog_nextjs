@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
 import { useBlogTheme } from '../hooks/useBlogTheme';
 import { PostsTemplate } from '../templates/PostsTemplate';
@@ -26,7 +25,7 @@ export default function Home({ posts, setting, variables }: StrapiPostAndSetting
 export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async () => {
     let data = null;
     try {
-        data = await loadPosts({ limit: 1 });
+        data = await loadPosts({ limit: 3 });
     } catch (error) {
         console.log(error);
         data = null;
