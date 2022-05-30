@@ -1,7 +1,7 @@
 export default {
     font: {
         family: {
-            default: "'Open Sans', sans-serif",
+            default: "'Inter', sans-serif",
         },
         sizes: {
             xsmall: '8rem',
