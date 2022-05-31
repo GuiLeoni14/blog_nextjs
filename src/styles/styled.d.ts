@@ -6,10 +6,16 @@ declare module 'styled-components' {
         colors: {
             primary: string;
             second: string;
+            gray_1: string;
+            gray_2: string;
+            gray_3: string;
+            gray_4: string;
+            gray_5: string;
+            gray_6: string;
             background: string;
             gray: string;
             white: string;
-            title: string;
+            text: string;
             darkText: string;
             secondary: string;
             mediumGray: string;

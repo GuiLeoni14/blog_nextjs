@@ -8,14 +8,27 @@ export const Container = styled.div`
     flex-direction: column;
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     & > a {
         width: 100%;
     }
+    &:hover {
+        img {
+            transform: scale(1.05);
+        }
+    }
 `;
 
-export const Image = styled.img`
-    max-width: 100%;
+export const Image = styled.div`
+    width: 100%;
+    height: 20rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    img {
+        transition: transform 0.3s;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 `;
 
 export const Text = styled.div`
@@ -23,7 +36,7 @@ export const Text = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: ${({ theme: { spacings } }) => spacings.medium};
+    gap: ${({ theme: { spacings } }) => spacings.small};
     padding: 1rem;
     p {
         font-size: 1.6rem;

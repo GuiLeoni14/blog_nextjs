@@ -18,7 +18,6 @@ export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplat
     const [stateVariables, setStateVariables] = useState(variables || {});
     const [buttonDisable, setButtonDisable] = useState(false);
     const [noMorePosts, setNoMorePosts] = useState(false);
-    console.log(variables);
     const handleLoadMorePosts = async () => {
         setButtonDisable(true);
         const newVariables = {
@@ -42,14 +41,15 @@ export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplat
         setStateVariables(variables || {});
     }, [posts, variables]);
     return (
-        <BaseTemplate settings={settings}>
+        <BaseTemplate settings={settings} posts={posts}>
             {statePost.length > 0 ? (
-                <>
+                <S.Container>
+                    <h3>Posts</h3>
                     <PostGrid posts={statePost} />
                     <S.ButtonMorePosts onClick={handleLoadMorePosts} disabled={buttonDisable}>
                         {noMorePosts ? 'Sem posts para carregar' : 'Carregar mais'}
                     </S.ButtonMorePosts>
-                </>
+                </S.Container>
             ) : (
                 <p>nenhum post encontrado</p>
             )}

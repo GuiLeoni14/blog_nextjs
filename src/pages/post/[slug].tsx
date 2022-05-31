@@ -28,7 +28,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
         data = await loadPosts();
         paths = data.posts.data.map((post) => ({ params: { slug: post.attributes.slug } }));
     } catch (error) {
-        console.log(error);
         data = null;
     }
     if (!data || !data.posts || !data.posts.data.length) {
@@ -47,7 +46,6 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (cont
             data = await loadPosts({ postSlug: { contains: context.params.slug as string } });
         }
     } catch (error) {
-        console.log(error);
         data = null;
     }
     if (!data || !data.posts || !data.posts.data.length) {
