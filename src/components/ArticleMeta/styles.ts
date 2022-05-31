@@ -5,15 +5,15 @@ export const Wrapper = styled.div`
         font-size: ${theme.font.sizes.small};
         color: ${theme.colors.darkerGray};
         font-style: italic;
-        .categories span::after {
-            content: ', ';
-        }
-        .categories span:last-child::after {
-            content: '';
+        & > p {
+            align-items: center;
+            gap: 0.8rem;
+            display: flex;
         }
         a {
-            color: ${theme.colors.secondary};
+            color: ${theme.colors.second};
             text-decoration: none;
+            font-weight: bold;
             transition: all 300ms ease-in-out;
             &:hover {
                 filter: brightness(50%);

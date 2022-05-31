@@ -109,7 +109,17 @@ export const Container = styled.div`
             font-style: italic;
             margin: ${theme.spacings.medium};
         }
-
+        ul {
+            li {
+                list-style-type: disc;
+                font-weight: 400;
+                font-size: 1.8rem;
+                line-height: 175%;
+                &:not(:last-child) {
+                    margin-bottom: 1.6rem;
+                }
+            }
+        }
         @media ${theme.media.lteMedium} {
             font-size: 2rem;
 

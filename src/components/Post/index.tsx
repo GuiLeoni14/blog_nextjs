@@ -16,7 +16,14 @@ export function Post({ content, cover, createdAt, excerpt, id, title, autor, cat
                 title={title}
                 id={id}
             />
-            <HtmlContent html={content} />
+            <S.Content>
+                <S.LeftContent>
+                    <h1>left</h1>
+                </S.LeftContent>
+                <S.RightContent>
+                    <HtmlContent html={content} />
+                </S.RightContent>
+            </S.Content>
         </S.Container>
     );
 }

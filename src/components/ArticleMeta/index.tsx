@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { TAuthor } from '../../shared-typed/author';
 import { TCategory } from '../../shared-typed/category';
-import { formatDate } from '../../utils/format-date';
+import { DatePost } from '../DatePost';
+import { SlugCategory } from '../Slug';
 import * as Styled from './styles';
 
 export type TArticleMetaProps = {
@@ -23,23 +24,19 @@ export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps)
                         <span className="separator"> | </span>
                     </>
                 )}
-
-                <span>{formatDate(createdAt)}</span>
-
+                <DatePost date={createdAt} size={1.5} />
                 {categories && categories.data.length > 0 && (
                     <>
                         <span className="separator"> | </span>
-                        <span className="categories">
-                            {categories.data.map((category) => {
-                                return (
-                                    <span key={`article-meta-cat-${category.id}`}>
-                                        <Link href={`/category/${category.attributes.slug}`}>
-                                            <a>{category.attributes.name}</a>
-                                        </Link>
-                                    </span>
-                                );
-                            })}
-                        </span>
+                        {categories.data.map((category) => {
+                            return (
+                                <SlugCategory key={`article-meta-cat-${category.id}`}>
+                                    <Link href={`/category/${category.attributes.slug}`}>
+                                        <a>{category.attributes.name}</a>
+                                    </Link>
+                                </SlugCategory>
+                            );
+                        })}
                     </>
                 )}
             </p>
