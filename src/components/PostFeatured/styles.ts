@@ -2,7 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     width: 100%;
-    max-width: 72rem;
+    display: block;
+    &:hover {
+        img {
+            transform: scale(1.05);
+        }
+    }
 `;
 
 export const Image = styled.div`
@@ -11,6 +16,12 @@ export const Image = styled.div`
     border-radius: 1rem;
     overflow: hidden;
     margin-bottom: 3.2rem;
+    img {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s;
+        object-fit: cover;
+    }
 `;
 
 export const Categories = styled.div`

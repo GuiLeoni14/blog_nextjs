@@ -23,7 +23,7 @@ export default createGlobalStyle`
     color: ${({ theme }) => theme.colors.text};
     }
     p{
-        ${({ theme }) => theme.colors.text};
+        color: ${({ theme }) => theme.colors.text};
         font-size: 'Open sans', sans-serif;
     }
     img {

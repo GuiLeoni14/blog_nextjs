@@ -43,12 +43,13 @@ export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplat
     return (
         <BaseTemplate settings={settings} posts={posts}>
             {statePost.length > 0 ? (
-                <>
+                <S.Container>
+                    <h3>Posts</h3>
                     <PostGrid posts={statePost} />
                     <S.ButtonMorePosts onClick={handleLoadMorePosts} disabled={buttonDisable}>
                         {noMorePosts ? 'Sem posts para carregar' : 'Carregar mais'}
                     </S.ButtonMorePosts>
-                </>
+                </S.Container>
             ) : (
                 <p>nenhum post encontrado</p>
             )}

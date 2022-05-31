@@ -2,17 +2,21 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     width: 100%;
-    max-width: 45rem;
     & > a {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 2rem;
-        border-bottom: 0.2rem solid ${({ theme }) => theme.colors.gray_5};
         padding-bottom: 2rem;
     }
     &:not(:last-child) {
+        border-bottom: 0.2rem solid ${({ theme }) => theme.colors.gray_5};
         margin-bottom: 2rem;
+    }
+    &:hover {
+        img {
+            transform: scale(1.05);
+        }
     }
 `;
 
@@ -35,6 +39,8 @@ export const Image = styled.div`
     img {
         width: 100%;
         height: 100%;
+        transition: transform 0.3s;
+        object-fit: cover;
     }
 `;
 

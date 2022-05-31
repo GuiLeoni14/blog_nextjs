@@ -20,8 +20,8 @@ export const Container = styled.header`
 `;
 
 export const Logo = styled.div`
-    width: 10rem;
-    height: 10rem;
+    width: 100%;
+    max-width: 10rem;
     overflow: hidden;
     img {
         width: 100%;

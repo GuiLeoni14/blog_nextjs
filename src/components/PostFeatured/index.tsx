@@ -3,6 +3,7 @@ import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { formatDate } from '../../utils/format-date';
 import * as S from './styles';
 import { FcCalendar } from 'react-icons/fc';
+import { ContainerSlug, SlugCategory } from '../Slug';
 export type TPostFeaturedProps = TPostStrapi;
 
 export function PostFeatured({ attributes: { cover, slug, title, autor, createdAt, categories } }: TPostFeaturedProps) {
@@ -13,11 +14,11 @@ export function PostFeatured({ attributes: { cover, slug, title, autor, createdA
                     <S.Image>
                         <img src={cover.data.attributes.url} alt={cover.data.attributes.alternativeText} />
                     </S.Image>
-                    <S.Categories>
+                    <ContainerSlug>
                         {categories.data.map((category) => (
-                            <span key={category.id}>{category.attributes.name}</span>
+                            <SlugCategory key={category.id}>{category.attributes.name}</SlugCategory>
                         ))}
-                    </S.Categories>
+                    </ContainerSlug>
                     <S.Title>{title}</S.Title>
                     <S.Info>
                         <span>

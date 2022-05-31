@@ -27,11 +27,15 @@ export const ButtonMorePosts = styled.button`
 `;
 
 export const Left = styled.div`
+    width: 100%;
+    max-width: 72rem;
     height: 100%;
 `;
 
 export const Right = styled.div`
     flex: 1;
+    width: 100%;
+    max-width: 45rem;
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -14,7 +14,7 @@ export type TFeaturedProps = {
 };
 
 export function Featured({ posts = [] }: TFeaturedProps) {
-    const statePostCardFeatured = posts.slice(1, 4);
+    const statePostCardFeatured = posts.slice(1, 5);
     const router = useRouter();
     if (statePostCardFeatured.length < 1 || router.route !== '/') return null;
     return (
