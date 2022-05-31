@@ -30,7 +30,6 @@ export const getServerSideProps: GetServerSideProps<StrapiPostAndSettings> = asy
         variables = { postSearch: { contains: query as string } };
         data = await loadPosts(variables);
     } catch (error) {
-        console.log(error);
         data = null;
     }
     if (!data || !data.posts) {

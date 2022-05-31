@@ -18,7 +18,7 @@ const titleSize = {
 
 export const Title = styled.h1<HeadingProps>`
     ${({ theme, colorDark, size, uppercase }) => css`
-        color: ${colorDark ? theme.colors.primary : theme.colors.white};
+        color: ${colorDark ? theme.colors.text : theme.colors.white};
         line-height: 1.2;
         ${size && titleSize[size](theme)};
         text-transform: ${uppercase ? 'uppercase' : 'none'};

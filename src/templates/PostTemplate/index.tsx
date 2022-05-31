@@ -13,7 +13,6 @@ export type TPostTemplateProps = {
 };
 
 export function PostTemplate({ settings, post }: TPostTemplateProps) {
-    console.log(post.attributes.allowComments);
     return (
         <BaseTemplate settings={settings}>
             <Post {...post.attributes} id={post.id} />

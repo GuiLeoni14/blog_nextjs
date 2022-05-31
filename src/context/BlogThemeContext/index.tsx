@@ -9,7 +9,7 @@ export type TBlogThemeContext = {
 
 export const BlogThemeContext = createContext({} as TBlogThemeContext);
 export function BlogThemeProvider({ children }: { children: ReactNode }) {
-    const [theme, setTheme] = useState(light);
+    const [theme, setTheme] = useState(dark);
 
     useEffect(() => {
         const theme_storage: string = getStorage('theme');
