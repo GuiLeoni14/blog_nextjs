@@ -1,7 +1,7 @@
 import Comments from '../../components/Comments';
 import { Post } from '../../components/Post';
-import PostGrid from '../../components/PostGrid';
 import { PostTags } from '../../components/PostTags';
+import { Slider } from '../../components/Slider';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
 import { BaseTemplate } from '../BaseTemplate';
@@ -30,9 +30,7 @@ export function PostTemplate({ settings, post, posts_related }: TPostTemplatePro
             />
             <S.ContentRelated>
                 <h4>Continue lendo</h4>
-                {posts_related && posts_related.data.length > 0 && (
-                    <PostGrid key={post.id} posts={posts_related.data} />
-                )}
+                {posts_related && <Slider posts={posts_related} />}
             </S.ContentRelated>
         </BaseTemplate>
     );

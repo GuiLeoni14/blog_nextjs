@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
         try {
             posts_related = await loadPosts({
                 categorySlug: { contains: data.posts.data[0].attributes.categories.data[0].attributes.slug },
-                limit: 3,
+                limit: 6,
             });
             console.log(posts_related);
         } catch (error) {

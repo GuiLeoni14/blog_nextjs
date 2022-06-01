@@ -1,8 +1,3 @@
-import { error } from 'console';
-import { GetStaticProps } from 'next';
-import { loadPosts, StrapiPostAndSettings } from '../../api/loadPosts';
-import { getStaticPaths } from '../../pages/author/[slug]';
-import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { ArticleHeader, TArticleHeaderProps } from '../ArticleHeader';
 import { HtmlContent } from '../HtmlContent';
 import * as S from './styles';
