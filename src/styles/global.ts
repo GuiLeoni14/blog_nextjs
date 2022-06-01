@@ -12,7 +12,7 @@ export default createGlobalStyle`
         font-family: ${({ theme }) => theme.font.family.default};
     }
     *:not(svg, path){
-        color: ${({ theme: { colors } }) => colors.gray};
+        color: ${({ theme: { colors } }) => colors.text};
     }
     body{
         background-color: ${({ theme: { colors } }) => colors.background};

@@ -16,7 +16,7 @@ export const Container = styled.div`
         a,
         a:visited,
         a:link {
-            color: ${theme.colors.second};
+            color: ${theme.colors.primary};
             text-decoration: none;
             transition: all 300ms ease-in-out;
         }
@@ -102,7 +102,7 @@ export const Container = styled.div`
         }
 
         blockquote {
-            border-left: 0.5rem solid ${theme.colors.secondary};
+            border-left: 0.5rem solid ${theme.colors.primary};
             color: ${theme.colors.darkerGray};
             filter: brightness(80%);
             padding-left: ${theme.spacings.medium};
