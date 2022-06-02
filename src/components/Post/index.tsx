@@ -1,5 +1,6 @@
 import { ArticleHeader, TArticleHeaderProps } from '../ArticleHeader';
 import { HtmlContent } from '../HtmlContent';
+import { PostTopics } from '../PostTopics';
 import * as S from './styles';
 export type TPostComponentProps = TArticleHeaderProps & {
     content: string;
@@ -18,9 +19,9 @@ export function Post({ content, cover, createdAt, excerpt, id, title, autor, cat
             />
             <S.Content>
                 <S.LeftContent>
-                    <h1>left</h1>
+                    <PostTopics searchClassTopics="topics_search" />
                 </S.LeftContent>
-                <S.RightContent>
+                <S.RightContent className="topics_search">
                     <HtmlContent html={content} />
                 </S.RightContent>
             </S.Content>
