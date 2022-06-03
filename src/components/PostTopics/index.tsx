@@ -1,4 +1,4 @@
-import { AnchorHTMLAttributes, LinkHTMLAttributes, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Heading } from '../Heading';
 import * as S from './styles';
 
@@ -10,11 +10,10 @@ export function PostTopics({ searchClassTopics }: TPostTopicsProps) {
     const [topics, setTopics] = useState([] as string[]);
     const scrollToSection = (id: string) => {
         const section = document.getElementById(id);
-        console.log(section);
         if (section) {
             const positionInicialSection = section.offsetTop;
             window.scrollTo({
-                top: positionInicialSection - 100,
+                top: positionInicialSection - 120,
                 behavior: 'smooth',
             });
         }
@@ -35,18 +34,21 @@ export function PostTopics({ searchClassTopics }: TPostTopicsProps) {
         console.log(topics);
     }, [topics]);
     return (
-        <S.Container>
-            <Heading as="h5" size="small">
-                Navegue por tópicos
-            </Heading>
-            <S.Topics>
-                {topics.length > 0 &&
-                    topics.map((topic, index) => (
-                        <a key={index} href={`#topic-${index}`}>
-                            {topic}
-                        </a>
-                    ))}
-            </S.Topics>
-        </S.Container>
+        <>
+            {topics.length > 0 && (
+                <S.Container>
+                    <Heading as="h5" size="small">
+                        Navegue por tópicos
+                    </Heading>
+                    <S.Topics>
+                        {topics.map((topic, index) => (
+                            <span key={index} onClick={() => scrollToSection(`topic-${index}`)}>
+                                {topic}
+                            </span>
+                        ))}
+                    </S.Topics>
+                </S.Container>
+            )}
+        </>
     );
 }

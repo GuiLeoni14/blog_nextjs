@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Featured } from '../../components/Featured';
 import { Footer } from '../../layout/Footer';
 import { Header } from '../../layout/Header';
@@ -13,6 +14,10 @@ export type TBaseTemplateProps = {
 };
 
 export function BaseTemplate({ children, settings, posts }: TBaseTemplateProps) {
+    const router = useRouter();
+    if (router.isFallback) {
+        return <p>loading..</p>;
+    }
     return (
         <S.Container>
             <Header settings={settings} />

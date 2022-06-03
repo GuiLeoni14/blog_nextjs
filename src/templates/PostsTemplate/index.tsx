@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { loadPosts, TLoadPostsVariables } from '../../api/loadPosts';
 import PostGrid from '../../components/PostGrid';

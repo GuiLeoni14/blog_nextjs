@@ -1,6 +1,5 @@
 import Comments from '../../components/Comments';
 import { Post } from '../../components/Post';
-import { PostTags } from '../../components/PostTags';
 import { Slider } from '../../components/Slider';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
@@ -19,9 +18,6 @@ export function PostTemplate({ settings, post, posts_related }: TPostTemplatePro
     return (
         <BaseTemplate settings={settings}>
             <Post {...post.attributes} id={post.id} />
-            <S.TagsContainer>
-                <PostTags tags={post.attributes.tags.data} />
-            </S.TagsContainer>
             <Comments
                 id={post.id}
                 slug={post.attributes.slug}
