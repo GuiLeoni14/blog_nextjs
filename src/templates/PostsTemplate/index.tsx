@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
-import { loadPosts, TLoadPostsVariables } from '../../api/loadPosts';
+import { useCallback, useEffect, useState } from 'react';
+import { loadPosts, StrapiPostAndSettings, TLoadPostsVariables, TMetaPagination } from '../../api/loadPosts';
+import { Pagination, PaginationButton } from '../../components/Pagination/styles';
 import PostGrid from '../../components/PostGrid';
+import { SkeletonCardPost } from '../../components/Skeleton';
+import { useQuery } from '../../hooks/useQuery';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
 import { BaseTemplate } from '../BaseTemplate';
@@ -13,6 +16,9 @@ export type TPostsTemplateProps = {
 };
 
 export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplateProps) {
+    const [pageIndex, setPageIndex] = useState(0);
+    const { data, isLoading, isError } = useQuery<StrapiPostAndSettings>({ pageSize: 2, page: pageIndex + 1 });
+    console.log(data);
     const [statePost, setStatePosts] = useState(posts);
     const [stateVariables, setStateVariables] = useState(variables || {});
     const [buttonDisable, setButtonDisable] = useState(false);
@@ -34,7 +40,7 @@ export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplat
             }
             setStatePosts((p) => [...p, ...more_posts.posts.data]);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         } finally {
             setLoadingMorePosts(false);
             setButtonDisable(false);
@@ -47,12 +53,22 @@ export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplat
         setButtonDisable(false);
         setStateVariables(variables || {});
     }, [posts, variables]);
+    const handleMountPostGrid = useCallback(() => {
+        if (!data || !data.posts || data.posts.data.length < 1 || pageIndex < 1) {
+            return <PostGrid posts={statePost} />;
+        }
+        return <PostGrid posts={data.posts.data} />;
+    }, [statePost, pageIndex, data]);
     return (
         <BaseTemplate settings={settings} posts={posts}>
             {statePost.length > 0 ? (
                 <S.Container>
                     <h3>Posts</h3>
-                    <PostGrid posts={statePost} />
+                    {isLoading && pageIndex > 0 ? <SkeletonCardPost /> : handleMountPostGrid()}
+                    <Pagination>
+                        <PaginationButton onClick={() => setPageIndex((state) => state - 1)}>Previous</PaginationButton>
+                        <PaginationButton onClick={() => setPageIndex((state) => state + 1)}>Next</PaginationButton>
+                    </Pagination>
                     <S.ButtonMorePosts
                         onClick={handleLoadMorePosts}
                         disabled={buttonDisable || loadingMorePosts}

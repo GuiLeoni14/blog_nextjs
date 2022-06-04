@@ -72,9 +72,8 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
                 categorySlug: { contains: data.posts.data[0].attributes.categories.data[0].attributes.slug },
                 limit: 6,
             });
-            console.log(posts_related);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
             posts_related = null;
         }
     }

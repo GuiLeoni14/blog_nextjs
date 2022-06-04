@@ -14,7 +14,6 @@ export type TPostTemplateProps = {
 };
 
 export function PostTemplate({ settings, post, posts_related }: TPostTemplateProps) {
-    console.log(posts_related);
     return (
         <BaseTemplate settings={settings}>
             <Post {...post.attributes} id={post.id} />

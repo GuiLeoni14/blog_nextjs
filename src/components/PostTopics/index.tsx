@@ -21,7 +21,6 @@ export function PostTopics({ searchClassTopics }: TPostTopicsProps) {
     useEffect(() => {
         setTimeout(() => {
             document.querySelectorAll(`.${searchClassTopics} h2`).forEach((item, index) => {
-                console.log(item.textContent);
                 if (item.textContent) {
                     item.setAttribute('id', `topic-${index}`);
                     setTopics((state) => [...state, item.textContent as string]);
@@ -30,9 +29,6 @@ export function PostTopics({ searchClassTopics }: TPostTopicsProps) {
         }, 300);
         return () => clearTimeout();
     }, [setTopics, searchClassTopics]);
-    useEffect(() => {
-        console.log(topics);
-    }, [topics]);
     return (
         <>
             {topics.length > 0 && (

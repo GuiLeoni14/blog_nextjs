@@ -10,8 +10,10 @@ export const GRAPHQL_QUERY = gql`
         $authorSlug: StringFilterInput
         $tagSlug: StringFilterInput
         $sort: [String] = "createdAt:desc"
-        $start: Int = 0
-        $limit: Int = 10
+        $start: Int
+        $limit: Int
+        $pageSize: Int
+        $page: Int
     ) {
         setting {
             data {
@@ -22,7 +24,7 @@ export const GRAPHQL_QUERY = gql`
             }
         }
         posts(
-            pagination: { start: $start, limit: $limit }
+            pagination: { start: $start, limit: $limit, pageSize: $pageSize, page: $page }
             sort: $sort
             filters: {
                 slug: $postSlug
@@ -36,6 +38,11 @@ export const GRAPHQL_QUERY = gql`
                 id
                 attributes {
                     ...post
+                }
+            }
+            meta {
+                pagination {
+                    ...pagination
                 }
             }
         }
