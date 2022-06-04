@@ -14,7 +14,7 @@ export type TArticleMetaProps = {
 export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps) => {
     return (
         <Styled.Wrapper>
-            <p>
+            <div>
                 {autor && typeof autor !== 'undefined' && (
                     <>
                         <span>Por </span>
@@ -39,7 +39,7 @@ export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps)
                         })}
                     </>
                 )}
-            </p>
+            </div>
         </Styled.Wrapper>
     );
 };

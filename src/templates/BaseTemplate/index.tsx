@@ -9,22 +9,22 @@ import { MainContainer } from '../../styles/container';
 import * as S from './styles';
 
 export type TBaseTemplateProps = {
-    settings: { data: TSettingsStrapi }; // passar settings para o header/footer
+    setting: { data: TSettingsStrapi }; // passar settings para o header/footer
     posts?: TPostStrapi[];
     children: React.ReactNode;
 };
 
-export function BaseTemplate({ children, settings, posts }: TBaseTemplateProps) {
+export function BaseTemplate({ children, setting, posts }: TBaseTemplateProps) {
     const router = useRouter();
     if (router.isFallback) {
         return <p>loading..</p>;
     }
     return (
         <S.Container>
-            <Header settings={settings} />
+            <Header setting={setting} />
             <MainContainer>
                 <Breadcrumbs />
-                <Featured posts={posts} settings={settings} />
+                <Featured posts={posts} setting={setting} />
                 {children}
             </MainContainer>
             <Footer />

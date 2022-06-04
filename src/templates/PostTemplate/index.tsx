@@ -8,14 +8,14 @@ import { BaseTemplate } from '../BaseTemplate';
 import * as S from './styles';
 
 export type TPostTemplateProps = {
-    settings: { data: TSettingsStrapi };
+    setting: { data: TSettingsStrapi };
     post: TPostStrapi;
     posts_related?: { data: TPostStrapi[] };
 };
 
-export function PostTemplate({ settings, post, posts_related }: TPostTemplateProps) {
+export function PostTemplate({ setting, post, posts_related }: TPostTemplateProps) {
     return (
-        <BaseTemplate settings={settings}>
+        <BaseTemplate setting={setting}>
             <Post {...post.attributes} id={post.id} />
             <Comments
                 id={post.id}

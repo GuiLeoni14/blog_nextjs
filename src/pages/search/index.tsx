@@ -1,11 +1,13 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../../api/loadPosts';
+import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
+import { SkeletonCardPost } from '../../components/Skeleton';
 
 export default function SearchPage({ posts, setting, variables }: StrapiPostAndSettings) {
     const router = useRouter();
+    if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     return (
         <>
             <Head>
@@ -13,7 +15,7 @@ export default function SearchPage({ posts, setting, variables }: StrapiPostAndS
                     Pesquisa: {router.query.q} - {setting.data.attributes.blogName}
                 </title>
             </Head>
-            <PostsTemplate posts={posts.data} settings={setting} variables={variables} />
+            <PostsTemplate posts={posts} setting={setting} variables={variables} />
         </>
     );
 }

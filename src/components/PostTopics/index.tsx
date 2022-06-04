@@ -19,7 +19,7 @@ export function PostTopics({ searchClassTopics }: TPostTopicsProps) {
         }
     };
     useEffect(() => {
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             document.querySelectorAll(`.${searchClassTopics} h2`).forEach((item, index) => {
                 if (item.textContent) {
                     item.setAttribute('id', `topic-${index}`);
@@ -27,7 +27,7 @@ export function PostTopics({ searchClassTopics }: TPostTopicsProps) {
                 }
             });
         }, 300);
-        return () => clearTimeout();
+        return () => clearTimeout(timer);
     }, [setTopics, searchClassTopics]);
     return (
         <>

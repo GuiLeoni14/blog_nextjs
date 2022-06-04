@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
         font-size: ${theme.font.sizes.small};
         color: ${theme.colors.darkerGray};
         font-style: italic;
-        & > p {
+        & > div {
             align-items: center;
             gap: 0.8rem;
             display: flex;

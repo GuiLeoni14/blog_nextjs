@@ -1,6 +1,6 @@
 import { TBaseTemplateProps } from '.';
-import { data } from '../../api/data.json';
+import { data } from '../../utils/data.json';
 export default {
-    settings: data.setting,
+    setting: data.setting,
     children: 'teste',
 } as TBaseTemplateProps;

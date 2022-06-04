@@ -1,25 +1,18 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { loadPosts, StrapiPostAndSettings, TLoadPostsVariables } from '../../api/loadPosts';
+import { loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
-import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
 import { PostTemplate } from '../../templates/PostTemplate';
+import { SkeletonCardPost } from '../../components/Skeleton';
 
 type TPostStaticProps = StrapiPostAndSettings & {
-    setting: {
-        data: TSettingsStrapi;
-    };
-    posts: {
-        data: TPostStrapi[];
-    };
-    variables?: TLoadPostsVariables;
     posts_related?: { data: TPostStrapi[] };
 };
 
 export default function PostPage({ posts, setting, posts_related }: TPostStaticProps) {
     const router = useRouter();
-    if (router.isFallback) return <p>Carregando...</p>;
+    if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     return (
         <>
             <Head>
@@ -29,7 +22,7 @@ export default function PostPage({ posts, setting, posts_related }: TPostStaticP
                 meta
                 <meta name="description" content={posts.data[0].attributes.excerpt} />
             </Head>
-            <PostTemplate post={posts.data[0]} settings={setting} posts_related={posts_related} />
+            <PostTemplate post={posts.data[0]} setting={setting} posts_related={posts_related} />
         </>
     );
 }

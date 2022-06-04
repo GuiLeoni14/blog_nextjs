@@ -1,4 +1,4 @@
-import { TLoadPostsVariables } from '../../api/loadPosts';
+import { TLoadPostsVariables } from '../../utils/loadPosts';
 import { PostCardFeatured } from '../PostCardFeatured';
 import { PostFeatured } from '../PostFeatured';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
@@ -8,7 +8,7 @@ import * as S from './styles';
 import { useRouter } from 'next/router';
 
 export type TFeaturedProps = {
-    settings: { data: TSettingsStrapi }; // passar settings para o header/footer
+    setting: { data: TSettingsStrapi }; // passar settings para o header/footer
     posts?: TPostStrapi[];
     variables?: TLoadPostsVariables;
 };

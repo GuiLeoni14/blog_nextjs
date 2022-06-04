@@ -8,8 +8,10 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         gap: 1rem;
-        svg:last-of-type {
-            display: none;
+        & span:last-child {
+            svg {
+                display: none;
+            }
         }
     }
     span {

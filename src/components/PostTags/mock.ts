@@ -1,4 +1,4 @@
-import { data } from '../../api/data.json';
+import { data } from '../../utils/data.json';
 const {
     attributes: { tags },
 } = data.posts.data[0];

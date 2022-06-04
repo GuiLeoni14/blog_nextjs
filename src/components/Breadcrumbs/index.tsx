@@ -17,10 +17,10 @@ export function Breadcrumbs() {
                 <BsHouseDoor />
                 {breadcrumbs?.map((breadcrumb, index) => {
                     return (
-                        <>
-                            <span key={index}>{breadcrumb}</span>
+                        <span key={index}>
+                            {breadcrumb}
                             <IoIosArrowForward />
-                        </>
+                        </span>
                     );
                 })}
             </div>
