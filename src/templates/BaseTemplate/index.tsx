@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Featured } from '../../components/Featured';
 import { Footer } from '../../layout/Footer';
 import { Header } from '../../layout/Header';
@@ -22,6 +23,7 @@ export function BaseTemplate({ children, settings, posts }: TBaseTemplateProps) 
         <S.Container>
             <Header settings={settings} />
             <MainContainer>
+                <Breadcrumbs />
                 <Featured posts={posts} settings={settings} />
                 {children}
             </MainContainer>
