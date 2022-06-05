@@ -1,5 +1,5 @@
 import { TPostComponentProps } from '.';
-import { data } from '../../api/data.json';
+import { data } from '../../utils/data.json';
 export default {
     id: data.posts.data[0].id,
     author: data.posts.data[0].attributes.autor.data,

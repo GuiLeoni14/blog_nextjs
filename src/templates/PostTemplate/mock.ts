@@ -1,7 +1,7 @@
 import { TPostTemplateProps } from '.';
-import { data } from '../../api/data.json';
+import { data } from '../../utils/data.json';
 export default {
-    settings: data.setting,
+    setting: data.setting,
     post: data.posts.data[0],
 } as TPostTemplateProps;
 // id: string;

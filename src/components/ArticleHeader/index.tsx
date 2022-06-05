@@ -18,10 +18,14 @@ export type TArticleHeaderProps = {
 export const ArticleHeader = ({ title, excerpt, cover, autor, categories, createdAt }: TArticleHeaderProps) => {
     return (
         <S.Container>
-            <Heading size="big">{title}</Heading>
-            <S.Excerpt>{excerpt}</S.Excerpt>
-            <S.Cover src={cover.data.attributes.url} alt={title} />
-            <ArticleMeta categories={categories} autor={autor.data} createdAt={createdAt} />
+            <S.Top>
+                <S.Cover src={cover.data.attributes.url} alt={title} />
+            </S.Top>
+            <S.Content>
+                <Heading size="big">{title}</Heading>
+                <S.Excerpt>{excerpt}</S.Excerpt>
+                <ArticleMeta categories={categories} autor={autor.data} createdAt={createdAt} />
+            </S.Content>
         </S.Container>
     );
 };
