@@ -17,7 +17,7 @@ export default function Home({ posts, setting, variables }: StrapiPostAndSetting
 export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async () => {
     let data = null;
     try {
-        data = await loadPosts({ limit: 2 });
+        data = await loadPosts({ limit: 6 });
     } catch (error) {
         data = null;
     }
