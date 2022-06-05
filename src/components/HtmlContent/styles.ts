@@ -16,7 +16,7 @@ export const Container = styled.div`
         a,
         a:visited,
         a:link {
-            color: ${theme.colors.second};
+            color: ${theme.colors.primary};
             text-decoration: none;
             transition: all 300ms ease-in-out;
         }
@@ -102,14 +102,24 @@ export const Container = styled.div`
         }
 
         blockquote {
-            border-left: 0.5rem solid ${theme.colors.secondary};
+            border-left: 0.5rem solid ${theme.colors.primary};
             color: ${theme.colors.darkerGray};
             filter: brightness(80%);
             padding-left: ${theme.spacings.medium};
             font-style: italic;
             margin: ${theme.spacings.medium};
         }
-
+        ul {
+            li {
+                list-style-type: disc;
+                font-weight: 400;
+                font-size: 1.8rem;
+                line-height: 175%;
+                &:not(:last-child) {
+                    margin-bottom: 1.6rem;
+                }
+            }
+        }
         @media ${theme.media.lteMedium} {
             font-size: 2rem;
 

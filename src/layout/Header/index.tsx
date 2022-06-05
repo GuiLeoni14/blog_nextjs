@@ -5,7 +5,7 @@ import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
 import { MainContainer } from '../../styles/container';
 import * as S from './styles';
 
-export function Header({ settings }: { settings: { data: TSettingsStrapi } }) {
+export function Header({ setting }: { setting: { data: TSettingsStrapi } }) {
     const { toggleTheme } = useBlogTheme();
     return (
         <S.Container>
@@ -14,8 +14,8 @@ export function Header({ settings }: { settings: { data: TSettingsStrapi } }) {
                     <a>
                         <S.Logo>
                             <img
-                                src={settings.data.attributes.blogLogo.data.attributes.url}
-                                alt={settings.data.attributes.blogLogo.data.attributes.alternativeText}
+                                src={setting.data.attributes.blogLogo.data.attributes.url}
+                                alt={setting.data.attributes.blogLogo.data.attributes.alternativeText}
                             />
                         </S.Logo>
                     </a>

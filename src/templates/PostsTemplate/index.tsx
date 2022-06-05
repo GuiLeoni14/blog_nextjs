@@ -1,54 +1,28 @@
-import { useEffect, useState } from 'react';
-import { loadPosts, TLoadPostsVariables } from '../../api/loadPosts';
+import { useCallback, useRef } from 'react';
+import { Pagination } from '../../components/Pagination';
 import PostGrid from '../../components/PostGrid';
-import { TPostStrapi } from '../../shared-typed/post-strapi';
-import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
+import { SkeletonCardPost } from '../../components/Skeleton';
 import { BaseTemplate } from '../BaseTemplate';
-
 import * as S from './styles';
+import { usePagination } from '../../hooks/usePagination';
+import { StrapiPostAndSettings } from '../../utils/loadPosts';
 
-export type TPostsTemplateProps = {
-    settings: { data: TSettingsStrapi }; // passar settings para o header/footer
-    posts?: TPostStrapi[];
-    variables?: TLoadPostsVariables;
-};
-
-export function PostsTemplate({ settings, posts = [], variables }: TPostsTemplateProps) {
-    const [statePost, setStatePosts] = useState(posts);
-    const [stateVariables, setStateVariables] = useState(variables || {});
-    const [buttonDisable, setButtonDisable] = useState(false);
-    const [noMorePosts, setNoMorePosts] = useState(false);
-    const handleLoadMorePosts = async () => {
-        setButtonDisable(true);
-        const newVariables = {
-            ...stateVariables,
-            start: stateVariables.start! + stateVariables.limit!,
-            limit: stateVariables.limit,
-        };
-        const more_posts = await loadPosts(newVariables);
-        if (!more_posts || !more_posts.posts || !more_posts.posts.data.length) {
-            setNoMorePosts(true);
-            return;
+export function PostsTemplate({ setting, posts }: StrapiPostAndSettings) {
+    const { actualPage, data, isLoading } = usePagination();
+    const statePost = useRef(posts.data || []);
+    const handleMountPostGrid = useCallback(() => {
+        if (!data || !data.posts || data.posts.data.length < 1 || actualPage < 1) {
+            return <PostGrid posts={statePost.current} />;
         }
-        setButtonDisable(false);
-        setStateVariables(newVariables);
-        setStatePosts((p) => [...p, ...more_posts.posts.data]);
-    };
-    useEffect(() => {
-        setStatePosts(posts);
-        setNoMorePosts(false);
-        setButtonDisable(false);
-        setStateVariables(variables || {});
-    }, [posts, variables]);
+        return <PostGrid posts={data.posts.data} />;
+    }, [statePost, data, actualPage]);
     return (
-        <BaseTemplate settings={settings} posts={posts}>
-            {statePost.length > 0 ? (
+        <BaseTemplate setting={setting} posts={posts.data}>
+            {statePost.current.length > 0 ? (
                 <S.Container>
                     <h3>Posts</h3>
-                    <PostGrid posts={statePost} />
-                    <S.ButtonMorePosts onClick={handleLoadMorePosts} disabled={buttonDisable}>
-                        {noMorePosts ? 'Sem posts para carregar' : 'Carregar mais'}
-                    </S.ButtonMorePosts>
+                    {isLoading && actualPage > 0 ? <SkeletonCardPost /> : handleMountPostGrid()}
+                    <Pagination {...posts.meta} />
                 </S.Container>
             ) : (
                 <p>nenhum post encontrado</p>

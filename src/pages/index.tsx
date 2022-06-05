@@ -1,20 +1,15 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../api/loadPosts';
+import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../utils/loadPosts';
 import { PostsTemplate } from '../templates/PostsTemplate';
 export default function Home({ posts, setting, variables }: StrapiPostAndSettings) {
-    const router = useRouter();
-    if (router.isFallback) {
-        return <p>loading..</p>;
-    }
     return (
         <>
             <Head>
                 <title>{setting.data.attributes.blogName}</title>
                 <meta name="description" content={setting.data.attributes.blogDescription} />
             </Head>
-            <PostsTemplate posts={posts.data} settings={setting} variables={variables} />
+            <PostsTemplate posts={posts} setting={setting} variables={variables} />
         </>
     );
 }

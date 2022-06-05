@@ -1,4 +1,4 @@
-import { data } from '../../api/data.json';
+import { data } from '../../utils/data.json';
 const {
     attributes: { cover, content, excerpt, title, slug, tags, allowComments, createdAt },
     id,

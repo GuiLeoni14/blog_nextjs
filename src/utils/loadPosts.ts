@@ -17,6 +17,8 @@ export type TLoadPostsVariables = {
     sort?: string;
     start?: number;
     limit?: number;
+    pageSize?: number;
+    page?: number;
 };
 export type ArticleMetaProps = {
     createdAt: string;
@@ -40,18 +42,26 @@ export type TPostProps = {
     title: string;
     id: string;
 };
+export type TMetaPagination = {
+    pagination: {
+        total: number;
+        page: number;
+        pageSize: number;
+        pageCount: number;
+    };
+};
 
 export type StrapiPostAndSettings = {
     setting: { data: TSettingsStrapi };
-    posts: { data: TPostStrapi[] };
+    posts: { data: TPostStrapi[]; meta: TMetaPagination };
     variables?: TLoadPostsVariables;
 };
 export const defaultLoadPostsVariables: TLoadPostsVariables = {
     sort: 'createdAt:desc',
-    start: 0,
-    limit: 6,
 };
-export const loadPosts = async (variables: TLoadPostsVariables = {}): Promise<StrapiPostAndSettings> => {
+export const loadPosts = async (
+    variables: TLoadPostsVariables = { start: 0, limit: 6 },
+): Promise<StrapiPostAndSettings> => {
     const data = await request(config.graphql_URL, GRAPHQL_QUERY, {
         ...defaultLoadPostsVariables,
         ...variables,

@@ -101,4 +101,10 @@ export const GRAPHQL_FRAGMENTS = gql`
         }
         text
     }
+    fragment pagination on Pagination {
+        total
+        page
+        pageSize
+        pageCount
+    }
 `;

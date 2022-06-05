@@ -1,12 +1,18 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { loadPosts, StrapiPostAndSettings } from '../../api/loadPosts';
+import { loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
+import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { PostTemplate } from '../../templates/PostTemplate';
+import { SkeletonCardPost } from '../../components/Skeleton';
 
-export default function PostPage({ posts, setting }: StrapiPostAndSettings) {
+type TPostStaticProps = StrapiPostAndSettings & {
+    posts_related?: { data: TPostStrapi[] };
+};
+
+export default function PostPage({ posts, setting, posts_related }: TPostStaticProps) {
     const router = useRouter();
-    if (router.isFallback) return <p>Carregando...</p>;
+    if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     return (
         <>
             <Head>
@@ -16,7 +22,7 @@ export default function PostPage({ posts, setting }: StrapiPostAndSettings) {
                 meta
                 <meta name="description" content={posts.data[0].attributes.excerpt} />
             </Head>
-            <PostTemplate post={posts.data[0]} settings={setting} />
+            <PostTemplate post={posts.data[0]} setting={setting} posts_related={posts_related} />
         </>
     );
 }
@@ -39,8 +45,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (context) => {
+export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) => {
     let data = null;
+    let posts_related = null;
     try {
         if (context.params) {
             data = await loadPosts({ postSlug: { contains: context.params.slug as string } });
@@ -52,11 +59,22 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (cont
         return {
             notFound: true,
         };
+    } else {
+        try {
+            posts_related = await loadPosts({
+                categorySlug: { contains: data.posts.data[0].attributes.categories.data[0].attributes.slug },
+                limit: 6,
+            });
+        } catch (error) {
+            //console.log(error);
+            posts_related = null;
+        }
     }
     return {
         props: {
             posts: data.posts,
             setting: data.setting,
+            posts_related: posts_related?.posts,
         },
         revalidate: 24 * 60,
     };
