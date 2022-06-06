@@ -17,4 +17,8 @@ export const Container = styled.div`
             height: 1.5rem;
         }
     }
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none;
+    }
 `;
