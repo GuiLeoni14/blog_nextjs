@@ -15,6 +15,7 @@ export default createGlobalStyle`
         color: ${({ theme: { colors } }) => colors.text};
     }
     body{
+        transition: background .3s;
         background-color: ${({ theme: { colors } }) => colors.background};
         color: ${(props) => props.theme.colors.text};
     }
