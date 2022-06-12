@@ -9,6 +9,13 @@ export const Container = styled(motion.div)`
     left: 0;
     width: 100%;
     min-height: 100vh;
+    & > div + div {
+        width: 100%;
+        z-index: 10;
+        position: absolute;
+        bottom: 0;
+        background-color: ${({ theme }) => theme.colors.background};
+    }
 `;
 
 export const WrapperClose = styled.div`
@@ -19,11 +26,14 @@ export const WrapperClose = styled.div`
     min-height: 100vh;
 `;
 
-export const Content = styled.div`
-    z-index: 10;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+export const Content = styled(motion.div)`
+    padding: 4rem 0rem;
+    input {
+        width: 100%;
+    }
+    & > div {
+        margin: 2rem 0rem;
+    }
 `;
 
 export const ButtonToggle = styled.div<{ isMenuOpened: boolean }>`

@@ -1,3 +1,10 @@
-import { TMetadata } from './metadata';
+import { TStrapiImage } from './strapi-image';
 
-export type TCategory = TMetadata;
+export type TCategory = {
+    id: string;
+    attributes: {
+        name: string;
+        slug: string;
+        cover: TStrapiImage;
+    };
+};
