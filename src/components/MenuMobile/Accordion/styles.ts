@@ -11,7 +11,7 @@ export const Container = styled.div`
     .MuiAccordionSummary-root {
         background-color: ${({ theme }) => theme.colors.primary};
     }
-    div.MuiAccordionDetails-root + div.MuiAccordionDetails-root {
+    div.MuiAccordionDetails-root {
         background-color: ${({ theme }) => theme.colors.background};
     }
 `;

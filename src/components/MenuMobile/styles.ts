@@ -14,14 +14,14 @@ export const Container = styled(motion.div)`
         z-index: 10;
         position: absolute;
         bottom: 0;
-        background-color: ${({ theme }) => theme.colors.background};
+        background-color: ${({ theme }) => (theme.title === 'light' ? theme.colors.gray_6 : theme.colors.gray_1)};
     }
 `;
 
 export const WrapperClose = styled.div`
     position: fixed;
     z-index: 9;
-    background-color: rgba(41, 6, 45, 0.436);
+    background-color: rgba(41, 6, 45, 0.6);
     width: 100%;
     min-height: 100vh;
 `;

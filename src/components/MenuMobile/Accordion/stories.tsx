@@ -1,6 +1,5 @@
 import { Story } from '@storybook/react/types-6-0';
 import { Accordion } from '.';
-import { TCategory } from '../../../shared-typed/category';
 import mock from './mock';
 
 export default {
@@ -9,11 +8,10 @@ export default {
     args: mock,
 };
 console.log(mock);
-export const Template: Story<TCategory[]> = (args) => {
-    console.log(args);
+export const Template: Story = () => {
     return (
         <div>
-            <Accordion categories={mock} />
+            <Accordion categories={mock.categories} autors={mock.autors} />
         </div>
     );
 };

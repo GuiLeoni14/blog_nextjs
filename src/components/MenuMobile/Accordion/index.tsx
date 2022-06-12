@@ -5,8 +5,12 @@ import { Heading } from '../../Heading';
 import * as S from './styles';
 import { TCategory } from '../../../shared-typed/category';
 import Link from 'next/link';
-
-export function Accordion({ categories }: { categories: TCategory[] }) {
+import { TAuthor } from '../../../shared-typed/author';
+export type TAccordionProps = {
+    categories: TCategory[];
+    autors: TAuthor[];
+};
+export function Accordion({ categories, autors }: TAccordionProps) {
     return (
         <S.Container>
             <MuiAccordion elevation={0} disableGutters>
@@ -46,18 +50,17 @@ export function Accordion({ categories }: { categories: TCategory[] }) {
                     <S.Title>
                         <BiCategory />
                         <Heading as="h6" size="small">
-                            Categorias
+                            Autores
                         </Heading>
                     </S.Title>
                 </AccordionSummary>
                 <AccordionDetails>
                     <S.Content>
-                        {categories.map((category) => (
-                            <Link key={category.id} href={`/category/${category.attributes.slug}`}>
+                        {autors.map((autor) => (
+                            <Link key={autor.id} href={`/autor/${autor.attributes.slug}`}>
                                 <a>
-                                    <img src={category.attributes.cover.data.attributes.url} />
                                     <Heading as="h6" size="small">
-                                        {category.attributes.name}
+                                        {autor.attributes.name}
                                     </Heading>
                                 </a>
                             </Link>

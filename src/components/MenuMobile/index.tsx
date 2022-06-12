@@ -5,16 +5,17 @@ import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
 import { useState } from 'react';
 import { InputSearch } from '../InputSearch';
 import { useQuery } from '../../hooks/useQuery';
-import { GRAPHQL_CATEGORIES_QUERY } from '../../graphql/queries';
+import { GRAPHQL_CATEGORIES_AND_AUTHORS_QUERY } from '../../graphql/queries';
 import { TCategory } from '../../shared-typed/category';
 import { Accordion } from './Accordion';
+import { TAuthor } from '../../shared-typed/author';
 
 export function MenuMobile() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const { data, isLoading } = useQuery<{ categories: { data: TCategory[] } }>({
-        query: GRAPHQL_CATEGORIES_QUERY,
+    const { data, isLoading } = useQuery<{ categories: { data: TCategory[] }; autors: { data: TAuthor[] } }>({
+        query: GRAPHQL_CATEGORIES_AND_AUTHORS_QUERY,
     });
-    console.log(data?.categories.data);
+    console.log('data', data);
     const variants: Variants = {
         open: {
             y: 0,
@@ -53,7 +54,7 @@ export function MenuMobile() {
                             }}
                         >
                             <InputSearch />
-                            {data && <Accordion categories={data.categories.data} />}
+                            {data && <Accordion categories={data.categories.data} autors={data.autors.data} />}
                         </S.Content>
                     )}
                 </MainContainer>
