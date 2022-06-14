@@ -17,7 +17,7 @@ export const PaginationProvider = ({ children }: { children: ReactNode }) => {
     const { data, isLoading } = useQuery<StrapiPostAndSettings>({ variables: { pageSize: 6, page: actualPage + 1 } });
     return (
         <PaginationContext.Provider value={{ actualPage, setActualPage, data, isLoading }}>
-            {children}ssss
+            {children}
         </PaginationContext.Provider>
     );
 };

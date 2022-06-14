@@ -27,17 +27,25 @@ export const WrapperClose = styled.div`
 `;
 
 export const Content = styled(motion.div)`
-    padding: 4rem 0rem;
-    input {
-        width: 100%;
-    }
     & > div {
-        margin: 2rem 0rem;
+        padding: 4rem 1rem;
+        input {
+            width: 100%;
+        }
+        & > div > div {
+            margin: 2rem 0rem;
+        }
     }
 `;
 
+export const ToggleTheme = styled.div`
+    position: absolute;
+    top: 0;
+    right: 4rem;
+`;
 export const ButtonToggle = styled.div<{ isMenuOpened: boolean }>`
-    display: none;
+    display: block;
+    cursor: pointer;
     svg {
         font-size: 5rem;
         transition: all 0.3s;

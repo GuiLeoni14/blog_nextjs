@@ -24,6 +24,11 @@ export const Container = styled.header`
             : css`
                   background: rgba(0, 0, 0, 0.35);
               `}
+    @media ${({ theme }) => theme.media.lteMedium} {
+        & > div > div.search {
+            display: none;
+        }
+    }
 `;
 
 export const Logo = styled.div`

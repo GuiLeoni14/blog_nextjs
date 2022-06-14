@@ -10,9 +10,14 @@ export const Container = styled.div`
     }
     .MuiAccordionSummary-root {
         background-color: ${({ theme }) => theme.colors.primary};
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
     div.MuiAccordionDetails-root {
         background-color: ${({ theme }) => theme.colors.background};
+    }
+    @media ${({ theme }) => theme.media.lteMedium} {
+        flex-direction: column;
+        gap: 0rem;
     }
 `;
 
@@ -27,7 +32,7 @@ export const Title = styled.div`
 
 export const Content = styled.div`
     & > a + a {
-        margin-top: 1rem;
+        margin-top: 1rem !important;
         padding-top: 1rem;
         border-top: 0.1rem solid ${({ theme }) => theme.colors.second};
     }

@@ -57,7 +57,7 @@ export function Accordion({ categories, autors }: TAccordionProps) {
                 <AccordionDetails>
                     <S.Content>
                         {autors.map((autor) => (
-                            <Link key={autor.id} href={`/autor/${autor.attributes.slug}`}>
+                            <Link key={autor.id} href={`/author/${autor.attributes.slug}`}>
                                 <a>
                                     <Heading as="h6" size="small">
                                         {autor.attributes.name}

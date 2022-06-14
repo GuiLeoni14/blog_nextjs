@@ -21,8 +21,8 @@ export function Header({ setting }: { setting: { data: TSettingsStrapi } }) {
                     </a>
                 </Link>
                 <InputSearch />
-                <MenuMobile />
                 <ButtonToggleTheme />
+                <MenuMobile />
             </MainContainer>
         </S.Container>
     );

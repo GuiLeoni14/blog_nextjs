@@ -41,23 +41,25 @@ export function MenuMobile() {
                 animate={isOpenMenu ? 'open' : 'close'}
             >
                 <S.WrapperClose onClick={() => setIsOpenMenu((state) => !state)} />
-                <MainContainer>
-                    {isLoading ? (
-                        <p>carregando</p>
-                    ) : (
-                        <S.Content
-                            variants={variants}
-                            animate={isOpenMenu ? 'open' : 'close'}
-                            transition={{
-                                duration: 1,
-                                times: [0, 0.8],
-                            }}
-                        >
-                            <InputSearch />
-                            {data && <Accordion categories={data.categories.data} autors={data.autors.data} />}
-                        </S.Content>
-                    )}
-                </MainContainer>
+                <S.Content
+                    variants={variants}
+                    animate={isOpenMenu ? 'open' : 'close'}
+                    transition={{
+                        duration: 1,
+                        times: [0, 0.8],
+                    }}
+                >
+                    <MainContainer>
+                        {isLoading ? (
+                            <p>carregando</p>
+                        ) : (
+                            <>
+                                <InputSearch />
+                                {data && <Accordion categories={data.categories.data} autors={data.autors.data} />}
+                            </>
+                        )}
+                    </MainContainer>
+                </S.Content>
             </S.Container>
         </>
     );
