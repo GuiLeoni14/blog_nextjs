@@ -5,7 +5,6 @@ import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { useMemo } from 'react';
 import { SkeletonCardPost } from '../../components/Skeleton';
-
 export default function CategoryPage({ posts, setting, variables }: StrapiPostAndSettings) {
     const router = useRouter();
     let categoryName = '';

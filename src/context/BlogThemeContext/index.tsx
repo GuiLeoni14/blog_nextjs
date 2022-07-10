@@ -27,8 +27,8 @@ export function BlogThemeProvider({ children }: { children: ReactNode }) {
     }, [setTheme, theme]);
 
     return (
-        <BlogThemeContext.Provider value={{ toggleTheme }}>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        </BlogThemeContext.Provider>
+        <ThemeProvider theme={theme}>
+            <BlogThemeContext.Provider value={{ toggleTheme }}>{children}</BlogThemeContext.Provider>
+        </ThemeProvider>
     );
 }
