@@ -3,7 +3,7 @@ import { TAuthor } from '../../shared-typed/author';
 import { TCategory } from '../../shared-typed/category';
 import { DatePost } from '../DatePost';
 import { SlugCategory } from '../Slug';
-import * as Styled from './styles';
+import * as S from './styles';
 
 export type TArticleMetaProps = {
     createdAt: string;
@@ -13,7 +13,7 @@ export type TArticleMetaProps = {
 
 export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps) => {
     return (
-        <Styled.Wrapper>
+        <S.Wrapper>
             <div>
                 {autor && typeof autor !== 'undefined' && (
                     <>
@@ -40,6 +40,6 @@ export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps)
                     </>
                 )}
             </div>
-        </Styled.Wrapper>
+        </S.Wrapper>
     );
 };

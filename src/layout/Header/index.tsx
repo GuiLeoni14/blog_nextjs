@@ -1,4 +1,7 @@
+import { LinearProgress } from '@mui/material';
+import { useTransform, useViewportScroll } from 'framer-motion';
 import Link from 'next/link';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { ButtonToggleTheme } from '../../components/ButtonToggleTheme';
 import { InputSearch } from '../../components/InputSearch';
 import { MenuMobile } from '../../components/MenuMobile';
@@ -7,6 +10,14 @@ import { MainContainer } from '../../styles/container';
 import * as S from './styles';
 
 export function Header({ setting }: { setting: { data: TSettingsStrapi } }) {
+    const { scrollYProgress } = useViewportScroll();
+    const [percentualScroll, setPercentualScroll] = useState<number>(0);
+    useEffect(() => {
+        scrollYProgress.onChange((state) => setPercentualScroll(Number(state.toFixed(2))));
+    }, [scrollYProgress]);
+    useEffect(() => {
+        console.log(percentualScroll);
+    }, [percentualScroll]);
     return (
         <S.Container>
             <MainContainer>
@@ -24,6 +35,11 @@ export function Header({ setting }: { setting: { data: TSettingsStrapi } }) {
                 <ButtonToggleTheme />
                 <MenuMobile />
             </MainContainer>
+            {percentualScroll >= 0 && (
+                <S.Progress>
+                    <LinearProgress variant="determinate" value={percentualScroll * 100} />
+                </S.Progress>
+            )}
         </S.Container>
     );
 }

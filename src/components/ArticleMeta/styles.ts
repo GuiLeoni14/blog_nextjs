@@ -6,9 +6,10 @@ export const Wrapper = styled.div`
         color: ${theme.colors.darkerGray};
         font-style: italic;
         & > div {
+            display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 0.8rem;
-            display: flex;
         }
         a {
             color: ${theme.colors.second};
