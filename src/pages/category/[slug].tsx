@@ -18,12 +18,11 @@ export default function CategoryPage({ posts, setting, variables }: StrapiPostAn
     }, [posts, router.query.slug]);
 
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
+    const titleHead = `Category: ${categoryName} - ${setting.data.attributes.blogName}`;
     return (
         <>
             <Head>
-                <title>
-                    Category: {categoryName} - {setting.data.attributes.blogName}
-                </title>
+                <title>{titleHead}</title>
             </Head>
             <PostsTemplate posts={posts} setting={setting} variables={variables} />
         </>

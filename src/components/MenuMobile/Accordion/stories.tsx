@@ -11,7 +11,7 @@ export default {
 export const Template: Story = () => {
     return (
         <div>
-            <Accordion categories={mock.categories} autors={mock.autors} />
+            <Accordion categories={{ data: mock.categories }} autors={{ data: mock.autors }} />
         </div>
     );
 };

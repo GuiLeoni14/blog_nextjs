@@ -558,7 +558,7 @@ export type Post = {
     autor?: Maybe<AutorEntityResponse>;
     categories?: Maybe<CategoryRelationResponseCollection>;
     content: Scalars['String'];
-    cover?: Maybe<UploadFileEntityResponse>;
+    cover: UploadFileEntityResponse;
     createdAt?: Maybe<Scalars['DateTime']>;
     excerpt: Scalars['String'];
     publishedAt?: Maybe<Scalars['DateTime']>;
@@ -758,7 +758,7 @@ export type ResponseCollectionMeta = {
 export type Setting = {
     __typename?: 'Setting';
     blogDescription: Scalars['String'];
-    blogLogo?: Maybe<UploadFileEntityResponse>;
+    blogLogo: UploadFileEntityResponse;
     blogName: Scalars['String'];
     createdAt?: Maybe<Scalars['DateTime']>;
     menuLink?: Maybe<Array<Maybe<ComponentMenuMenuLink>>>;
@@ -1169,21 +1169,45 @@ export type ImageFragment = { __typename?: 'UploadFile'; alternativeText?: strin
 
 export type CoverFragment = {
     __typename?: 'Post';
-    cover?: {
+    cover: {
         __typename?: 'UploadFileEntityResponse';
         data?: {
             __typename?: 'UploadFileEntity';
             id?: string | null;
             attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
         } | null;
-    } | null;
+    };
 };
 
 export type TagFragment = { __typename?: 'Tag'; name: string; slug: string };
 
 export type AuthorFragment = { __typename?: 'Autor'; name: string; slug: string };
 
-export type CategoryFragment = { __typename?: 'Category'; name: string; slug: string };
+export type CoverCategoryFragment = {
+    __typename?: 'Category';
+    cover: {
+        __typename?: 'UploadFileEntityResponse';
+        data?: {
+            __typename?: 'UploadFileEntity';
+            id?: string | null;
+            attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
+        } | null;
+    };
+};
+
+export type CategoryFragment = {
+    __typename?: 'Category';
+    name: string;
+    slug: string;
+    cover: {
+        __typename?: 'UploadFileEntityResponse';
+        data?: {
+            __typename?: 'UploadFileEntity';
+            id?: string | null;
+            attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
+        } | null;
+    };
+};
 
 export type TagsFragment = {
     __typename?: 'Post';
@@ -1216,7 +1240,19 @@ export type CategoriesFragment = {
         data: Array<{
             __typename?: 'CategoryEntity';
             id?: string | null;
-            attributes?: { __typename?: 'Category'; name: string; slug: string } | null;
+            attributes?: {
+                __typename?: 'Category';
+                name: string;
+                slug: string;
+                cover: {
+                    __typename?: 'UploadFileEntityResponse';
+                    data?: {
+                        __typename?: 'UploadFileEntity';
+                        id?: string | null;
+                        attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
+                    } | null;
+                };
+            } | null;
         }>;
     } | null;
 };
@@ -1237,20 +1273,32 @@ export type PostFragment = {
     content: string;
     allowComments: boolean;
     createdAt?: any | null;
-    cover?: {
+    cover: {
         __typename?: 'UploadFileEntityResponse';
         data?: {
             __typename?: 'UploadFileEntity';
             id?: string | null;
             attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
         } | null;
-    } | null;
+    };
     categories?: {
         __typename?: 'CategoryRelationResponseCollection';
         data: Array<{
             __typename?: 'CategoryEntity';
             id?: string | null;
-            attributes?: { __typename?: 'Category'; name: string; slug: string } | null;
+            attributes?: {
+                __typename?: 'Category';
+                name: string;
+                slug: string;
+                cover: {
+                    __typename?: 'UploadFileEntityResponse';
+                    data?: {
+                        __typename?: 'UploadFileEntity';
+                        id?: string | null;
+                        attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
+                    } | null;
+                };
+            } | null;
         }>;
     } | null;
     tags?: {
@@ -1276,14 +1324,14 @@ export type SettingsFragment = {
     blogName: string;
     blogDescription: string;
     text: string;
-    blogLogo?: {
+    blogLogo: {
         __typename?: 'UploadFileEntityResponse';
         data?: {
             __typename?: 'UploadFileEntity';
             id?: string | null;
             attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
         } | null;
-    } | null;
+    };
     menuLink?: Array<{
         __typename?: 'ComponentMenuMenuLink';
         id: string;
@@ -1336,7 +1384,19 @@ export type Get_Categories_And_AuthorsQuery = {
         data: Array<{
             __typename?: 'CategoryEntity';
             id?: string | null;
-            attributes?: { __typename?: 'Category'; name: string; slug: string } | null;
+            attributes?: {
+                __typename?: 'Category';
+                name: string;
+                slug: string;
+                cover: {
+                    __typename?: 'UploadFileEntityResponse';
+                    data?: {
+                        __typename?: 'UploadFileEntity';
+                        id?: string | null;
+                        attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
+                    } | null;
+                };
+            } | null;
         }>;
     } | null;
     autors?: {
@@ -1364,7 +1424,19 @@ export type Get_CategoriesQuery = {
         data: Array<{
             __typename?: 'CategoryEntity';
             id?: string | null;
-            attributes?: { __typename?: 'Category'; name: string; slug: string } | null;
+            attributes?: {
+                __typename?: 'Category';
+                name: string;
+                slug: string;
+                cover: {
+                    __typename?: 'UploadFileEntityResponse';
+                    data?: {
+                        __typename?: 'UploadFileEntity';
+                        id?: string | null;
+                        attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
+                    } | null;
+                };
+            } | null;
         }>;
     } | null;
 };
@@ -1394,14 +1466,14 @@ export type Get_Posts_And_SettingsQuery = {
                 blogName: string;
                 blogDescription: string;
                 text: string;
-                blogLogo?: {
+                blogLogo: {
                     __typename?: 'UploadFileEntityResponse';
                     data?: {
                         __typename?: 'UploadFileEntity';
                         id?: string | null;
                         attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
                     } | null;
-                } | null;
+                };
                 menuLink?: Array<{
                     __typename?: 'ComponentMenuMenuLink';
                     id: string;
@@ -1425,20 +1497,36 @@ export type Get_Posts_And_SettingsQuery = {
                 content: string;
                 allowComments: boolean;
                 createdAt?: any | null;
-                cover?: {
+                cover: {
                     __typename?: 'UploadFileEntityResponse';
                     data?: {
                         __typename?: 'UploadFileEntity';
                         id?: string | null;
                         attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
                     } | null;
-                } | null;
+                };
                 categories?: {
                     __typename?: 'CategoryRelationResponseCollection';
                     data: Array<{
                         __typename?: 'CategoryEntity';
                         id?: string | null;
-                        attributes?: { __typename?: 'Category'; name: string; slug: string } | null;
+                        attributes?: {
+                            __typename?: 'Category';
+                            name: string;
+                            slug: string;
+                            cover: {
+                                __typename?: 'UploadFileEntityResponse';
+                                data?: {
+                                    __typename?: 'UploadFileEntity';
+                                    id?: string | null;
+                                    attributes?: {
+                                        __typename?: 'UploadFile';
+                                        alternativeText?: string | null;
+                                        url: string;
+                                    } | null;
+                                } | null;
+                            };
+                        } | null;
                     }>;
                 } | null;
                 tags?: {
@@ -1485,11 +1573,26 @@ export const CoverFragmentDoc = gql`
     }
     ${ImageFragmentDoc}
 `;
+export const CoverCategoryFragmentDoc = gql`
+    fragment coverCategory on Category {
+        cover {
+            data {
+                id
+                attributes {
+                    ...image
+                }
+            }
+        }
+    }
+    ${ImageFragmentDoc}
+`;
 export const CategoryFragmentDoc = gql`
     fragment category on Category {
         name
         slug
+        ...coverCategory
     }
+    ${CoverCategoryFragmentDoc}
 `;
 export const CategoriesFragmentDoc = gql`
     fragment categories on Post {

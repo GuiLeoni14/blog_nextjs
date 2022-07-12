@@ -23,10 +23,20 @@ fragment author on Autor {
     name
     slug
 }
-
+fragment coverCategory on Category {
+    cover {
+        data {
+            id
+            attributes {
+                ...image
+            }
+        }
+    }
+}
 fragment category on Category {
     name
     slug
+    ...coverCategory
 }
 
 fragment tags on Post {
