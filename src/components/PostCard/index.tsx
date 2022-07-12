@@ -6,10 +6,13 @@ import { ContainerSlug, SlugCategory } from '../Slug';
 import * as S from './styles';
 
 export type TPostCardProps = TPostStrapi;
-
 export function PostCard({ attributes: { cover, slug, title, excerpt, categories } }: TPostCardProps) {
+    const variants = {
+        hidden: { opacity: 0 },
+        show: { opacity: 1 },
+    };
     return (
-        <S.Container>
+        <S.Container variants={variants}>
             <Link href={`/post/${slug}`}>
                 <a>
                     <S.Image>

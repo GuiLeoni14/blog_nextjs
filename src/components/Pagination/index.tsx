@@ -1,47 +1,69 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import * as S from './styles';
 import { TMetaPagination } from '../../utils/loadPosts';
 import { usePagination } from '../../hooks/usePagination';
+import { toast } from 'react-toastify';
+
 export function Pagination({ pagination: { pageCount } }: TMetaPagination) {
     const { actualPage, setActualPage, isLoading } = usePagination();
+    const handleClickNext = () => {
+        if (isLoading) {
+            toast.warning('Espere um minuto estamos buscando mais posts!', {
+                position: 'top-center',
+            });
+            return;
+        }
+        if (actualPage + 1 === pageCount) {
+            toast.warning('Ops!, sem posts para carregar!', {
+                position: 'top-center',
+            });
+            return;
+        }
+        setActualPage(actualPage + 1);
+    };
+    const handleClickPrev = () => {
+        if (isLoading) {
+            toast.warning('Espere um minuto estamos buscando mais posts', {
+                position: 'top-center',
+            });
+            return;
+        }
+        if (actualPage <= 0) {
+            toast.warning('Ei!! estamos na primeira página.', {
+                position: 'top-center',
+            });
+            return;
+        }
+        setActualPage(actualPage - 1);
+    };
     return (
-        <S.PaginationContainer disabled={Boolean(isLoading)}>
-            <Swiper
-                slidesPerView={5}
-                navigation={true}
-                breakpoints={{
-                    0: {
-                        slidesPerView: 1,
-                    },
-                    600: {
-                        slidesPerView: 2,
-                    },
-                    768: {
-                        slidesPerView: 5,
-                    },
+        <S.PaginationContainer>
+            <S.ButtonPrev
+                onClick={handleClickPrev}
+                className={actualPage <= 0 || isLoading ? 'disabled' : ''}
+                whileHover={{
+                    scale: 1.1,
                 }}
-                pagination={{
-                    clickable: true,
+                whileTap={{
+                    scale: 0.9,
                 }}
-                modules={[Navigation]}
             >
-                {Array(pageCount)
-                    .fill('')
-                    .map((_, index) => (
-                        <SwiperSlide key={index}>
-                            <S.PaginationNumber
-                                onClick={() => setActualPage(index)}
-                                className={index === actualPage ? 'active' : ''}
-                            >
-                                {index + 1}
-                            </S.PaginationNumber>
-                        </SwiperSlide>
-                    ))}
-            </Swiper>
+                Anterior
+            </S.ButtonPrev>
+            <S.ButtonNext
+                onClick={handleClickNext}
+                className={actualPage + 1 === pageCount || isLoading ? 'disabled' : ''}
+                whileHover={{
+                    scale: 1.1,
+                }}
+                whileTap={{
+                    scale: 0.9,
+                }}
+            >
+                Próxima
+            </S.ButtonNext>
         </S.PaginationContainer>
     );
 }

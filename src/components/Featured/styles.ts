@@ -14,6 +14,10 @@ export const Content = styled.div`
     align-items: flex-start;
     justify-content: center;
     gap: 4rem;
+    @media ${({ theme }) => theme.media.lteMedium} {
+        flex-direction: column;
+        align-items: center;
+    } ;
 `;
 
 export const ButtonMorePosts = styled.button`
@@ -36,9 +40,12 @@ export const Right = styled.div`
     flex: 1;
     width: 100%;
     max-width: 45rem;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    height: 100%;
+    @media ${({ theme }) => theme.media.lteMedium} {
+        max-width: 100%;
+    } ;
 `;

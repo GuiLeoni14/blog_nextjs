@@ -1,0 +1,10 @@
+query GET_CATEGORIES($sort: [String] = "createdAt:desc", $start: Int, $limit: Int, $pageSize: Int, $page: Int) {
+    categories(pagination: { start: $start, limit: $limit, pageSize: $pageSize, page: $page }, sort: $sort) {
+        data {
+            id
+            attributes {
+                ...category
+            }
+        }
+    }
+}

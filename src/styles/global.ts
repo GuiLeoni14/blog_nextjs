@@ -15,6 +15,7 @@ export default createGlobalStyle`
         color: ${({ theme: { colors } }) => colors.text};
     }
     body{
+        transition: background .3s;
         background-color: ${({ theme: { colors } }) => colors.background};
         color: ${(props) => props.theme.colors.text};
     }
@@ -32,11 +33,20 @@ export default createGlobalStyle`
     html{
         font-size: 62.5%;
         scroll-behavior: smooth;
+        @media ${({ theme }) => theme.media.lteMedium} {
+            font-size: 50%;
+        }
     }
     section{
         width: 100%;
     }
     button {
         cursor: pointer;
+    }
+    .Toastify__toast--warning {
+        background-color: ${({ theme }) => theme.colors.background};
+        .Toastify__progress-bar{
+            background-color: ${({ theme }) => theme.colors.primary};
+        }
     }
 `;

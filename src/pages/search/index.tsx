@@ -8,12 +8,11 @@ import { SkeletonCardPost } from '../../components/Skeleton';
 export default function SearchPage({ posts, setting, variables }: StrapiPostAndSettings) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
+    const titleHead = `Pesquisa: ${router.query.q} - ${setting.data.attributes.blogName}`;
     return (
         <>
             <Head>
-                <title>
-                    Pesquisa: {router.query.q} - {setting.data.attributes.blogName}
-                </title>
+                <title>{titleHead}</title>
             </Head>
             <PostsTemplate posts={posts} setting={setting} variables={variables} />
         </>
