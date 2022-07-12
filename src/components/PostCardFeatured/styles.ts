@@ -32,7 +32,7 @@ export const Right = styled.div`
 `;
 
 export const Image = styled.div`
-    width: 100%;
+    width: 14rem;
     height: 10rem;
     border-radius: 1rem;
     overflow: hidden;

@@ -14,12 +14,11 @@ export default function TagPage({ posts, setting, variables }: StrapiPostAndSett
             .attributes.name;
     }
     if (router.isFallback) return <p>Carregando...</p>;
+    const titleHead = `Tag: ${tagName} - ${setting.data.attributes.blogName}`;
     return (
         <>
             <Head>
-                <title>
-                    Tag: {tagName} - {setting.data.attributes.blogName}
-                </title>
+                <title>{titleHead}</title>
             </Head>
             <PostsTemplate posts={posts} setting={setting} variables={variables} />
         </>

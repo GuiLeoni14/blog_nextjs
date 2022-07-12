@@ -25,8 +25,9 @@ export default {
         xhuge: '6.4rem',
     },
     media: {
+        lteLarge: '(max-width: 991px)',
         lteMedium: '(max-width: 768px)',
-        lteSmall: '(max-width: 360px)',
+        lteSmall: '(max-width: 440px)',
     },
     sizes: {
         max: '96rem',

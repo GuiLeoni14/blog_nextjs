@@ -47,6 +47,7 @@ declare module 'styled-components' {
             xhuge: string;
         };
         media: {
+            lteLarge: string;
             lteMedium: string;
             lteSmall: string;
         };

@@ -38,7 +38,7 @@ export function InputSearch() {
         return () => clearTimeout(inputTimeout.current as NodeJS.Timeout);
     }, [searchValue, router]);
     return (
-        <S.Container>
+        <S.Container className="search">
             <S.SearchInput
                 type="search"
                 placeholder="pesquisar por posts"

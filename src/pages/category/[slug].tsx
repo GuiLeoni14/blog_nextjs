@@ -5,7 +5,6 @@ import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { useMemo } from 'react';
 import { SkeletonCardPost } from '../../components/Skeleton';
-
 export default function CategoryPage({ posts, setting, variables }: StrapiPostAndSettings) {
     const router = useRouter();
     let categoryName = '';
@@ -19,12 +18,11 @@ export default function CategoryPage({ posts, setting, variables }: StrapiPostAn
     }, [posts, router.query.slug]);
 
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
+    const titleHead = `Category: ${categoryName} - ${setting.data.attributes.blogName}`;
     return (
         <>
             <Head>
-                <title>
-                    Category: {categoryName} - {setting.data.attributes.blogName}
-                </title>
+                <title>{titleHead}</title>
             </Head>
             <PostsTemplate posts={posts} setting={setting} variables={variables} />
         </>

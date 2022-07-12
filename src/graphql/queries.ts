@@ -48,3 +48,98 @@ export const GRAPHQL_QUERY = gql`
         }
     }
 `;
+
+export const GRAPHQL_CATEGORIES_QUERY = gql`
+    fragment image on UploadFile {
+        alternativeText
+        url
+    }
+    fragment coverCategory on Category {
+        cover {
+            data {
+                id
+                attributes {
+                    ...image
+                }
+            }
+        }
+    }
+    fragment category on Category {
+        name
+        slug
+        ...coverCategory
+    }
+    query GET_CATEGORIES($sort: [String] = "createdAt:desc", $start: Int, $limit: Int, $pageSize: Int, $page: Int) {
+        categories(pagination: { start: $start, limit: $limit, pageSize: $pageSize, page: $page }, sort: $sort) {
+            data {
+                id
+                attributes {
+                    ...category
+                }
+            }
+        }
+    }
+`;
+
+export const GRAPHQL_AUTHORS_QUERY = gql`
+    query GET_AUTHORS($sort: [String] = "createdAt:desc", $start: Int, $limit: Int, $pageSize: Int, $page: Int) {
+        autors(pagination: { start: $start, limit: $limit, pageSize: $pageSize, page: $page }, sort: $sort) {
+            data {
+                id
+                attributes {
+                    ...author
+                }
+            }
+        }
+    }
+`;
+
+export const GRAPHQL_CATEGORIES_AND_AUTHORS_QUERY = gql`
+    fragment author on Autor {
+        name
+        slug
+    }
+    fragment image on UploadFile {
+        alternativeText
+        url
+    }
+    fragment coverCategory on Category {
+        cover {
+            data {
+                id
+                attributes {
+                    ...image
+                }
+            }
+        }
+    }
+    fragment category on Category {
+        name
+        slug
+        ...coverCategory
+    }
+    query GET_CATEGORIES_AND_AUTHORS(
+        $sort: [String] = "createdAt:desc"
+        $start: Int
+        $limit: Int
+        $pageSize: Int
+        $page: Int
+    ) {
+        categories(pagination: { start: $start, limit: $limit, pageSize: $pageSize, page: $page }, sort: $sort) {
+            data {
+                id
+                attributes {
+                    ...category
+                }
+            }
+        }
+        autors(pagination: { start: $start, limit: $limit, pageSize: $pageSize, page: $page }, sort: $sort) {
+            data {
+                id
+                attributes {
+                    ...author
+                }
+            }
+        }
+    }
+`;

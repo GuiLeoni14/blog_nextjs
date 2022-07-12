@@ -1,12 +1,11 @@
-import { request } from 'graphql-request';
-import { config } from '../config';
-import { GRAPHQL_QUERY } from '../graphql/queries';
+import { Get_Posts_And_SettingsDocument } from '../graphql/generated';
 import { TAuthor } from '../shared-typed/author';
 import { TCategory } from '../shared-typed/category';
 import { TMetadata } from '../shared-typed/metadata';
 import { TPostStrapi } from '../shared-typed/post-strapi';
 import { TSettingsStrapi } from '../shared-typed/settings-strapi';
 import { TStrapiImage } from '../shared-typed/strapi-image';
+import { client } from './apollo';
 
 export type TLoadPostsVariables = {
     categorySlug?: { contains: string };
@@ -62,10 +61,12 @@ export const defaultLoadPostsVariables: TLoadPostsVariables = {
 export const loadPosts = async (
     variables: TLoadPostsVariables = { start: 0, limit: 6 },
 ): Promise<StrapiPostAndSettings> => {
-    const data = await request(config.graphql_URL, GRAPHQL_QUERY, {
-        ...defaultLoadPostsVariables,
-        ...variables,
+    const { data } = await client.query({
+        query: Get_Posts_And_SettingsDocument,
+        variables: {
+            ...defaultLoadPostsVariables,
+            ...variables,
+        },
     });
-
     return data;
 };

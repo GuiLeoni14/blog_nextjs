@@ -1,12 +1,12 @@
 import Link from 'next/link';
+import { ButtonToggleTheme } from '../../components/ButtonToggleTheme';
 import { InputSearch } from '../../components/InputSearch';
-import { useBlogTheme } from '../../hooks/useBlogTheme';
+import { MenuMobile } from '../../components/MenuMobile';
 import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
 import { MainContainer } from '../../styles/container';
 import * as S from './styles';
 
 export function Header({ setting }: { setting: { data: TSettingsStrapi } }) {
-    const { toggleTheme } = useBlogTheme();
     return (
         <S.Container>
             <MainContainer>
@@ -21,7 +21,8 @@ export function Header({ setting }: { setting: { data: TSettingsStrapi } }) {
                     </a>
                 </Link>
                 <InputSearch />
-                <button onClick={toggleTheme}>Alterar tema</button>
+                <ButtonToggleTheme />
+                <MenuMobile />
             </MainContainer>
         </S.Container>
     );

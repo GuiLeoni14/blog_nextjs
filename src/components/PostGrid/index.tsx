@@ -6,9 +6,21 @@ export type TPostGridProps = {
     posts: TPostStrapi[];
 };
 function PostGrid({ posts }: TPostGridProps) {
+    const variants = {
+        show: {
+            transition: {
+                staggerChildren: 0.1,
+            },
+        },
+    };
     return (
         <S.Container>
-            <S.Grid>
+            <S.Grid
+                variants={variants}
+                initial="hidden"
+                animate="show"
+                style={{ minHeight: posts.length > 3 ? '90rem' : '' }}
+            >
                 {posts.map((post) => (
                     <PostCard key={post.id} {...post} />
                 ))}
