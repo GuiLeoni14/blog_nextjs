@@ -4,17 +4,12 @@ import * as S from './styles';
 import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
 import { useState } from 'react';
 import { InputSearch } from '../InputSearch';
-import { useQuery } from '../../hooks/useQuery';
-import { GRAPHQL_CATEGORIES_AND_AUTHORS_QUERY } from '../../graphql/queries';
-import { TCategory } from '../../shared-typed/category';
 import { Accordion } from './Accordion';
-import { TAuthor } from '../../shared-typed/author';
+import { useGet_Categories_And_AuthorsQuery } from '../../graphql/generated';
 
 export function MenuMobile() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const { data, isLoading } = useQuery<{ categories: { data: TCategory[] }; autors: { data: TAuthor[] } }>({
-        query: GRAPHQL_CATEGORIES_AND_AUTHORS_QUERY,
-    });
+    const { data, loading } = useGet_Categories_And_AuthorsQuery();
     const variants: Variants = {
         open: {
             y: 0,
@@ -49,12 +44,12 @@ export function MenuMobile() {
                     }}
                 >
                     <MainContainer>
-                        {isLoading ? (
+                        {loading ? (
                             <p>carregando</p>
                         ) : (
                             <>
                                 <InputSearch />
-                                {data && <Accordion categories={data.categories.data} autors={data.autors.data} />}
+                                {data && <Accordion categories={data.categories} autors={data.autors} />}
                             </>
                         )}
                     </MainContainer>

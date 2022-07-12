@@ -8,12 +8,11 @@ import { SkeletonCardPost } from '../../components/Skeleton';
 export default function AuthorPage({ posts, setting, variables }: StrapiPostAndSettings) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
+    const titleHead = `Author: ${posts.data[0].attributes.autor.data.attributes.name} - ${setting.data.attributes.blogName}`;
     return (
         <>
             <Head>
-                <title>
-                    Author: {posts.data[0].attributes.autor.data.attributes.name} - {setting.data.attributes.blogName}
-                </title>
+                <title>{titleHead}</title>
             </Head>
             <PostsTemplate posts={posts} setting={setting} variables={variables} />
         </>

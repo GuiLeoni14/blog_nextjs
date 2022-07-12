@@ -6,11 +6,12 @@ import * as S from './styles';
 import { TCategory } from '../../../shared-typed/category';
 import Link from 'next/link';
 import { TAuthor } from '../../../shared-typed/author';
+import { Get_Categories_And_AuthorsQuery } from '../../../graphql/generated';
 export type TAccordionProps = {
     categories: TCategory[];
     autors: TAuthor[];
 };
-export function Accordion({ categories, autors }: TAccordionProps) {
+export function Accordion({ autors, categories }: Get_Categories_And_AuthorsQuery) {
     return (
         <S.Container>
             <MuiAccordion elevation={0} disableGutters>
@@ -28,12 +29,12 @@ export function Accordion({ categories, autors }: TAccordionProps) {
                 </AccordionSummary>
                 <AccordionDetails>
                     <S.Content>
-                        {categories.map((category) => (
-                            <Link key={category.id} href={`/category/${category.attributes.slug}`} passHref>
+                        {categories?.data.map((category) => (
+                            <Link key={category.id} href={`/category/${category.attributes?.slug}`} passHref>
                                 <a>
-                                    <img src={category.attributes.cover.data.attributes.url} />
+                                    <img src={category.attributes?.cover?.data?.attributes?.url} />
                                     <Heading as="h6" size="small">
-                                        {category.attributes.name}
+                                        {category?.attributes?.name}
                                     </Heading>
                                 </a>
                             </Link>
@@ -56,11 +57,11 @@ export function Accordion({ categories, autors }: TAccordionProps) {
                 </AccordionSummary>
                 <AccordionDetails>
                     <S.Content>
-                        {autors.map((autor) => (
-                            <Link key={autor.id} href={`/author/${autor.attributes.slug}`} passHref>
+                        {autors?.data.map((autor) => (
+                            <Link key={autor.id} href={`/author/${autor.attributes?.slug}`} passHref>
                                 <a>
                                     <Heading as="h6" size="small">
-                                        {autor.attributes.name}
+                                        {autor.attributes?.name}
                                     </Heading>
                                 </a>
                             </Link>
