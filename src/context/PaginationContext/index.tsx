@@ -7,7 +7,7 @@ export type TPaginationContext = {
     actualPage: number;
     setActualPage: (page: number) => void;
     data: StrapiPostAndSettings | undefined;
-    isLoading: any;
+    isLoading: boolean;
 };
 export const PaginationContext = createContext({} as TPaginationContext);
 

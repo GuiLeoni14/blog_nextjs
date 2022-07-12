@@ -24,7 +24,7 @@ export function PostTemplate({ setting, post, posts_related }: TPostTemplateProp
                 allowComments={post.attributes.allowComments}
             />
             <S.ContentRelated>
-                <h4>Continue lendo</h4>
+                {posts_related && <h4>Continue lendo</h4>}
                 {posts_related && <Slider posts={posts_related} />}
             </S.ContentRelated>
         </BaseTemplate>

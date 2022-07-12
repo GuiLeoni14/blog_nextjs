@@ -5,15 +5,19 @@ import GlobalStyle from '../styles/global';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { ApolloProvider } from '@apollo/client';
+import { client } from '../utils/apollo';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
     return (
         <BlogThemeProvider>
             <PaginationProvider>
-                <ToastContainer limit={5} style={{ fontSize: '1.4rem' }} />
-                <GlobalStyle />
-                <Component {...pageProps} key={router.asPath} />
+                <ApolloProvider client={client}>
+                    <ToastContainer limit={5} style={{ fontSize: '1.4rem' }} />
+                    <GlobalStyle />
+                    <Component {...pageProps} key={router.asPath} />
+                </ApolloProvider>
             </PaginationProvider>
         </BlogThemeProvider>
     );

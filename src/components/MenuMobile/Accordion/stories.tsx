@@ -7,7 +7,7 @@ export default {
     component: Accordion,
     args: mock,
 };
-console.log(mock);
+
 export const Template: Story = () => {
     return (
         <div>

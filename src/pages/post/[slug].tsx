@@ -13,13 +13,11 @@ type TPostStaticProps = StrapiPostAndSettings & {
 export default function PostPage({ posts, setting, posts_related }: TPostStaticProps) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
+    const titleHead = `${posts.data[0].attributes.title} - ${setting.data.attributes.blogName}`;
     return (
         <>
             <Head>
-                <title>
-                    {posts.data[0].attributes.title} - {setting.data.attributes.blogName}
-                </title>
-                meta
+                <title>{titleHead}</title>
                 <meta name="description" content={posts.data[0].attributes.excerpt} />
             </Head>
             <PostTemplate post={posts.data[0]} setting={setting} posts_related={posts_related} />
@@ -53,6 +51,7 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
             data = await loadPosts({ postSlug: { contains: context.params.slug as string } });
         }
     } catch (error) {
+        console.log(error);
         data = null;
     }
     if (!data || !data.posts || !data.posts.data.length) {
@@ -66,7 +65,6 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
                 limit: 6,
             });
         } catch (error) {
-            //console.log(error);
             posts_related = null;
         }
     }

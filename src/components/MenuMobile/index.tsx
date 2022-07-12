@@ -15,7 +15,6 @@ export function MenuMobile() {
     const { data, isLoading } = useQuery<{ categories: { data: TCategory[] }; autors: { data: TAuthor[] } }>({
         query: GRAPHQL_CATEGORIES_AND_AUTHORS_QUERY,
     });
-    console.log('data', data);
     const variants: Variants = {
         open: {
             y: 0,
