@@ -1,0 +1,24 @@
+query GET_PAGE_CONTENT_TEXT {
+    setting {
+        data {
+            id
+            attributes {
+                ...settings
+            }
+        }
+    }
+    footer {
+        data {
+            id
+            attributes {
+                Author {
+                    id
+                    description
+                    title
+                }
+                languagesUsing
+                lastText
+            }
+        }
+    }
+}

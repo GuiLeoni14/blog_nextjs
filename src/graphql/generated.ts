@@ -156,6 +156,19 @@ export type CategoryRelationResponseCollection = {
     data: Array<CategoryEntity>;
 };
 
+export type ComponentFooterAuthor = {
+    __typename?: 'ComponentFooterAuthor';
+    description: Scalars['String'];
+    id: Scalars['ID'];
+    title: Scalars['String'];
+};
+
+export type ComponentFooterAuthorInput = {
+    description?: InputMaybe<Scalars['String']>;
+    id?: InputMaybe<Scalars['ID']>;
+    title?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentMenuMenuLink = {
     __typename?: 'ComponentMenuMenuLink';
     id: Scalars['ID'];
@@ -232,10 +245,40 @@ export type FloatFilterInput = {
     startsWith?: InputMaybe<Scalars['Float']>;
 };
 
+export type Footer = {
+    __typename?: 'Footer';
+    Author: ComponentFooterAuthor;
+    createdAt?: Maybe<Scalars['DateTime']>;
+    languagesUsing: Scalars['String'];
+    lastText: Scalars['String'];
+    publishedAt?: Maybe<Scalars['DateTime']>;
+    updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type FooterEntity = {
+    __typename?: 'FooterEntity';
+    attributes?: Maybe<Footer>;
+    id?: Maybe<Scalars['ID']>;
+};
+
+export type FooterEntityResponse = {
+    __typename?: 'FooterEntityResponse';
+    data?: Maybe<FooterEntity>;
+};
+
+export type FooterInput = {
+    Author?: InputMaybe<ComponentFooterAuthorInput>;
+    languagesUsing?: InputMaybe<Scalars['String']>;
+    lastText?: InputMaybe<Scalars['String']>;
+    publishedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
 export type GenericMorph =
     | Autor
     | Category
+    | ComponentFooterAuthor
     | ComponentMenuMenuLink
+    | Footer
     | I18NLocale
     | Post
     | Setting
@@ -363,6 +406,7 @@ export type Mutation = {
     createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
     deleteAutor?: Maybe<AutorEntityResponse>;
     deleteCategory?: Maybe<CategoryEntityResponse>;
+    deleteFooter?: Maybe<FooterEntityResponse>;
     deletePost?: Maybe<PostEntityResponse>;
     deleteSetting?: Maybe<SettingEntityResponse>;
     deleteTag?: Maybe<TagEntityResponse>;
@@ -385,6 +429,7 @@ export type Mutation = {
     updateAutor?: Maybe<AutorEntityResponse>;
     updateCategory?: Maybe<CategoryEntityResponse>;
     updateFileInfo: UploadFileEntityResponse;
+    updateFooter?: Maybe<FooterEntityResponse>;
     updatePost?: Maybe<PostEntityResponse>;
     updateSetting?: Maybe<SettingEntityResponse>;
     updateTag?: Maybe<TagEntityResponse>;
@@ -498,6 +543,10 @@ export type MutationUpdateCategoryArgs = {
 export type MutationUpdateFileInfoArgs = {
     id: Scalars['ID'];
     info?: InputMaybe<FileInfoInput>;
+};
+
+export type MutationUpdateFooterArgs = {
+    data: FooterInput;
 };
 
 export type MutationUpdatePostArgs = {
@@ -646,6 +695,7 @@ export type Query = {
     autors?: Maybe<AutorEntityResponseCollection>;
     categories?: Maybe<CategoryEntityResponseCollection>;
     category?: Maybe<CategoryEntityResponse>;
+    footer?: Maybe<FooterEntityResponse>;
     i18NLocale?: Maybe<I18NLocaleEntityResponse>;
     i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
     me?: Maybe<UsersPermissionsMe>;
@@ -682,6 +732,10 @@ export type QueryCategoriesArgs = {
 
 export type QueryCategoryArgs = {
     id?: InputMaybe<Scalars['ID']>;
+};
+
+export type QueryFooterArgs = {
+    publicationState?: InputMaybe<PublicationState>;
 };
 
 export type QueryI18NLocaleArgs = {
@@ -1441,6 +1495,53 @@ export type Get_CategoriesQuery = {
     } | null;
 };
 
+export type Get_Page_Content_TextQueryVariables = Exact<{ [key: string]: never }>;
+
+export type Get_Page_Content_TextQuery = {
+    __typename?: 'Query';
+    setting?: {
+        __typename?: 'SettingEntityResponse';
+        data?: {
+            __typename?: 'SettingEntity';
+            id?: string | null;
+            attributes?: {
+                __typename?: 'Setting';
+                blogName: string;
+                blogDescription: string;
+                text: string;
+                blogLogo: {
+                    __typename?: 'UploadFileEntityResponse';
+                    data?: {
+                        __typename?: 'UploadFileEntity';
+                        id?: string | null;
+                        attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
+                    } | null;
+                };
+                menuLink?: Array<{
+                    __typename?: 'ComponentMenuMenuLink';
+                    id: string;
+                    link: string;
+                    text: string;
+                    newTab: boolean;
+                } | null> | null;
+            } | null;
+        } | null;
+    } | null;
+    footer?: {
+        __typename?: 'FooterEntityResponse';
+        data?: {
+            __typename?: 'FooterEntity';
+            id?: string | null;
+            attributes?: {
+                __typename?: 'Footer';
+                languagesUsing: string;
+                lastText: string;
+                Author: { __typename?: 'ComponentFooterAuthor'; id: string; description: string; title: string };
+            } | null;
+        } | null;
+    } | null;
+};
+
 export type Get_Posts_And_SettingsQueryVariables = Exact<{
     categorySlug?: InputMaybe<StringFilterInput>;
     postSlug?: InputMaybe<StringFilterInput>;
@@ -1873,6 +1974,73 @@ export function useGet_CategoriesLazyQuery(
 export type Get_CategoriesQueryHookResult = ReturnType<typeof useGet_CategoriesQuery>;
 export type Get_CategoriesLazyQueryHookResult = ReturnType<typeof useGet_CategoriesLazyQuery>;
 export type Get_CategoriesQueryResult = Apollo.QueryResult<Get_CategoriesQuery, Get_CategoriesQueryVariables>;
+export const Get_Page_Content_TextDocument = gql`
+    query GET_PAGE_CONTENT_TEXT {
+        setting {
+            data {
+                id
+                attributes {
+                    ...settings
+                }
+            }
+        }
+        footer {
+            data {
+                id
+                attributes {
+                    Author {
+                        id
+                        description
+                        title
+                    }
+                    languagesUsing
+                    lastText
+                }
+            }
+        }
+    }
+    ${SettingsFragmentDoc}
+`;
+
+/**
+ * __useGet_Page_Content_TextQuery__
+ *
+ * To run a query within a React component, call `useGet_Page_Content_TextQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGet_Page_Content_TextQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGet_Page_Content_TextQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGet_Page_Content_TextQuery(
+    baseOptions?: Apollo.QueryHookOptions<Get_Page_Content_TextQuery, Get_Page_Content_TextQueryVariables>,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useQuery<Get_Page_Content_TextQuery, Get_Page_Content_TextQueryVariables>(
+        Get_Page_Content_TextDocument,
+        options,
+    );
+}
+export function useGet_Page_Content_TextLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<Get_Page_Content_TextQuery, Get_Page_Content_TextQueryVariables>,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useLazyQuery<Get_Page_Content_TextQuery, Get_Page_Content_TextQueryVariables>(
+        Get_Page_Content_TextDocument,
+        options,
+    );
+}
+export type Get_Page_Content_TextQueryHookResult = ReturnType<typeof useGet_Page_Content_TextQuery>;
+export type Get_Page_Content_TextLazyQueryHookResult = ReturnType<typeof useGet_Page_Content_TextLazyQuery>;
+export type Get_Page_Content_TextQueryResult = Apollo.QueryResult<
+    Get_Page_Content_TextQuery,
+    Get_Page_Content_TextQueryVariables
+>;
 export const Get_Posts_And_SettingsDocument = gql`
     query GET_POSTS_AND_SETTINGS(
         $categorySlug: StringFilterInput

@@ -3,8 +3,12 @@ import { Container } from './styles';
 import * as S from './styles';
 import { Heading } from '../../components/Heading';
 import { motion } from 'framer-motion';
+import { Get_Page_Content_TextQuery } from '../../graphql/generated';
+import { HtmlContent } from '../../components/HtmlContent';
 
-export function Footer() {
+export function Footer({ footer }: Omit<Get_Page_Content_TextQuery, 'settings'>) {
+    console.log(footer);
+    if (!footer || !footer.data || !footer.data.attributes) return null;
     return (
         <Container>
             <MainContainer>
@@ -39,7 +43,7 @@ export function Footer() {
                             </a>
                         </div>
                         <Heading as="h4" size="small">
-                            Desenvolvido com REACT + NEXTJS + TYPESCRIPT + STRAPI + GRAPHQL
+                            <HtmlContent html={footer.data?.attributes?.languagesUsing} />
                         </Heading>
                     </S.BoxContent>
                     <S.BoxContent className="about">
@@ -47,14 +51,14 @@ export function Footer() {
                             <img src="https://github.com/GuiLeoni14.png" />
                         </div>
                         <h4>
-                            Desenvolvido por{' '}
-                            <a href="https://github.com/GuiLeoni14" target="_blank" rel="noopener noreferrer">
-                                Guilherme Leoni
-                            </a>
+                            <HtmlContent html={footer.data?.attributes?.Author.title} />
                         </h4>
-                        <p>Olá! Me chamo Guilherme, sou um garoto apaixonado por programação e tecnologia!🙌❤️</p>
+                        <p>{footer.data?.attributes?.Author.description}</p>
                     </S.BoxContent>
                 </S.ContentTop>
+                <S.ContentBottom>
+                    <span>{footer.data.attributes.lastText}</span>
+                </S.ContentBottom>
             </MainContainer>
         </Container>
     );

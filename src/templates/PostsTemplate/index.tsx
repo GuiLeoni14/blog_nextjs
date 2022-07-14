@@ -7,7 +7,7 @@ import * as S from './styles';
 import { usePagination } from '../../hooks/usePagination';
 import { StrapiPostAndSettings } from '../../utils/loadPosts';
 
-export function PostsTemplate({ setting, posts }: StrapiPostAndSettings) {
+export function PostsTemplate({ setting, posts, contentPageText }: StrapiPostAndSettings) {
     const { actualPage, data, isLoading } = usePagination();
     const statePost = useRef(posts.data || []);
     const handleMountPostGrid = useCallback(() => {
@@ -17,7 +17,7 @@ export function PostsTemplate({ setting, posts }: StrapiPostAndSettings) {
         return <PostGrid posts={data.posts.data} />;
     }, [statePost, data, actualPage]);
     return (
-        <BaseTemplate setting={setting} posts={posts.data}>
+        <BaseTemplate setting={setting} posts={posts.data} contentPageText={contentPageText}>
             {statePost.current.length > 0 ? (
                 <S.Container>
                     <h3>Posts</h3>

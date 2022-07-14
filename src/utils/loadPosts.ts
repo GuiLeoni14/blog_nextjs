@@ -1,4 +1,4 @@
-import { Get_Posts_And_SettingsDocument } from '../graphql/generated';
+import { Get_Page_Content_TextQuery, Get_Posts_And_SettingsDocument } from '../graphql/generated';
 import { TAuthor } from '../shared-typed/author';
 import { TCategory } from '../shared-typed/category';
 import { TMetadata } from '../shared-typed/metadata';
@@ -54,6 +54,7 @@ export type StrapiPostAndSettings = {
     setting: { data: TSettingsStrapi };
     posts: { data: TPostStrapi[]; meta: TMetaPagination };
     variables?: TLoadPostsVariables;
+    contentPageText?: Get_Page_Content_TextQuery;
 };
 export const defaultLoadPostsVariables: TLoadPostsVariables = {
     sort: 'createdAt:desc',
