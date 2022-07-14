@@ -46,7 +46,7 @@ export const Progress = styled.div`
     position: absolute;
     bottom: 0;
     left: 0;
-    z-index: 2023;
+    z-index: 10;
     & > span {
         width: 100%;
     }

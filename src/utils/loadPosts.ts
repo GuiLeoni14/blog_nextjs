@@ -10,7 +10,7 @@ import { client } from './apollo';
 export type TLoadPostsVariables = {
     categorySlug?: { contains: string };
     postSlug?: { contains: string };
-    postSearch?: string;
+    postSearch?: { contains: string };
     authorSlug?: { contains: string };
     tagSlug?: { contains: string };
     sort?: string;

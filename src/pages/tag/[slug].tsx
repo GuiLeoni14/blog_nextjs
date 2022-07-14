@@ -1,7 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
+import {
+    defaultLoadPostsVariables,
+    loadPosts,
+    StrapiPostAndSettings,
+    TLoadPostsVariables,
+} from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
 
@@ -34,10 +39,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (context) => {
     let data = null;
-    let variables = {};
+    let variables = {} as TLoadPostsVariables;
     try {
         if (context.params) {
-            variables = { tagSlug: { contains: context.params.slug as string } };
+            variables = { tagSlug: { contains: context.params.slug as string }, limit: 6 };
             data = await loadPosts(variables);
         }
     } catch (error) {
