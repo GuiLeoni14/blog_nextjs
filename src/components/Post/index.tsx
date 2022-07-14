@@ -1,4 +1,4 @@
-import { SwipeableDrawer, Typography, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import { TPostTag } from '../../shared-typed/tag';
 import { MainContainer } from '../../styles/container';
@@ -6,7 +6,6 @@ import { ArticleHeader, TArticleHeaderProps } from '../ArticleHeader';
 import { HtmlContent } from '../HtmlContent';
 import { PostTags } from '../PostTags';
 import { PostTopics } from '../PostTopics';
-import { motion } from 'framer-motion';
 import * as S from './styles';
 import { useBlogTheme } from '../../hooks/useBlogTheme';
 

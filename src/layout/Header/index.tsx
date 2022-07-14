@@ -1,7 +1,7 @@
 import { LinearProgress } from '@mui/material';
-import { useTransform, useViewportScroll } from 'framer-motion';
+import { useViewportScroll } from 'framer-motion';
 import Link from 'next/link';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ButtonToggleTheme } from '../../components/ButtonToggleTheme';
 import { InputSearch } from '../../components/InputSearch';
 import { MenuMobile } from '../../components/MenuMobile';
