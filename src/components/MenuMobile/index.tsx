@@ -2,7 +2,7 @@ import { Variants } from 'framer-motion';
 import { MainContainer } from '../../styles/container';
 import * as S from './styles';
 import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { InputSearch } from '../InputSearch';
 import { Accordion } from './Accordion';
 import { useGet_Categories_And_AuthorsQuery } from '../../graphql/generated';

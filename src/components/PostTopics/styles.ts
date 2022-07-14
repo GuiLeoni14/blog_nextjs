@@ -15,6 +15,7 @@ export const Topics = styled.div`
         font-size: 1.6rem;
         position: relative;
         display: inline-block;
+        cursor: pointer;
         padding-left: 2rem;
         &::after {
             content: '';
