@@ -15,7 +15,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
 
     useEffect(() => {
-        const handleStart = (url: string) => {
+        const handleStart = () => {
             NProgress.start();
         };
         const handleStop = () => {
