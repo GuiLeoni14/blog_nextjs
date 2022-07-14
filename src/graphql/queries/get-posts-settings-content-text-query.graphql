@@ -1,4 +1,4 @@
-query GET_POSTS_AND_SETTINGS(
+query GET_POSTS_AND_SETTINGS_AND_CONTENT_TEXT(
     $categorySlug: StringFilterInput
     $postSlug: StringFilterInput
     $postSearch: StringFilterInput
@@ -38,6 +38,20 @@ query GET_POSTS_AND_SETTINGS(
         meta {
             pagination {
                 ...pagination
+            }
+        }
+    }
+    footer {
+        data {
+            id
+            attributes {
+                Author {
+                    id
+                    description
+                    title
+                }
+                languagesUsing
+                lastText
             }
         }
     }

@@ -10,7 +10,7 @@ import {
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
 
-export default function SearchPage({ posts, setting, variables }: StrapiPostAndSettings) {
+export default function SearchPage({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     const titleHead = `Pesquisa: ${router.query.q} - ${setting.data.attributes.blogName}`;
@@ -19,7 +19,7 @@ export default function SearchPage({ posts, setting, variables }: StrapiPostAndS
             <Head>
                 <title>{titleHead}</title>
             </Head>
-            <PostsTemplate posts={posts} setting={setting} variables={variables} />
+            <PostsTemplate contentPage={contentPage} posts={posts} setting={setting} variables={variables} />
         </>
     );
 }
@@ -45,8 +45,7 @@ export const getServerSideProps: GetServerSideProps<StrapiPostAndSettings> = asy
     }
     return {
         props: {
-            posts: data.posts,
-            setting: data.setting,
+            ...data,
             variables: {
                 ...defaultLoadPostsVariables,
                 ...variables,

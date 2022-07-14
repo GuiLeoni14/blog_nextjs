@@ -10,7 +10,7 @@ import {
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
 
-export default function AuthorPage({ posts, setting, variables }: StrapiPostAndSettings) {
+export default function AuthorPage({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     const titleHead = `Author: ${posts.data[0].attributes.autor.data.attributes.name} - ${setting.data.attributes.blogName}`;
@@ -19,7 +19,7 @@ export default function AuthorPage({ posts, setting, variables }: StrapiPostAndS
             <Head>
                 <title>{titleHead}</title>
             </Head>
-            <PostsTemplate posts={posts} setting={setting} variables={variables} />
+            <PostsTemplate contentPage={contentPage} posts={posts} setting={setting} variables={variables} />
         </>
     );
 }
@@ -49,8 +49,7 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (cont
     }
     return {
         props: {
-            posts: data.posts,
-            setting: data.setting,
+            ...data,
             variables: {
                 ...defaultLoadPostsVariables,
                 ...variables,

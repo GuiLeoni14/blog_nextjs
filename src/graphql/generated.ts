@@ -1499,34 +1499,6 @@ export type Get_Page_Content_TextQueryVariables = Exact<{ [key: string]: never }
 
 export type Get_Page_Content_TextQuery = {
     __typename?: 'Query';
-    setting?: {
-        __typename?: 'SettingEntityResponse';
-        data?: {
-            __typename?: 'SettingEntity';
-            id?: string | null;
-            attributes?: {
-                __typename?: 'Setting';
-                blogName: string;
-                blogDescription: string;
-                text: string;
-                blogLogo: {
-                    __typename?: 'UploadFileEntityResponse';
-                    data?: {
-                        __typename?: 'UploadFileEntity';
-                        id?: string | null;
-                        attributes?: { __typename?: 'UploadFile'; alternativeText?: string | null; url: string } | null;
-                    } | null;
-                };
-                menuLink?: Array<{
-                    __typename?: 'ComponentMenuMenuLink';
-                    id: string;
-                    link: string;
-                    text: string;
-                    newTab: boolean;
-                } | null> | null;
-            } | null;
-        } | null;
-    } | null;
     footer?: {
         __typename?: 'FooterEntityResponse';
         data?: {
@@ -1542,7 +1514,7 @@ export type Get_Page_Content_TextQuery = {
     } | null;
 };
 
-export type Get_Posts_And_SettingsQueryVariables = Exact<{
+export type Get_Posts_And_Settings_And_Content_TextQueryVariables = Exact<{
     categorySlug?: InputMaybe<StringFilterInput>;
     postSlug?: InputMaybe<StringFilterInput>;
     postSearch?: InputMaybe<StringFilterInput>;
@@ -1555,7 +1527,7 @@ export type Get_Posts_And_SettingsQueryVariables = Exact<{
     page?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type Get_Posts_And_SettingsQuery = {
+export type Get_Posts_And_Settings_And_Content_TextQuery = {
     __typename?: 'Query';
     setting?: {
         __typename?: 'SettingEntityResponse';
@@ -1652,6 +1624,19 @@ export type Get_Posts_And_SettingsQuery = {
             __typename?: 'ResponseCollectionMeta';
             pagination: { __typename?: 'Pagination'; total: number; page: number; pageSize: number; pageCount: number };
         };
+    } | null;
+    footer?: {
+        __typename?: 'FooterEntityResponse';
+        data?: {
+            __typename?: 'FooterEntity';
+            id?: string | null;
+            attributes?: {
+                __typename?: 'Footer';
+                languagesUsing: string;
+                lastText: string;
+                Author: { __typename?: 'ComponentFooterAuthor'; id: string; description: string; title: string };
+            } | null;
+        } | null;
     } | null;
 };
 
@@ -1976,14 +1961,6 @@ export type Get_CategoriesLazyQueryHookResult = ReturnType<typeof useGet_Categor
 export type Get_CategoriesQueryResult = Apollo.QueryResult<Get_CategoriesQuery, Get_CategoriesQueryVariables>;
 export const Get_Page_Content_TextDocument = gql`
     query GET_PAGE_CONTENT_TEXT {
-        setting {
-            data {
-                id
-                attributes {
-                    ...settings
-                }
-            }
-        }
         footer {
             data {
                 id
@@ -1999,7 +1976,6 @@ export const Get_Page_Content_TextDocument = gql`
             }
         }
     }
-    ${SettingsFragmentDoc}
 `;
 
 /**
@@ -2041,8 +2017,8 @@ export type Get_Page_Content_TextQueryResult = Apollo.QueryResult<
     Get_Page_Content_TextQuery,
     Get_Page_Content_TextQueryVariables
 >;
-export const Get_Posts_And_SettingsDocument = gql`
-    query GET_POSTS_AND_SETTINGS(
+export const Get_Posts_And_Settings_And_Content_TextDocument = gql`
+    query GET_POSTS_AND_SETTINGS_AND_CONTENT_TEXT(
         $categorySlug: StringFilterInput
         $postSlug: StringFilterInput
         $postSearch: StringFilterInput
@@ -2085,6 +2061,20 @@ export const Get_Posts_And_SettingsDocument = gql`
                 }
             }
         }
+        footer {
+            data {
+                id
+                attributes {
+                    Author {
+                        id
+                        description
+                        title
+                    }
+                    languagesUsing
+                    lastText
+                }
+            }
+        }
     }
     ${SettingsFragmentDoc}
     ${PostFragmentDoc}
@@ -2092,16 +2082,16 @@ export const Get_Posts_And_SettingsDocument = gql`
 `;
 
 /**
- * __useGet_Posts_And_SettingsQuery__
+ * __useGet_Posts_And_Settings_And_Content_TextQuery__
  *
- * To run a query within a React component, call `useGet_Posts_And_SettingsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGet_Posts_And_SettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGet_Posts_And_Settings_And_Content_TextQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGet_Posts_And_Settings_And_Content_TextQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGet_Posts_And_SettingsQuery({
+ * const { data, loading, error } = useGet_Posts_And_Settings_And_Content_TextQuery({
  *   variables: {
  *      categorySlug: // value for 'categorySlug'
  *      postSlug: // value for 'postSlug'
@@ -2116,27 +2106,37 @@ export const Get_Posts_And_SettingsDocument = gql`
  *   },
  * });
  */
-export function useGet_Posts_And_SettingsQuery(
-    baseOptions?: Apollo.QueryHookOptions<Get_Posts_And_SettingsQuery, Get_Posts_And_SettingsQueryVariables>,
+export function useGet_Posts_And_Settings_And_Content_TextQuery(
+    baseOptions?: Apollo.QueryHookOptions<
+        Get_Posts_And_Settings_And_Content_TextQuery,
+        Get_Posts_And_Settings_And_Content_TextQueryVariables
+    >,
 ) {
     const options = { ...defaultOptions, ...baseOptions };
-    return Apollo.useQuery<Get_Posts_And_SettingsQuery, Get_Posts_And_SettingsQueryVariables>(
-        Get_Posts_And_SettingsDocument,
-        options,
-    );
+    return Apollo.useQuery<
+        Get_Posts_And_Settings_And_Content_TextQuery,
+        Get_Posts_And_Settings_And_Content_TextQueryVariables
+    >(Get_Posts_And_Settings_And_Content_TextDocument, options);
 }
-export function useGet_Posts_And_SettingsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<Get_Posts_And_SettingsQuery, Get_Posts_And_SettingsQueryVariables>,
+export function useGet_Posts_And_Settings_And_Content_TextLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<
+        Get_Posts_And_Settings_And_Content_TextQuery,
+        Get_Posts_And_Settings_And_Content_TextQueryVariables
+    >,
 ) {
     const options = { ...defaultOptions, ...baseOptions };
-    return Apollo.useLazyQuery<Get_Posts_And_SettingsQuery, Get_Posts_And_SettingsQueryVariables>(
-        Get_Posts_And_SettingsDocument,
-        options,
-    );
+    return Apollo.useLazyQuery<
+        Get_Posts_And_Settings_And_Content_TextQuery,
+        Get_Posts_And_Settings_And_Content_TextQueryVariables
+    >(Get_Posts_And_Settings_And_Content_TextDocument, options);
 }
-export type Get_Posts_And_SettingsQueryHookResult = ReturnType<typeof useGet_Posts_And_SettingsQuery>;
-export type Get_Posts_And_SettingsLazyQueryHookResult = ReturnType<typeof useGet_Posts_And_SettingsLazyQuery>;
-export type Get_Posts_And_SettingsQueryResult = Apollo.QueryResult<
-    Get_Posts_And_SettingsQuery,
-    Get_Posts_And_SettingsQueryVariables
+export type Get_Posts_And_Settings_And_Content_TextQueryHookResult = ReturnType<
+    typeof useGet_Posts_And_Settings_And_Content_TextQuery
+>;
+export type Get_Posts_And_Settings_And_Content_TextLazyQueryHookResult = ReturnType<
+    typeof useGet_Posts_And_Settings_And_Content_TextLazyQuery
+>;
+export type Get_Posts_And_Settings_And_Content_TextQueryResult = Apollo.QueryResult<
+    Get_Posts_And_Settings_And_Content_TextQuery,
+    Get_Posts_And_Settings_And_Content_TextQueryVariables
 >;

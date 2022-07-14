@@ -6,8 +6,7 @@ import { motion } from 'framer-motion';
 import { Get_Page_Content_TextQuery } from '../../graphql/generated';
 import { HtmlContent } from '../../components/HtmlContent';
 
-export function Footer({ footer }: Omit<Get_Page_Content_TextQuery, 'settings'>) {
-    console.log(footer);
+export function Footer({ footer }: Pick<Get_Page_Content_TextQuery, 'footer'>) {
     if (!footer || !footer.data || !footer.data.attributes) return null;
     return (
         <Container>

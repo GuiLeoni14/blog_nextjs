@@ -16,10 +16,6 @@ export function Header({ setting }: { setting: { data: TSettingsStrapi } }) {
         scrollYProgress.onChange((state) => setPercentualScroll(Number(state.toFixed(2))));
     }, [scrollYProgress]);
 
-    useEffect(() => {
-        console.log(percentualScroll);
-    }, [percentualScroll]);
-
     const MemoComponents = useMemo(
         () => (
             <MainContainer>

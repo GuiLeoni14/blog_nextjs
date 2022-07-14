@@ -1,12 +1,4 @@
 query GET_PAGE_CONTENT_TEXT {
-    setting {
-        data {
-            id
-            attributes {
-                ...settings
-            }
-        }
-    }
     footer {
         data {
             id
