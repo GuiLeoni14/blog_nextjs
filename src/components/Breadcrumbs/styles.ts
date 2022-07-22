@@ -31,4 +31,9 @@ export const Container = styled.div`
         font-weight: bold;
         cursor: pointer;
     }
+    @media ${({ theme }) => theme.media.lteSmall} {
+        span {
+            font-size: 1.4rem;
+        }
+    }
 `;

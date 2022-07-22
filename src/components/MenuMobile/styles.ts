@@ -9,6 +9,7 @@ export const Container = styled(motion.div)`
     left: 0;
     width: 100%;
     min-height: 100vh;
+    z-index: 2022;
     & > div + div {
         width: 100%;
         z-index: 10;

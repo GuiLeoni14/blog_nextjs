@@ -1,11 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
+import {
+    defaultLoadPostsVariables,
+    loadPosts,
+    StrapiPostAndSettings,
+    TLoadPostsVariables,
+} from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
 
-export default function AuthorPage({ posts, setting, variables }: StrapiPostAndSettings) {
+export default function AuthorPage({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     const titleHead = `Author: ${posts.data[0].attributes.autor.data.attributes.name} - ${setting.data.attributes.blogName}`;
@@ -14,7 +19,7 @@ export default function AuthorPage({ posts, setting, variables }: StrapiPostAndS
             <Head>
                 <title>{titleHead}</title>
             </Head>
-            <PostsTemplate posts={posts} setting={setting} variables={variables} />
+            <PostsTemplate contentPage={contentPage} posts={posts} setting={setting} variables={variables} />
         </>
     );
 }
@@ -28,10 +33,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (context) => {
     let data = null;
-    let variables = {};
+    let variables = {} as TLoadPostsVariables;
     try {
         if (context.params) {
-            variables = { authorSlug: { contains: context.params.slug as string } };
+            variables = { authorSlug: { contains: context.params.slug as string }, limit: 6 };
             data = await loadPosts(variables);
         }
     } catch (error) {
@@ -44,13 +49,12 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (cont
     }
     return {
         props: {
-            posts: data.posts,
-            setting: data.setting,
+            ...data,
             variables: {
                 ...defaultLoadPostsVariables,
                 ...variables,
             },
         },
-        revalidate: 24 * 60,
+        revalidate: 10 * 60 * 1000,
     };
 };

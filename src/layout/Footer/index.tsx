@@ -3,8 +3,12 @@ import { Container } from './styles';
 import * as S from './styles';
 import { Heading } from '../../components/Heading';
 import { motion } from 'framer-motion';
+import { Get_Page_Content_TextQuery } from '../../graphql/generated';
+import { HtmlContent } from '../../components/HtmlContent';
+import { memo } from 'react';
 
-export function Footer() {
+function Footer({ footer }: Pick<Get_Page_Content_TextQuery, 'footer'>) {
+    if (!footer || !footer.data || !footer.data.attributes) return null;
     return (
         <Container>
             <MainContainer>
@@ -39,11 +43,25 @@ export function Footer() {
                             </a>
                         </div>
                         <Heading as="h4" size="small">
-                            Desenvolvimento REACT + NEXTJS + TYPESCRIPT +STRAPI + GRAPHQL
+                            <HtmlContent html={footer.data?.attributes?.languagesUsing} />
                         </Heading>
                     </S.BoxContent>
+                    <S.BoxContent className="about">
+                        <div>
+                            <img src="https://github.com/GuiLeoni14.png" />
+                        </div>
+                        <h4>
+                            <HtmlContent html={footer.data?.attributes?.Author.title} />
+                        </h4>
+                        <p>{footer.data?.attributes?.Author.description}</p>
+                    </S.BoxContent>
                 </S.ContentTop>
+                <S.ContentBottom>
+                    <span>{footer.data.attributes.lastText}</span>
+                </S.ContentBottom>
             </MainContainer>
         </Container>
     );
 }
+
+export default memo(Footer);

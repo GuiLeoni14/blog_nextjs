@@ -1,10 +1,11 @@
 import { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
-import { ThemeProvider } from 'styled-components';
+import { DefaultTheme, ThemeProvider } from 'styled-components';
 import dark from '../../styles/theme/dark';
 import light from '../../styles/theme/light';
 import { getStorage, postStorage } from '../../utils/storage';
 export type TBlogThemeContext = {
     toggleTheme: () => void;
+    theme: DefaultTheme;
 };
 
 export const BlogThemeContext = createContext({} as TBlogThemeContext);
@@ -28,7 +29,7 @@ export function BlogThemeProvider({ children }: { children: ReactNode }) {
 
     return (
         <ThemeProvider theme={theme}>
-            <BlogThemeContext.Provider value={{ toggleTheme }}>{children}</BlogThemeContext.Provider>
+            <BlogThemeContext.Provider value={{ toggleTheme, theme }}>{children}</BlogThemeContext.Provider>
         </ThemeProvider>
     );
 }

@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
+import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { PostTemplate } from '../../templates/PostTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
@@ -10,7 +10,7 @@ type TPostStaticProps = StrapiPostAndSettings & {
     posts_related?: { data: TPostStrapi[] };
 };
 
-export default function PostPage({ posts, setting, posts_related }: TPostStaticProps) {
+export default function PostPage({ posts, setting, contentPage, posts_related }: TPostStaticProps) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     const titleHead = `${posts.data[0].attributes.title} - ${setting.data.attributes.blogName}`;
@@ -20,7 +20,12 @@ export default function PostPage({ posts, setting, posts_related }: TPostStaticP
                 <title>{titleHead}</title>
                 <meta name="description" content={posts.data[0].attributes.excerpt} />
             </Head>
-            <PostTemplate post={posts.data[0]} setting={setting} posts_related={posts_related} />
+            <PostTemplate
+                post={posts.data[0]}
+                setting={setting}
+                posts_related={posts_related}
+                contentPage={contentPage}
+            />
         </>
     );
 }
@@ -70,10 +75,12 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
     }
     return {
         props: {
-            posts: data.posts,
-            setting: data.setting,
+            ...data,
+            variables: {
+                ...defaultLoadPostsVariables,
+            },
             posts_related: posts_related?.posts,
         },
-        revalidate: 24 * 60,
+        revalidate: 10 * 60 * 1000,
     };
 };

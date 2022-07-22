@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 export default createGlobalStyle`
     *{
@@ -18,6 +18,23 @@ export default createGlobalStyle`
         transition: background .3s;
         background-color: ${({ theme: { colors } }) => colors.background};
         color: ${(props) => props.theme.colors.text};
+        &::-webkit-scrollbar {
+        width: 1rem;
+        }
+        &::-webkit-scrollbar-track {
+            background:  ${({ theme }) =>
+                theme.title === 'light'
+                    ? css`
+                          ${theme.colors.gray_5}
+                      `
+                    : css`
+                          ${theme.colors.gray_2}
+                      `};
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: ${({ theme }) => theme.colors.primary};
+            border-radius: 20px;
+        }
     }
     h1, h2, h3, h4, h5, h6 {
     font-weight: 800;
