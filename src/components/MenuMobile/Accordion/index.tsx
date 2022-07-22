@@ -14,7 +14,7 @@ export type TAccordionProps = {
 export function Accordion({ autors, categories }: Get_Categories_And_AuthorsQuery) {
     return (
         <S.Container>
-            <MuiAccordion elevation={0} disableGutters>
+            <MuiAccordion elevation={0} disableGutters style={{ marginTop: '2rem' }}>
                 <AccordionSummary
                     expandIcon={<IoIosArrowDown fontSize={'2rem'} />}
                     aria-controls="panel1bh-content"

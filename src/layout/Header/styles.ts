@@ -7,6 +7,7 @@ export const Container = styled.header`
     height: 10rem;
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
     box-shadow: 0 0.8rem 3.2rem 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(1.3rem);
@@ -37,5 +38,22 @@ export const Logo = styled.div`
     overflow: hidden;
     img {
         width: 100%;
+    }
+`;
+
+export const Progress = styled.div`
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    & > span {
+        width: 100%;
+    }
+    .MuiLinearProgress-bar1Determinate {
+        background-color: ${({ theme }) => theme.colors.primary};
+    }
+    .MuiLinearProgress-determinate {
+        background-color: ${({ theme }) => theme.colors.background};
     }
 `;

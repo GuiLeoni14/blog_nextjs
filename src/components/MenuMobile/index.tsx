@@ -2,7 +2,7 @@ import { Variants } from 'framer-motion';
 import { MainContainer } from '../../styles/container';
 import * as S from './styles';
 import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { InputSearch } from '../InputSearch';
 import { Accordion } from './Accordion';
 import { useGet_Categories_And_AuthorsQuery } from '../../graphql/generated';
@@ -10,6 +10,15 @@ import { useGet_Categories_And_AuthorsQuery } from '../../graphql/generated';
 export function MenuMobile() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const { data, loading } = useGet_Categories_And_AuthorsQuery();
+    useEffect(() => {
+        const element_to_not_scroll = document.querySelector('body');
+        if (!element_to_not_scroll || typeof window === 'undefined') return;
+        if (isOpenMenu) {
+            element_to_not_scroll.style.overflow = 'hidden';
+        } else {
+            element_to_not_scroll.style.overflow = 'auto';
+        }
+    }, [isOpenMenu]);
     const variants: Variants = {
         open: {
             y: 0,

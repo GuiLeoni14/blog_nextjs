@@ -1,11 +1,16 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
+import {
+    defaultLoadPostsVariables,
+    loadPosts,
+    StrapiPostAndSettings,
+    TLoadPostsVariables,
+} from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
 
-export default function SearchPage({ posts, setting, variables }: StrapiPostAndSettings) {
+export default function SearchPage({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     const titleHead = `Pesquisa: ${router.query.q} - ${setting.data.attributes.blogName}`;
@@ -14,21 +19,21 @@ export default function SearchPage({ posts, setting, variables }: StrapiPostAndS
             <Head>
                 <title>{titleHead}</title>
             </Head>
-            <PostsTemplate posts={posts} setting={setting} variables={variables} />
+            <PostsTemplate contentPage={contentPage} posts={posts} setting={setting} variables={variables} />
         </>
     );
 }
 
 export const getServerSideProps: GetServerSideProps<StrapiPostAndSettings> = async (context) => {
     let data = null;
-    let variables = {};
+    let variables = {} as TLoadPostsVariables;
     const query = context.query.q || '';
     if (!query)
         return {
             notFound: true,
         };
     try {
-        variables = { postSearch: { contains: query as string } };
+        variables = { postSearch: { contains: query as string }, limit: 6 };
         data = await loadPosts(variables);
     } catch (error) {
         data = null;
@@ -40,8 +45,7 @@ export const getServerSideProps: GetServerSideProps<StrapiPostAndSettings> = asy
     }
     return {
         props: {
-            posts: data.posts,
-            setting: data.setting,
+            ...data,
             variables: {
                 ...defaultLoadPostsVariables,
                 ...variables,
