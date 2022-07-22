@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { Footer } from '.';
+import Footer from '.';
 import { Get_Page_Content_TextQuery } from '../../graphql/generated';
 import mock from './mock';
 

@@ -81,6 +81,6 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
             },
             posts_related: posts_related?.posts,
         },
-        revalidate: 24 * 60,
+        revalidate: 10 * 60 * 1000,
     };
 };

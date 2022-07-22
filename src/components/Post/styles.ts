@@ -89,6 +89,7 @@ export const AfterDrawerOpen = styled.div<{ isDrawerOpen: boolean }>`
     left: 0;
     box-shadow: rgba(17, 17, 26, 0.1) 0px -1rem 2rem;
     top: initial;
+    z-index: 2;
     border-top-left-radius: 2.5rem;
     border-top-right-radius: 2.5rem;
     ${({ theme }) =>

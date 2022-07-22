@@ -6,6 +6,7 @@ import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
 
 import * as S from './styles';
 import { useRouter } from 'next/router';
+import { memo } from 'react';
 
 export type TFeaturedProps = {
     setting: { data: TSettingsStrapi }; // passar settings para o header/footer
@@ -13,7 +14,7 @@ export type TFeaturedProps = {
     variables?: TLoadPostsVariables;
 };
 
-export function Featured({ posts = [] }: TFeaturedProps) {
+function Featured({ posts = [] }: TFeaturedProps) {
     const statePostCardFeatured = posts.slice(1, 5);
     const router = useRouter();
     if (statePostCardFeatured.length < 1 || router.route !== '/') return null;
@@ -33,3 +34,5 @@ export function Featured({ posts = [] }: TFeaturedProps) {
         </S.Container>
     );
 }
+
+export default memo(Featured);

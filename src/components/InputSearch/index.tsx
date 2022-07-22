@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { FiCheckCircle } from 'react-icons/fi';
-import { IoMdCloseCircle } from 'react-icons/io';
 import { TArticleHeaderProps } from '../ArticleHeader';
 import * as S from './styles';
 export type TInputSearch = TArticleHeaderProps & {
@@ -22,6 +20,7 @@ export function InputSearch() {
     }, [isReady]);
     useEffect(() => {
         clearTimeout(inputTimeout.current as NodeJS.Timeout);
+        if (router.isFallback) return;
         if (router?.query?.q === searchValue) return;
         const q = searchValue;
         if (!q || q.length < 3) return;
@@ -33,21 +32,28 @@ export function InputSearch() {
                     query: { q: searchValue },
                 })
                 .then(() => setIsReady(true));
-        }, 600);
+        }, 1000);
 
         return () => clearTimeout(inputTimeout.current as NodeJS.Timeout);
     }, [searchValue, router]);
     return (
         <S.Container className="search">
-            <S.SearchInput
-                type="search"
-                placeholder="pesquisar por posts"
-                name="q"
-                onChange={(event) => setSearchValue(event.target.value)}
-                value={searchValue}
-                disabled={searchDisable}
-            />
-            {searchDisable ? <IoMdCloseCircle /> : <FiCheckCircle />}
+            <form action="/search/" method="GET">
+                <S.SearchInput
+                    type="search"
+                    placeholder="pesquisar por posts"
+                    name="q"
+                    onChange={(event) => setSearchValue(event.target.value)}
+                    value={searchValue}
+                    disabled={searchDisable}
+                    searchDisable={searchDisable}
+                />
+                <S.LoadingImage
+                    showContent={searchDisable && searchValue.length > 0}
+                    src="/images/loading.gif"
+                    alt="ícone de loading simbolizando o carregamento do input"
+                />
+            </form>
         </S.Container>
     );
 }

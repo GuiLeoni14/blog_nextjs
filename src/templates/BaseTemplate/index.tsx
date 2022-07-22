@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-import { Featured } from '../../components/Featured';
-import { Footer } from '../../layout/Footer';
+import Featured from '../../components/Featured';
+import Footer from '../../layout/Footer';
 import { Header } from '../../layout/Header';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { MainContainer } from '../../styles/container';

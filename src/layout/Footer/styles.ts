@@ -29,6 +29,7 @@ export const ContentBottom = styled.div`
     span {
         font-size: 1.6rem;
         font-weight: bold;
+        text-align: center;
     }
 `;
 export const BoxContent = styled.div`

@@ -5,8 +5,9 @@ import { Heading } from '../../components/Heading';
 import { motion } from 'framer-motion';
 import { Get_Page_Content_TextQuery } from '../../graphql/generated';
 import { HtmlContent } from '../../components/HtmlContent';
+import { memo } from 'react';
 
-export function Footer({ footer }: Pick<Get_Page_Content_TextQuery, 'footer'>) {
+function Footer({ footer }: Pick<Get_Page_Content_TextQuery, 'footer'>) {
     if (!footer || !footer.data || !footer.data.attributes) return null;
     return (
         <Container>
@@ -62,3 +63,5 @@ export function Footer({ footer }: Pick<Get_Page_Content_TextQuery, 'footer'>) {
         </Container>
     );
 }
+
+export default memo(Footer);

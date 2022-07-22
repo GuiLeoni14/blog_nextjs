@@ -29,6 +29,12 @@ export const Content = styled.div`
     padding: 4.8rem 7.2rem;
     margin: 0 auto;
     margin-top: -10.6rem;
+    @media ${({ theme }) => theme.media.lteSmall} {
+        padding: 2.5rem;
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
 `;
 
 export const Excerpt = styled.p`
