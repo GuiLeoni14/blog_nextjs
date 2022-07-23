@@ -19,3 +19,17 @@ export const ContainerSkeletonCardPost = styled.div<{ pageTypeSkeleton: 'POST' |
               `
             : css``}
 `;
+
+export const ContainerSkeletonPost = styled.div`
+    width: 100%;
+    height: 100%;
+    & > div {
+        height: 100vh;
+        overflow: hidden;
+        width: 100%;
+        span {
+        }
+        .excerpt {
+        }
+    }
+`;
