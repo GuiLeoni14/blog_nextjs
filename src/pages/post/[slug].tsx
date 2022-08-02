@@ -4,14 +4,8 @@ import { useRouter } from 'next/router';
 import { PostTemplate } from '../../templates/PostTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
 import { client } from '../../utils/apollo';
-import {
-    GetPostsAndSettingsDocument,
-    GetPostsAndSettingsQuery,
-    GetPostsAndSettingsQueryVariables,
-    GetPostsDocument,
-    GetPostsQuery,
-    PostFragment,
-} from '../../graphql/generated';
+import { GetPostsAndSettingsQuery, GetPostsDocument, GetPostsQuery, PostFragment } from '../../graphql/generated';
+import { loadPosts } from '../../utils/loadPosts';
 
 export type TPostStaticProps = GetPostsAndSettingsQuery & {
     posts_related?: PostFragment[];
@@ -58,13 +52,8 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
     let posts_related = null;
     try {
         if (context.params) {
-            const response = await client.query<GetPostsAndSettingsQuery>({
-                query: GetPostsAndSettingsDocument,
-                variables: {
-                    where: { slug: context.params.slug },
-                } as GetPostsAndSettingsQueryVariables,
-            });
-            data = response.data;
+            const response = await loadPosts({ where: { slug: context.params.slug as string } });
+            data = response;
         }
     } catch (error) {
         data = null;
@@ -75,11 +64,8 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
         };
     } else {
         try {
-            posts_related = await client.query<GetPostsAndSettingsQuery>({
-                query: GetPostsDocument,
-                variables: {
-                    where: { categories_every: { slug: data.posts[0].categories[0].slug } },
-                } as GetPostsAndSettingsQueryVariables,
+            posts_related = await loadPosts({
+                where: { categories_every: { slug: data.posts[0].categories[0].slug } },
             });
         } catch (error) {
             posts_related = null;
@@ -88,7 +74,7 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
     return {
         props: {
             ...data,
-            posts_related: posts_related?.data.posts,
+            posts_related: posts_related?.posts,
         },
         revalidate: 10 * 60 * 1000,
     };

@@ -3,12 +3,12 @@ import { Container } from './styles';
 import * as S from './styles';
 import { Heading } from '../../components/Heading';
 import { motion } from 'framer-motion';
-import { Get_Page_Content_TextQuery } from '../../graphql/generated';
+import { GetPostsAndSettingsQuery } from '../../graphql/generated';
 import { HtmlContent } from '../../components/HtmlContent';
 import { memo } from 'react';
 
-function Footer({ footer }: Pick<Get_Page_Content_TextQuery, 'footer'>) {
-    if (!footer || !footer.data || !footer.data.attributes) return null;
+function Footer({ setting }: Pick<GetPostsAndSettingsQuery, 'setting'>) {
+    if (!setting || !setting || !setting.creator) return null;
     return (
         <Container>
             <MainContainer>
@@ -43,7 +43,7 @@ function Footer({ footer }: Pick<Get_Page_Content_TextQuery, 'footer'>) {
                             </a>
                         </div>
                         <Heading as="h4" size="small">
-                            <HtmlContent html={footer.data?.attributes?.languagesUsing} />
+                            <HtmlContent html={setting.creator.resume.html} />
                         </Heading>
                     </S.BoxContent>
                     <S.BoxContent className="about">
@@ -51,13 +51,13 @@ function Footer({ footer }: Pick<Get_Page_Content_TextQuery, 'footer'>) {
                             <img src="https://github.com/GuiLeoni14.png" />
                         </div>
                         <h4>
-                            <HtmlContent html={footer.data?.attributes?.Author.title} />
+                            <HtmlContent html={setting.creator.name} />
                         </h4>
-                        <p>{footer.data?.attributes?.Author.description}</p>
+                        <HtmlContent html={setting.creator.resume.html} />
                     </S.BoxContent>
                 </S.ContentTop>
                 <S.ContentBottom>
-                    <span>{footer.data.attributes.lastText}</span>
+                    <span>Este projeto ainda está em desenvolvimento</span>
                 </S.ContentBottom>
             </MainContainer>
         </Container>

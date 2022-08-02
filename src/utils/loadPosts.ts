@@ -1,14 +1,21 @@
-import { GetPostsAndSettingsDocument, GetPostsAndSettingsQuery } from '../graphql/generated';
+import {
+    GetPostsAndSettingsDocument,
+    GetPostsAndSettingsQuery,
+    GetPostsAndSettingsQueryVariables,
+    PostOrderByInput,
+} from '../graphql/generated';
 import { client } from './apollo';
 
-interface IVariablesQueryProps {
-    last: number;
-}
-export const loadPosts = async (variables: IVariablesQueryProps): Promise<GetPostsAndSettingsQuery> => {
+export const defaultVariablesRequestApi: GetPostsAndSettingsQueryVariables = {
+    orderBy: PostOrderByInput.PublishedAtDesc,
+    settingID: process.env.SETTINGS_API_ID,
+};
+export const loadPosts = async (variables: GetPostsAndSettingsQueryVariables): Promise<GetPostsAndSettingsQuery> => {
+    console.log(defaultVariablesRequestApi);
     const response = await client.query<GetPostsAndSettingsQuery>({
         query: GetPostsAndSettingsDocument,
         variables: {
-            orderBy: 'publishedAt_DESC',
+            ...defaultVariablesRequestApi,
             ...variables,
         },
     });

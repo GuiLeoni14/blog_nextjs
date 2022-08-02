@@ -1,12 +1,15 @@
-query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput) {
-    setting(where: { id: "cl6bd733396xd0akj28hd7cjc" }) {
+query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int, $settingID: ID) {
+    setting(where: { id: $settingID }) {
         blogName
         blogDescription
+        creator {
+            ...creator
+        }
         blogLogo {
             url
         }
     }
-    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where) {
+    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where, last: $last) {
         ...post
     }
 }

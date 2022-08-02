@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import Featured from '../../components/Featured';
 import { GetPostsAndSettingsQuery } from '../../graphql/generated';
+import Footer from '../../layout/Footer';
 import { Header } from '../../layout/Header';
 import { MainContainer } from '../../styles/container';
 import * as S from './styles';
@@ -24,6 +25,7 @@ export function BaseTemplate({ children, setting, posts }: TBaseTemplateProps) {
                 <Featured posts={posts} />
                 {children}
             </MainContainer>
+            <Footer setting={setting} />
         </S.Container>
     );
 }

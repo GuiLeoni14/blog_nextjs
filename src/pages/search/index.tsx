@@ -1,40 +1,46 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import {
-    defaultLoadPostsVariables,
-    loadPosts,
-    StrapiPostAndSettings,
-    TLoadPostsVariables,
-} from '../../utils/loadPosts';
+import { loadPosts } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
+import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables } from '../../graphql/generated';
 
-export default function SearchPage({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
+export default function SearchPage({ posts, setting }: GetPostsAndSettingsQuery) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
-    const titleHead = `Pesquisa: ${router.query.q} - ${setting.data.attributes.blogName}`;
+    const titleHead = `Pesquisa: ${router.query.q} - ${setting?.blogName}`;
     return (
         <>
             <Head>
                 <title>{titleHead}</title>
             </Head>
-            <PostsTemplate contentPage={contentPage} posts={posts} setting={setting} variables={variables} />
+            <PostsTemplate posts={posts} setting={setting} />
         </>
     );
 }
 
-export const getServerSideProps: GetServerSideProps<StrapiPostAndSettings> = async (context) => {
+export const getServerSideProps: GetServerSideProps<GetPostsAndSettingsQuery> = async (context) => {
     let data = null;
-    let variables = {} as TLoadPostsVariables;
-    const query = context.query.q || '';
-    if (!query)
+    let variables = {} as GetPostsAndSettingsQueryVariables;
+    const search = (context.query.q || '') as string;
+    if (!search)
         return {
             notFound: true,
         };
     try {
-        variables = { postSearch: { contains: query as string }, limit: 6 };
-        data = await loadPosts(variables);
+        variables = {
+            where: {
+                OR: [
+                    { excerpt_contains: search },
+                    { title_contains: search },
+                    { categories_every: { slug: search } },
+                    { tags_every: { slug: search } },
+                ],
+            },
+            last: 6,
+        };
+        data = await loadPosts({ ...variables });
     } catch (error) {
         data = null;
     }
@@ -43,13 +49,10 @@ export const getServerSideProps: GetServerSideProps<StrapiPostAndSettings> = asy
             notFound: true,
         };
     }
+    console.log('Search', data);
     return {
         props: {
             ...data,
-            variables: {
-                ...defaultLoadPostsVariables,
-                ...variables,
-            },
         },
     };
 };

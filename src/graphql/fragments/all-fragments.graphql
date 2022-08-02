@@ -16,7 +16,7 @@ fragment category on Category {
     slug
     name
     id
-    cover{
+    cover {
         url
     }
 }
@@ -25,6 +25,20 @@ fragment tag on Tag {
     name
     slug
     id
+}
+fragment creator on Creator {
+    name
+    resume {
+        html
+        text
+    }
+    biography {
+        html
+        text
+    }
+    picture {
+        url
+    }
 }
 
 fragment post on Post {

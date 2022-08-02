@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import { loadPosts } from '../utils/loadPosts';
 import { PostsTemplate } from '../templates/PostsTemplate';
 import { GetPostsAndSettingsQuery } from '../graphql/generated';

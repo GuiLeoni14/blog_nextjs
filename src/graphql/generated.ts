@@ -2050,6 +2050,86 @@ export enum CreatorOrderByInput {
   NameDesc = 'name_DESC'
 }
 
+export type CreatorParent = Setting;
+
+export type CreatorParentConnectInput = {
+  Setting?: InputMaybe<SettingConnectInput>;
+};
+
+export type CreatorParentCreateInput = {
+  Setting?: InputMaybe<SettingCreateInput>;
+};
+
+export type CreatorParentCreateManyInlineInput = {
+  /** Connect multiple existing CreatorParent documents */
+  connect?: InputMaybe<Array<CreatorParentWhereUniqueInput>>;
+  /** Create and connect multiple existing CreatorParent documents */
+  create?: InputMaybe<Array<CreatorParentCreateInput>>;
+};
+
+export type CreatorParentCreateOneInlineInput = {
+  /** Connect one existing CreatorParent document */
+  connect?: InputMaybe<CreatorParentWhereUniqueInput>;
+  /** Create and connect one CreatorParent document */
+  create?: InputMaybe<CreatorParentCreateInput>;
+};
+
+export type CreatorParentUpdateInput = {
+  Setting?: InputMaybe<SettingUpdateInput>;
+};
+
+export type CreatorParentUpdateManyInlineInput = {
+  /** Connect multiple existing CreatorParent documents */
+  connect?: InputMaybe<Array<CreatorParentConnectInput>>;
+  /** Create and connect multiple CreatorParent documents */
+  create?: InputMaybe<Array<CreatorParentCreateInput>>;
+  /** Delete multiple CreatorParent documents */
+  delete?: InputMaybe<Array<CreatorParentWhereUniqueInput>>;
+  /** Disconnect multiple CreatorParent documents */
+  disconnect?: InputMaybe<Array<CreatorParentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing CreatorParent documents */
+  set?: InputMaybe<Array<CreatorParentWhereUniqueInput>>;
+  /** Update multiple CreatorParent documents */
+  update?: InputMaybe<Array<CreatorParentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple CreatorParent documents */
+  upsert?: InputMaybe<Array<CreatorParentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type CreatorParentUpdateManyWithNestedWhereInput = {
+  Setting?: InputMaybe<SettingUpdateManyWithNestedWhereInput>;
+};
+
+export type CreatorParentUpdateOneInlineInput = {
+  /** Connect existing CreatorParent document */
+  connect?: InputMaybe<CreatorParentWhereUniqueInput>;
+  /** Create and connect one CreatorParent document */
+  create?: InputMaybe<CreatorParentCreateInput>;
+  /** Delete currently connected CreatorParent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected CreatorParent document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single CreatorParent document */
+  update?: InputMaybe<CreatorParentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single CreatorParent document */
+  upsert?: InputMaybe<CreatorParentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type CreatorParentUpdateWithNestedWhereUniqueInput = {
+  Setting?: InputMaybe<SettingUpdateWithNestedWhereUniqueInput>;
+};
+
+export type CreatorParentUpsertWithNestedWhereUniqueInput = {
+  Setting?: InputMaybe<SettingUpsertWithNestedWhereUniqueInput>;
+};
+
+export type CreatorParentWhereInput = {
+  Setting?: InputMaybe<SettingWhereInput>;
+};
+
+export type CreatorParentWhereUniqueInput = {
+  Setting?: InputMaybe<SettingWhereUniqueInput>;
+};
+
 export type CreatorUpdateInput = {
   biography?: InputMaybe<Scalars['RichTextAST']>;
   name?: InputMaybe<Scalars['String']>;
@@ -6995,6 +7075,8 @@ export type Setting = Node & {
   createdAt: Scalars['DateTime'];
   /** User that created this document */
   createdBy?: Maybe<User>;
+  /** Criador do blog */
+  creator: Creator;
   /** Get the document in other stages */
   documentInStages: Array<Setting>;
   /** List of Setting versions */
@@ -7023,6 +7105,12 @@ export type SettingBlogLogoArgs = {
 
 /** Configurações básicas do blog */
 export type SettingCreatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** Configurações básicas do blog */
+export type SettingCreatorArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -7088,6 +7176,7 @@ export type SettingCreateInput = {
   blogLogo: AssetCreateOneInlineInput;
   blogName: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  creator: CreatorCreateOneInlineInput;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -7179,6 +7268,7 @@ export type SettingManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  creator?: InputMaybe<CreatorWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -7254,6 +7344,7 @@ export type SettingUpdateInput = {
   blogDescription?: InputMaybe<Scalars['String']>;
   blogLogo?: InputMaybe<AssetUpdateOneInlineInput>;
   blogName?: InputMaybe<Scalars['String']>;
+  creator?: InputMaybe<CreatorUpdateOneInlineInput>;
 };
 
 export type SettingUpdateManyInlineInput = {
@@ -7386,6 +7477,7 @@ export type SettingWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<Scalars['DateTime']>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  creator?: InputMaybe<CreatorWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -8651,6 +8743,8 @@ export type CategoryFragment = { __typename?: 'Category', slug: string, name: st
 
 export type TagFragment = { __typename?: 'Tag', name: string, slug: string, id: string };
 
+export type CreatorFragment = { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } };
+
 export type PostFragment = { __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, text: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, keywords: Array<string> } | null, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null };
 
 export type GetCategoriesAndAuthorsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -8687,16 +8781,34 @@ export type GetPostsAndSettingsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<PostWhereInput>;
+  last?: InputMaybe<Scalars['Int']>;
+  settingID?: InputMaybe<Scalars['ID']>;
 }>;
 
 
-export type GetPostsAndSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, blogLogo: { __typename?: 'Asset', url: string } } | null, posts: Array<{ __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, text: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, keywords: Array<string> } | null, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null }> };
+export type GetPostsAndSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, blogLogo: { __typename?: 'Asset', url: string } } | null, posts: Array<{ __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, text: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, keywords: Array<string> } | null, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null }> };
 
 export type GetSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, blogLogo: { __typename?: 'Asset', url: string } } | null };
 
+export const CreatorFragmentDoc = gql`
+    fragment creator on Creator {
+  name
+  resume {
+    html
+    text
+  }
+  biography {
+    html
+    text
+  }
+  picture {
+    url
+  }
+}
+    `;
 export const CategoryFragmentDoc = gql`
     fragment category on Category {
   slug
@@ -8918,19 +9030,23 @@ export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const GetPostsAndSettingsDocument = gql`
-    query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput) {
-  setting(where: {id: "cl6bd733396xd0akj28hd7cjc"}) {
+    query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int, $settingID: ID) {
+  setting(where: {id: $settingID}) {
     blogName
     blogDescription
+    creator {
+      ...creator
+    }
     blogLogo {
       url
     }
   }
-  posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where) {
+  posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where, last: $last) {
     ...post
   }
 }
-    ${PostFragmentDoc}`;
+    ${CreatorFragmentDoc}
+${PostFragmentDoc}`;
 
 /**
  * __useGetPostsAndSettingsQuery__
@@ -8948,6 +9064,8 @@ export const GetPostsAndSettingsDocument = gql`
  *      first: // value for 'first'
  *      skip: // value for 'skip'
  *      where: // value for 'where'
+ *      last: // value for 'last'
+ *      settingID: // value for 'settingID'
  *   },
  * });
  */
