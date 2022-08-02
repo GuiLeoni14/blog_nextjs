@@ -1,38 +1,35 @@
 import Link from 'next/link';
-import { TAuthor } from '../../shared-typed/author';
-import { TCategory } from '../../shared-typed/category';
+import { PostFragment } from '../../graphql/generated';
 import { DatePost } from '../DatePost';
 import { SlugCategory } from '../Slug';
 import * as S from './styles';
 
-export type TArticleMetaProps = {
-    createdAt: string;
-    autor?: TAuthor;
-    categories?: { data: TCategory[] };
-};
+type IArticleMetaProps = Pick<PostFragment, 'categories'> &
+    Pick<PostFragment, 'author'> &
+    Pick<PostFragment, 'publishedAt'>;
 
-export const ArticleMeta = ({ createdAt, autor, categories }: TArticleMetaProps) => {
+export const ArticleMeta = ({ categories, publishedAt, author }: IArticleMetaProps) => {
     return (
         <S.Wrapper>
             <div>
-                {autor && typeof autor !== 'undefined' && (
+                {author && typeof author !== 'undefined' && (
                     <>
                         <span>Por </span>
-                        <Link href={`/author/${autor.attributes.slug}`}>
-                            <a>{autor.attributes.name}</a>
+                        <Link href={`/author/${author.slug}`}>
+                            <a>{author.name}</a>
                         </Link>
                         <span className="separator"> | </span>
                     </>
                 )}
-                <DatePost date={createdAt} size={1.5} />
-                {categories && categories.data.length > 0 && (
+                <DatePost date={publishedAt} size={1.5} />
+                {categories && categories.length > 0 && (
                     <>
                         <span className="separator"> | </span>
-                        {categories.data.map((category) => {
+                        {categories.map((category) => {
                             return (
                                 <SlugCategory key={`article-meta-cat-${category.id}`}>
-                                    <Link href={`/category/${category.attributes.slug}`}>
-                                        <a>{category.attributes.name}</a>
+                                    <Link href={`/category/${category.slug}`}>
+                                        <a>{category.name}</a>
                                     </Link>
                                 </SlugCategory>
                             );

@@ -1,11 +1,8 @@
 import * as S from './styles';
 import { PostCard } from '../PostCard';
-import { TPostStrapi } from '../../shared-typed/post-strapi';
+import { GetPostsQuery } from '../../graphql/generated';
 
-export type TPostGridProps = {
-    posts: TPostStrapi[];
-};
-function PostGrid({ posts }: TPostGridProps) {
+function PostGrid({ posts }: GetPostsQuery) {
     const variants = {
         show: {
             transition: {

@@ -1,45 +1,50 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../../utils/loadPosts';
-import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { PostTemplate } from '../../templates/PostTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
+import { client } from '../../utils/apollo';
+import {
+    GetPostsAndSettingsDocument,
+    GetPostsAndSettingsQuery,
+    GetPostsAndSettingsQueryVariables,
+    GetPostsDocument,
+    GetPostsQuery,
+    PostFragment,
+} from '../../graphql/generated';
 
-type TPostStaticProps = StrapiPostAndSettings & {
-    posts_related?: { data: TPostStrapi[] };
+export type TPostStaticProps = GetPostsAndSettingsQuery & {
+    posts_related?: PostFragment[];
 };
 
-export default function PostPage({ posts, setting, contentPage, posts_related }: TPostStaticProps) {
+export default function PostPage({ posts, posts_related, setting }: TPostStaticProps) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
-    const titleHead = `${posts.data[0].attributes.title} - ${setting.data.attributes.blogName}`;
+    const titleHead = `${posts[0].title} - ${setting?.blogName}`;
     return (
         <>
             <Head>
                 <title>{titleHead}</title>
-                <meta name="description" content={posts.data[0].attributes.excerpt} />
+                {/* <meta name="description" content={post.excerpt} /> */}
             </Head>
-            <PostTemplate
-                post={posts.data[0]}
-                setting={setting}
-                posts_related={posts_related}
-                contentPage={contentPage}
-            />
+            <PostTemplate posts={posts} setting={setting} posts_related={posts_related} />
         </>
     );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    let data: StrapiPostAndSettings | null = null;
+    let data: GetPostsQuery | null = null;
     let paths: { params: { slug: string } }[] = [];
     try {
-        data = await loadPosts();
-        paths = data.posts.data.map((post) => ({ params: { slug: post.attributes.slug } }));
+        const response = await client.query<GetPostsQuery>({
+            query: GetPostsDocument,
+        });
+        data = response.data;
+        paths = response.data.posts.map((post) => ({ params: { slug: post.slug } }));
     } catch (error) {
         data = null;
     }
-    if (!data || !data.posts || !data.posts.data.length) {
+    if (!data || !data.posts || !data.posts.length) {
         paths = [];
     }
     return {
@@ -53,21 +58,28 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
     let posts_related = null;
     try {
         if (context.params) {
-            data = await loadPosts({ postSlug: { contains: context.params.slug as string } });
+            const response = await client.query<GetPostsAndSettingsQuery>({
+                query: GetPostsAndSettingsDocument,
+                variables: {
+                    where: { slug: context.params.slug },
+                } as GetPostsAndSettingsQueryVariables,
+            });
+            data = response.data;
         }
     } catch (error) {
-        console.log(error);
         data = null;
     }
-    if (!data || !data.posts || !data.posts.data.length) {
+    if (!data || !data.posts || !data.posts.length) {
         return {
             notFound: true,
         };
     } else {
         try {
-            posts_related = await loadPosts({
-                categorySlug: { contains: data.posts.data[0].attributes.categories.data[0].attributes.slug },
-                limit: 6,
+            posts_related = await client.query<GetPostsAndSettingsQuery>({
+                query: GetPostsDocument,
+                variables: {
+                    where: { categories_every: { slug: data.posts[0].categories[0].slug } },
+                } as GetPostsAndSettingsQueryVariables,
             });
         } catch (error) {
             posts_related = null;
@@ -76,10 +88,7 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
     return {
         props: {
             ...data,
-            variables: {
-                ...defaultLoadPostsVariables,
-            },
-            posts_related: posts_related?.posts,
+            posts_related: posts_related?.data.posts,
         },
         revalidate: 10 * 60 * 1000,
     };

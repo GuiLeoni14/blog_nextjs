@@ -1,0 +1,5 @@
+query getPostByCategorySlug($categorySlug: String) {
+    posts(where: { categories_every: { slug: $categorySlug } }) {
+        ...post
+    }
+}

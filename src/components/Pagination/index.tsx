@@ -2,11 +2,15 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import * as S from './styles';
-import { TMetaPagination } from '../../utils/loadPosts';
 import { usePagination } from '../../hooks/usePagination';
 import { toast } from 'react-toastify';
 
-export function Pagination({ pagination: { pageCount } }: TMetaPagination) {
+interface IPaginationProps {
+    pagination: {
+        pageCount: number;
+    };
+}
+export function Pagination({ pagination: { pageCount } }: IPaginationProps) {
     const { actualPage, setActualPage, isLoading } = usePagination();
     const handleClickNext = () => {
         if (isLoading) {

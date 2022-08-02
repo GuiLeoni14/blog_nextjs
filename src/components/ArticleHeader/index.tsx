@@ -1,30 +1,18 @@
-import { TAuthor } from '../../shared-typed/author';
-import { TCategory } from '../../shared-typed/category';
-import { TStrapiImage } from '../../shared-typed/strapi-image';
+import { PostFragment } from '../../graphql/generated';
 import { ArticleMeta } from '../ArticleMeta';
 import { Heading } from '../Heading';
 import * as S from './styles';
 
-export type TArticleHeaderProps = {
-    id: string;
-    title: string;
-    excerpt: string;
-    cover: TStrapiImage;
-    autor: { data: TAuthor };
-    categories: { data: TCategory[] };
-    createdAt: string;
-};
-
-export const ArticleHeader = ({ title, excerpt, cover, autor, categories, createdAt }: TArticleHeaderProps) => {
+export const ArticleHeader = ({ categories, title, cover, excerpt, author }: PostFragment) => {
     return (
         <S.Container>
             <S.Top>
-                <S.Cover src={cover.data.attributes.url} alt={title} />
+                <S.Cover src={cover.url} alt={title} />
             </S.Top>
             <S.Content>
                 <Heading size="big">{title}</Heading>
                 <S.Excerpt>{excerpt}</S.Excerpt>
-                <ArticleMeta categories={categories} autor={autor.data} createdAt={createdAt} />
+                <ArticleMeta categories={categories} author={author} />
             </S.Content>
         </S.Container>
     );

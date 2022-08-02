@@ -1,20 +1,12 @@
-import { TLoadPostsVariables } from '../../utils/loadPosts';
 import { PostCardFeatured } from '../PostCardFeatured';
 import { PostFeatured } from '../PostFeatured';
-import { TPostStrapi } from '../../shared-typed/post-strapi';
-import { TSettingsStrapi } from '../../shared-typed/settings-strapi';
 
 import * as S from './styles';
 import { useRouter } from 'next/router';
 import { memo } from 'react';
+import { GetPostsQuery } from '../../graphql/generated';
 
-export type TFeaturedProps = {
-    setting: { data: TSettingsStrapi }; // passar settings para o header/footer
-    posts?: TPostStrapi[];
-    variables?: TLoadPostsVariables;
-};
-
-function Featured({ posts = [] }: TFeaturedProps) {
+function Featured({ posts = [] }: GetPostsQuery) {
     const statePostCardFeatured = posts.slice(1, 5);
     const router = useRouter();
     if (statePostCardFeatured.length < 1 || router.route !== '/') return null;

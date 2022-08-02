@@ -1,0 +1,9 @@
+query getSettings {
+    setting(where: { id: "cl6bd733396xd0akj28hd7cjc" }) {
+        blogName
+        blogDescription
+        blogLogo {
+            url
+        }
+    }
+}

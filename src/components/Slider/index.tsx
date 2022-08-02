@@ -1,15 +1,15 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper';
-import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { PostCard } from '../PostCard';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import * as S from './styles';
+import { PostFragment } from '../../graphql/generated';
 
-export type TSlderProps = {
-    posts: { data: TPostStrapi[] };
+export type TSliderProps = {
+    posts: PostFragment[];
 };
-export function Slider({ posts }: TSlderProps) {
+export function Slider({ posts }: TSliderProps) {
     return (
         <S.Container>
             <Swiper
@@ -34,7 +34,7 @@ export function Slider({ posts }: TSlderProps) {
                 }}
                 modules={[Pagination, Autoplay]}
             >
-                {posts.data.map((post) => (
+                {posts.map((post) => (
                     <SwiperSlide key={post.id}>
                         <PostCard {...post} />
                     </SwiperSlide>

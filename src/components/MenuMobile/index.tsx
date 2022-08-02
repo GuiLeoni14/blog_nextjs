@@ -5,11 +5,12 @@ import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
 import { InputSearch } from '../InputSearch';
 import { Accordion } from './Accordion';
-import { useGet_Categories_And_AuthorsQuery } from '../../graphql/generated';
+import { useGetCategoriesAndAuthorsQuery } from '../../graphql/generated';
 
 export function MenuMobile() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const { data, loading } = useGet_Categories_And_AuthorsQuery();
+    const { data, loading } = useGetCategoriesAndAuthorsQuery();
+    console.log('data', data);
     useEffect(() => {
         const element_to_not_scroll = document.querySelector('body');
         if (!element_to_not_scroll || typeof window === 'undefined') return;
@@ -58,7 +59,7 @@ export function MenuMobile() {
                         ) : (
                             <>
                                 <InputSearch />
-                                {data && <Accordion categories={data.categories} autors={data.autors} />}
+                                {data && <Accordion categories={data.categories} authors={data.authors} />}
                             </>
                         )}
                     </MainContainer>

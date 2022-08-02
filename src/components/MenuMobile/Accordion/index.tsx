@@ -3,15 +3,10 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { BiCategory } from 'react-icons/bi';
 import { Heading } from '../../Heading';
 import * as S from './styles';
-import { TCategory } from '../../../shared-typed/category';
 import Link from 'next/link';
-import { TAuthor } from '../../../shared-typed/author';
-import { Get_Categories_And_AuthorsQuery } from '../../../graphql/generated';
-export type TAccordionProps = {
-    categories: TCategory[];
-    autors: TAuthor[];
-};
-export function Accordion({ autors, categories }: Get_Categories_And_AuthorsQuery) {
+import { GetCategoriesAndAuthorsQuery } from '../../../graphql/generated';
+
+export function Accordion({ authors, categories }: GetCategoriesAndAuthorsQuery) {
     return (
         <S.Container>
             <MuiAccordion elevation={0} disableGutters style={{ marginTop: '2rem' }}>
@@ -29,12 +24,12 @@ export function Accordion({ autors, categories }: Get_Categories_And_AuthorsQuer
                 </AccordionSummary>
                 <AccordionDetails>
                     <S.Content>
-                        {categories?.data.map((category) => (
-                            <Link key={category.id} href={`/category/${category.attributes?.slug}`} passHref>
+                        {categories?.map((category) => (
+                            <Link key={category.id} href={`/category/${category?.slug}`} passHref>
                                 <a>
-                                    <img src={category.attributes?.cover?.data?.attributes?.url} />
+                                    <img src={category.cover.url} />
                                     <Heading as="h6" size="small">
-                                        {category?.attributes?.name}
+                                        {category?.name}
                                     </Heading>
                                 </a>
                             </Link>
@@ -57,11 +52,11 @@ export function Accordion({ autors, categories }: Get_Categories_And_AuthorsQuer
                 </AccordionSummary>
                 <AccordionDetails>
                     <S.Content>
-                        {autors?.data.map((autor) => (
-                            <Link key={autor.id} href={`/author/${autor.attributes?.slug}`} passHref>
+                        {authors?.map((author) => (
+                            <Link key={author.slug} href={`/author/${author?.slug}`} passHref>
                                 <a>
                                     <Heading as="h6" size="small">
-                                        {autor.attributes?.name}
+                                        {author?.name}
                                     </Heading>
                                 </a>
                             </Link>

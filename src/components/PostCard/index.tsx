@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { TPostStrapi } from '../../shared-typed/post-strapi';
+import { PostFragment } from '../../graphql/generated';
 import { Heading } from '../Heading';
 import { HtmlContent } from '../HtmlContent';
 import { ContainerSlug, SlugCategory } from '../Slug';
 import * as S from './styles';
 
-export type TPostCardProps = TPostStrapi;
-export function PostCard({ attributes: { cover, slug, title, excerpt, categories } }: TPostCardProps) {
+export function PostCard({ categories, title, cover, excerpt, slug }: PostFragment) {
     const variants = {
         hidden: { opacity: 0 },
         show: { opacity: 1 },
@@ -16,14 +15,14 @@ export function PostCard({ attributes: { cover, slug, title, excerpt, categories
             <Link href={`/post/${slug}`}>
                 <a>
                     <S.Image>
-                        <img src={cover.data.attributes.url} alt={cover.data.attributes.alternativeText} />
+                        <img src={cover.url} alt="Imagem do post" />
                     </S.Image>
                 </a>
             </Link>
             <S.Text>
                 <ContainerSlug>
-                    {categories?.data?.slice(0, 3).map((category) => (
-                        <SlugCategory key={category.id}>{category.attributes.name}</SlugCategory>
+                    {categories.slice(0, 3).map((category) => (
+                        <SlugCategory key={category.id}>{category.name}</SlugCategory>
                     ))}
                 </ContainerSlug>
                 <Heading as="h6" size="small">

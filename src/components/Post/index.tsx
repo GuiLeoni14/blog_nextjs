@@ -2,19 +2,17 @@ import { useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import { TPostTag } from '../../shared-typed/tag';
 import { MainContainer } from '../../styles/container';
-import { ArticleHeader, TArticleHeaderProps } from '../ArticleHeader';
+import { ArticleHeader } from '../ArticleHeader';
 import { HtmlContent } from '../HtmlContent';
 import { PostTags } from '../PostTags';
 import { PostTopics } from '../PostTopics';
 import * as S from './styles';
 import { useBlogTheme } from '../../hooks/useBlogTheme';
+import { PostFragment, TagPosts } from '../../graphql/generated';
 
-export type TPostComponentProps = TArticleHeaderProps & {
-    content: string;
-    tags?: { data: TPostTag[] };
-};
+export type TPostComponentProps = PostFragment;
 
-function Drawer({ tags }: { tags?: { data: TPostTag[] } }) {
+function Drawer({ tags }: Pick<PostFragment, 'tags'>) {
     const [open, setOpen] = useState(false);
     const { theme } = useBlogTheme();
     const matches = useMediaQuery(`${theme.media.lteMedium}`);
@@ -42,7 +40,7 @@ function Drawer({ tags }: { tags?: { data: TPostTag[] } }) {
                             onClick={() => setOpen((state) => !state)}
                         ></S.DividerHandleToggleDrawer>
                         <PostTopics searchClassTopics="topics_search" />
-                        <PostTags tags={tags?.data} />
+                        <PostTags tags={tags} />
                     </S.ContentDrawer>
                 </MainContainer>
             </S.DrawerRoot>
@@ -56,26 +54,18 @@ function Drawer({ tags }: { tags?: { data: TPostTag[] } }) {
         </>
     );
 }
-export function Post({ content, cover, createdAt, excerpt, id, title, autor, categories, tags }: TPostComponentProps) {
+export function Post(props: TPostComponentProps) {
     return (
         <S.Container>
-            <ArticleHeader
-                autor={autor}
-                categories={categories}
-                cover={cover}
-                createdAt={createdAt}
-                excerpt={excerpt}
-                title={title}
-                id={id}
-            />
+            <ArticleHeader {...props} />
             <S.Content>
                 <S.LeftContent>
                     <PostTopics searchClassTopics="topics_search" />
-                    <PostTags tags={tags?.data} />
+                    <PostTags tags={props.tags} />
                 </S.LeftContent>
-                <Drawer tags={tags} />
+                <Drawer tags={props.tags} />
                 <S.RightContent className="topics_search">
-                    <HtmlContent html={content} />
+                    <HtmlContent html={props.content.html} />
                 </S.RightContent>
             </S.Content>
         </S.Container>

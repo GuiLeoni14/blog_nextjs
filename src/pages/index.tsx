@@ -1,27 +1,24 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../utils/loadPosts';
+import { loadPosts } from '../utils/loadPosts';
 import { PostsTemplate } from '../templates/PostsTemplate';
-export default function Home({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
+import { GetPostsAndSettingsQuery } from '../graphql/generated';
+export default function Home({ posts, setting }: GetPostsAndSettingsQuery) {
     return (
         <>
-            <Head>
-                <title>{setting.data.attributes.blogName}</title>
-                <meta name="description" content={setting.data.attributes.blogDescription} />
-            </Head>
-            <PostsTemplate posts={posts} setting={setting} variables={variables} contentPage={contentPage} />
+            <PostsTemplate posts={posts} setting={setting} />
         </>
     );
 }
 
-export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async () => {
+export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async () => {
     let data = null;
     try {
-        data = await loadPosts({ limit: 6 });
+        data = await loadPosts({ last: 6 });
     } catch (error) {
         data = null;
     }
-    if (!data || !data.posts || !data.posts.data.length) {
+    if (!data || !data.posts || !data.posts.length) {
         return {
             notFound: true,
         };
@@ -29,9 +26,6 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async () =>
     return {
         props: {
             ...data,
-            variables: {
-                ...defaultLoadPostsVariables,
-            },
         },
         revalidate: 10 * 60 * 1000,
     };
