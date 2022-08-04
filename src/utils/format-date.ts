@@ -1,4 +1,9 @@
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
 export const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
-    return date.toLocaleString('pt-BR').slice(0, 10);
+    return format(date, "EEEE' • 'd' de 'MMMM'", {
+        locale: ptBR,
+    });
 };

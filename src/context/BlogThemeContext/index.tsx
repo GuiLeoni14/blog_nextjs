@@ -19,12 +19,9 @@ export function BlogThemeProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    useEffect(() => {
-        postStorage({ name: 'theme', values: theme.title });
-    }, [theme]);
-
     const toggleTheme = useCallback(() => {
         setTheme(theme.title === 'light' ? dark : light);
+        postStorage({ name: 'theme', values: theme.title === 'light' ? 'dark' : 'light' });
     }, [setTheme, theme]);
 
     return (

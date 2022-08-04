@@ -1,25 +1,27 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import {
-    defaultLoadPostsVariables,
-    loadPosts,
-    StrapiPostAndSettings,
-    TLoadPostsVariables,
-} from '../../utils/loadPosts';
+import { loadPosts } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
+import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../../graphql/generated';
 
-export default function AuthorPage({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
+export default function AuthorPage({ posts, setting }: GetPostsAndSettingsQuery) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
-    const titleHead = `Author: ${posts.data[0].attributes.autor.data.attributes.name} - ${setting.data.attributes.blogName}`;
+    const titleHead = `Author: ${posts[0].author?.name} - ${setting?.blogName}`;
+    const SEO = {
+        description: '',
+        keywords: '',
+        ...setting?.seo,
+        title: titleHead,
+    } as SeoFragment;
     return (
         <>
             <Head>
                 <title>{titleHead}</title>
             </Head>
-            <PostsTemplate contentPage={contentPage} posts={posts} setting={setting} variables={variables} />
+            <PostsTemplate posts={posts} setting={setting} seo={SEO} />
         </>
     );
 }
@@ -31,18 +33,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (context) => {
+export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async (context) => {
     let data = null;
-    let variables = {} as TLoadPostsVariables;
+    let variables = {} as GetPostsAndSettingsQueryVariables;
     try {
         if (context.params) {
-            variables = { authorSlug: { contains: context.params.slug as string }, limit: 6 };
+            variables = { where: { author: { slug: context.params.slug as string } }, last: 6 };
             data = await loadPosts(variables);
         }
     } catch (error) {
         data = null;
     }
-    if (!data || !data.posts || !data.posts.data.length) {
+    if (!data || !data.posts || !data.posts.length) {
         return {
             notFound: true,
         };
@@ -50,10 +52,6 @@ export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (cont
     return {
         props: {
             ...data,
-            variables: {
-                ...defaultLoadPostsVariables,
-                ...variables,
-            },
         },
         revalidate: 10 * 60 * 1000,
     };

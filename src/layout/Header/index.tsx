@@ -1,5 +1,5 @@
 import { LinearProgress } from '@mui/material';
-import { useViewportScroll } from 'framer-motion';
+import { useScroll } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { ButtonToggleTheme } from '../../components/ButtonToggleTheme';
@@ -10,7 +10,7 @@ import { MainContainer } from '../../styles/container';
 import * as S from './styles';
 
 export function Header({ setting }: GetSettingsQuery) {
-    const { scrollYProgress } = useViewportScroll();
+    const { scrollYProgress } = useScroll();
     const [percentualScroll, setPercentualScroll] = useState<number>(0);
     useEffect(() => {
         scrollYProgress.onChange((state) => setPercentualScroll(Number(state.toFixed(2))));

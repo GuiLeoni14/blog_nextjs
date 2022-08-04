@@ -10,7 +10,6 @@ import { useGetCategoriesAndAuthorsQuery } from '../../graphql/generated';
 export function MenuMobile() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const { data, loading } = useGetCategoriesAndAuthorsQuery();
-    console.log('data', data);
     useEffect(() => {
         const element_to_not_scroll = document.querySelector('body');
         if (!element_to_not_scroll || typeof window === 'undefined') return;

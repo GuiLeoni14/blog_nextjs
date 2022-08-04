@@ -5,8 +5,9 @@ import { SlugCategory } from '../Slug';
 import * as S from './styles';
 
 type IArticleMetaProps = Pick<PostFragment, 'categories'> &
-    Pick<PostFragment, 'author'> &
-    Pick<PostFragment, 'publishedAt'>;
+    Pick<PostFragment, 'author'> & {
+        publishedAt: string;
+    };
 
 export const ArticleMeta = ({ categories, publishedAt, author }: IArticleMetaProps) => {
     return (

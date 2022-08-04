@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import { TArticleHeaderProps } from '../ArticleHeader';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import { PostFragment } from '../../graphql/generated';
 import * as S from './styles';
-export type TInputSearch = TArticleHeaderProps & {
+export type TInputSearch = PostFragment & {
     content: string;
 };
 export function InputSearch() {
@@ -36,9 +36,20 @@ export function InputSearch() {
 
         return () => clearTimeout(inputTimeout.current as NodeJS.Timeout);
     }, [searchValue, router]);
+
+    const handleSubmitForm = (event: FormEvent) => {
+        event.preventDefault();
+        setIsReady(false);
+        router
+            .push({
+                pathname: '/search/',
+                query: { q: searchValue },
+            })
+            .then(() => setIsReady(true));
+    };
     return (
         <S.Container className="search">
-            <form action="/search/" method="GET">
+            <form onSubmit={handleSubmitForm}>
                 <S.SearchInput
                     type="search"
                     placeholder="pesquisar por posts"

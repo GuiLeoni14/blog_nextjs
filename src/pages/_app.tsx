@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { ApolloProvider } from '@apollo/client';
-import { client } from '../utils/apollo';
+import { client } from '../lib/apollo';
 import NProgress from 'nprogress';
 import { useEffect } from 'react';
 import '../../public/css/nprogress.css';
@@ -33,14 +33,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         };
     }, [router]);
     return (
-        <BlogThemeProvider>
-            <PaginationProvider>
-                <ApolloProvider client={client}>
+        <ApolloProvider client={client}>
+            <BlogThemeProvider>
+                <PaginationProvider>
                     <ToastContainer limit={5} style={{ fontSize: '1.4rem' }} />
                     <GlobalStyle />
                     <Component {...pageProps} key={router.asPath} />
-                </ApolloProvider>
-            </PaginationProvider>
-        </BlogThemeProvider>
+                </PaginationProvider>
+            </BlogThemeProvider>
+        </ApolloProvider>
     );
 }

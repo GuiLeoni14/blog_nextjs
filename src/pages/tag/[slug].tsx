@@ -1,10 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { loadPosts } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
-import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables } from '../../graphql/generated';
+import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../../graphql/generated';
 import { useMemo } from 'react';
 
 export default function TagPage({ posts, setting }: GetPostsAndSettingsQuery) {
@@ -17,12 +16,16 @@ export default function TagPage({ posts, setting }: GetPostsAndSettingsQuery) {
 
     if (router.isFallback) return <p>Carregando...</p>;
     const titleHead = `Tag: ${tagName} - ${setting?.blogName}`;
+    // se vier setting undefined ele carrega os valores de seo vazios
+    const SEO = {
+        description: '',
+        keywords: '',
+        ...setting?.seo,
+        title: titleHead,
+    } as SeoFragment;
     return (
         <>
-            <Head>
-                <title>{titleHead}</title>
-            </Head>
-            <PostsTemplate posts={posts} setting={setting} />
+            <PostsTemplate posts={posts} setting={setting} seo={SEO} />
         </>
     );
 }
@@ -47,7 +50,6 @@ export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async (c
     } catch (error) {
         data = null;
     }
-    console.log(data);
     if (!data || !data.posts || !data.posts.length) {
         return {
             notFound: true,

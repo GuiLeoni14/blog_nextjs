@@ -2,16 +2,16 @@ import useSWR from 'swr';
 import { request } from 'graphql-request';
 import { GRAPHQL_QUERY } from '../graphql/queries';
 import { config } from '../config';
-import { defaultLoadPostsVariables, TLoadPostsVariables } from '../utils/loadPosts';
+import {} from '../utils/loadPosts';
+import { GetPostsAndSettingsQueryVariables } from '../graphql/generated';
 
 export type TUseQueryProps = {
-    variables?: TLoadPostsVariables;
+    variables?: GetPostsAndSettingsQueryVariables;
     query?: string;
 };
 
-const fetcher = (query: string, variables: TLoadPostsVariables = {}) =>
+const fetcher = (query: string, variables: GetPostsAndSettingsQueryVariables = {}) =>
     request(config.graphql_URL, query, {
-        ...defaultLoadPostsVariables,
         ...variables,
     });
 

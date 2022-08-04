@@ -1,9 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { PostTemplate } from '../../templates/PostTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
-import { client } from '../../utils/apollo';
+import { client } from '../../lib/apollo';
 import { GetPostsAndSettingsQuery, GetPostsDocument, GetPostsQuery, PostFragment } from '../../graphql/generated';
 import { loadPosts } from '../../utils/loadPosts';
 
@@ -14,13 +13,8 @@ export type TPostStaticProps = GetPostsAndSettingsQuery & {
 export default function PostPage({ posts, posts_related, setting }: TPostStaticProps) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
-    const titleHead = `${posts[0].title} - ${setting?.blogName}`;
     return (
         <>
-            <Head>
-                <title>{titleHead}</title>
-                {/* <meta name="description" content={post.excerpt} /> */}
-            </Head>
             <PostTemplate posts={posts} setting={setting} posts_related={posts_related} />
         </>
     );
@@ -74,7 +68,7 @@ export const getStaticProps: GetStaticProps<TPostStaticProps> = async (context) 
     return {
         props: {
             ...data,
-            posts_related: posts_related?.posts,
+            posts_related: posts_related?.posts || [],
         },
         revalidate: 10 * 60 * 1000,
     };

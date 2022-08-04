@@ -4,18 +4,24 @@ import { useRouter } from 'next/router';
 import { loadPosts } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
-import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables } from '../../graphql/generated';
+import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../../graphql/generated';
 
 export default function SearchPage({ posts, setting }: GetPostsAndSettingsQuery) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
     const titleHead = `Pesquisa: ${router.query.q} - ${setting?.blogName}`;
+    const SEO = {
+        description: '',
+        keywords: '',
+        ...setting?.seo,
+        title: titleHead,
+    } as SeoFragment;
     return (
         <>
             <Head>
                 <title>{titleHead}</title>
             </Head>
-            <PostsTemplate posts={posts} setting={setting} />
+            <PostsTemplate posts={posts} setting={setting} seo={SEO} />
         </>
     );
 }
@@ -49,7 +55,6 @@ export const getServerSideProps: GetServerSideProps<GetPostsAndSettingsQuery> = 
             notFound: true,
         };
     }
-    console.log('Search', data);
     return {
         props: {
             ...data,

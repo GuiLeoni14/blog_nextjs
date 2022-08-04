@@ -1,15 +1,8 @@
-query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int, $settingID: ID) {
+query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int,$after: String,$before: String, $settingID: ID) {
     setting(where: { id: $settingID }) {
-        blogName
-        blogDescription
-        creator {
-            ...creator
-        }
-        blogLogo {
-            url
-        }
+        ...setting
     }
-    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where, last: $last) {
+    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where, last: $last,after: $after,before: $before) {
         ...post
     }
 }

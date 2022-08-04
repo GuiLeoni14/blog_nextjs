@@ -1,6 +1,5 @@
 import { useMediaQuery } from '@mui/material';
 import { useState } from 'react';
-import { TPostTag } from '../../shared-typed/tag';
 import { MainContainer } from '../../styles/container';
 import { ArticleHeader } from '../ArticleHeader';
 import { HtmlContent } from '../HtmlContent';
@@ -8,7 +7,7 @@ import { PostTags } from '../PostTags';
 import { PostTopics } from '../PostTopics';
 import * as S from './styles';
 import { useBlogTheme } from '../../hooks/useBlogTheme';
-import { PostFragment, TagPosts } from '../../graphql/generated';
+import { PostFragment } from '../../graphql/generated';
 
 export type TPostComponentProps = PostFragment;
 

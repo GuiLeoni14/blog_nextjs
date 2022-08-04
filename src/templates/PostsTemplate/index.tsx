@@ -1,29 +1,50 @@
-import { useCallback, useRef } from 'react';
-import { Pagination } from '../../components/Pagination';
+import { useCallback, useState } from 'react';
 import PostGrid from '../../components/PostGrid';
 import { SkeletonCardPost } from '../../components/Skeleton';
 import { BaseTemplate } from '../BaseTemplate';
 import * as S from './styles';
-import { usePagination } from '../../hooks/usePagination';
 import { PostNotFound } from '../../components/PostNotFound';
-import { GetPostsAndSettingsQuery } from '../../graphql/generated';
+import { GetPostsAndSettingsQuery, SeoFragment, useGetPostsAndSettingsQuery } from '../../graphql/generated';
+import { DefaultButton } from '../../components/DefaultButton';
+import { toast } from 'react-toastify';
+import Featured from '../../components/Featured';
 
-export function PostsTemplate({ setting, posts }: GetPostsAndSettingsQuery) {
-    const { actualPage, data, isLoading } = usePagination();
-    const statePost = useRef(posts || []);
+export function PostsTemplate({ setting, posts, seo }: GetPostsAndSettingsQuery & { seo?: SeoFragment }) {
+    const [statePosts, setStatePosts] = useState(posts);
+    const lastPostsId = statePosts[statePosts.length - 1] ? statePosts[statePosts.length - 1].id : '';
+    const { data, loading } = useGetPostsAndSettingsQuery({
+        variables: { after: lastPostsId, first: 6 },
+    });
+
     const handleMountPostGrid = useCallback(() => {
-        if (!data || !data.posts || data.posts.data.length < 1 || actualPage < 1) {
-            return <PostGrid posts={statePost.current} />;
+        return <PostGrid posts={statePosts} />;
+    }, [statePosts]);
+
+    const handleMountNewPosts = useCallback(() => {
+        if (data && data.posts.length > 0) {
+            setStatePosts(data.posts);
         }
-        return <PostGrid posts={data.posts.data} />;
-    }, [statePost, data, actualPage]);
+        if (data && data.posts.length < 1) {
+            toast.warning('Sem posts para carregar', {
+                position: 'top-center',
+            });
+        }
+    }, [data]);
+
     return (
-        <BaseTemplate setting={setting} posts={posts}>
-            {statePost.current.length > 0 ? (
+        <BaseTemplate setting={setting} seo={seo}>
+            <Featured posts={posts} />
+            {statePosts.length > 0 ? (
                 <S.Container>
                     <h3>Posts</h3>
-                    {isLoading && actualPage > 0 ? <SkeletonCardPost /> : handleMountPostGrid()}
-                    <Pagination pagination={{ pageCount: 1 }} />
+                    {data && loading ? <SkeletonCardPost /> : handleMountPostGrid()}
+                    <DefaultButton
+                        onClickButton={handleMountNewPosts}
+                        disabled={(data && data.posts.length < 1) || loading}
+                        isLoading={loading}
+                    >
+                        Carregar mais posts
+                    </DefaultButton>
                 </S.Container>
             ) : (
                 <PostNotFound />
