@@ -73,6 +73,7 @@ fragment post on Post {
     }
     content {
         html
+        markdown
         text
     }
     author {

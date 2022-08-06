@@ -1,5 +1,5 @@
 import * as S from './styles';
-import { PostCard } from '../PostCard';
+import PostCard from '../PostCard';
 import { GetPostsQuery } from '../../graphql/generated';
 
 function PostGrid({ posts }: GetPostsQuery) {

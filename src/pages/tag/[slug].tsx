@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 import { loadPosts } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { SkeletonCardPost } from '../../components/Skeleton';
-import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../../graphql/generated';
+import { GetPostsAndSettingsQueryVariables, SeoFragment } from '../../graphql/generated';
 import { useMemo } from 'react';
+import { TDefaultQueryProps } from '..';
 
-export default function TagPage({ posts, setting }: GetPostsAndSettingsQuery) {
+export default function TagPage({ posts, setting, variables }: TDefaultQueryProps) {
     const router = useRouter();
     if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
 
@@ -25,7 +26,7 @@ export default function TagPage({ posts, setting }: GetPostsAndSettingsQuery) {
     } as SeoFragment;
     return (
         <>
-            <PostsTemplate posts={posts} setting={setting} seo={SEO} />
+            <PostsTemplate posts={posts} setting={setting} seo={SEO} variables={variables} />
         </>
     );
 }
@@ -37,7 +38,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async (context) => {
+export const getStaticProps: GetStaticProps<TDefaultQueryProps> = async (context) => {
     let data = null;
     let variables = {} as GetPostsAndSettingsQueryVariables;
     try {
@@ -58,6 +59,7 @@ export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async (c
     return {
         props: {
             ...data,
+            variables,
         },
         revalidate: 10 * 60 * 1000,
     };

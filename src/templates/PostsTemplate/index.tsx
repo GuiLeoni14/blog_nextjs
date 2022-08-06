@@ -1,28 +1,34 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PostGrid from '../../components/PostGrid';
 import { SkeletonCardPost } from '../../components/Skeleton';
 import { BaseTemplate } from '../BaseTemplate';
 import * as S from './styles';
 import { PostNotFound } from '../../components/PostNotFound';
-import { GetPostsAndSettingsQuery, SeoFragment, useGetPostsAndSettingsQuery } from '../../graphql/generated';
+import { SeoFragment, useGetPostsAndSettingsQuery } from '../../graphql/generated';
 import { DefaultButton } from '../../components/DefaultButton';
 import { toast } from 'react-toastify';
 import Featured from '../../components/Featured';
+import { TDefaultQueryProps } from '../../pages';
 
-export function PostsTemplate({ setting, posts, seo }: GetPostsAndSettingsQuery & { seo?: SeoFragment }) {
+export type TPostsTemplateProps = TDefaultQueryProps & {
+    seo?: SeoFragment;
+};
+export function PostsTemplate({ setting, posts, seo, variables }: TPostsTemplateProps) {
     const [statePosts, setStatePosts] = useState(posts);
     const lastPostsId = statePosts[statePosts.length - 1] ? statePosts[statePosts.length - 1].id : '';
     const { data, loading } = useGetPostsAndSettingsQuery({
-        variables: { after: lastPostsId, first: 6 },
+        variables: { ...variables, after: lastPostsId, last: 3 },
     });
-
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
     const handleMountPostGrid = useCallback(() => {
         return <PostGrid posts={statePosts} />;
     }, [statePosts]);
 
     const handleMountNewPosts = useCallback(() => {
         if (data && data.posts.length > 0) {
-            setStatePosts(data.posts);
+            setStatePosts((state) => [...state, ...data.posts]);
         }
         if (data && data.posts.length < 1) {
             toast.warning('Sem posts para carregar', {

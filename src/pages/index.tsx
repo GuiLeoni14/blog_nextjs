@@ -1,9 +1,13 @@
 import { GetStaticProps } from 'next';
 import { loadPosts } from '../utils/loadPosts';
 import { PostsTemplate } from '../templates/PostsTemplate';
-import { GetPostsAndSettingsQuery, SeoFragment } from '../graphql/generated';
+import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../graphql/generated';
 
-export default function Home({ posts, setting }: GetPostsAndSettingsQuery) {
+export type TDefaultQueryProps = GetPostsAndSettingsQuery & {
+    variables?: GetPostsAndSettingsQueryVariables;
+};
+
+export default function Home({ posts, setting }: TDefaultQueryProps) {
     const SEO = setting?.seo as SeoFragment;
     return (
         <>

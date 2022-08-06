@@ -4,8 +4,9 @@ import { loadPosts } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { useMemo } from 'react';
 import { SkeletonCardPost } from '../../components/Skeleton';
-import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../../graphql/generated';
-export default function CategoryPage({ posts, setting }: GetPostsAndSettingsQuery) {
+import { GetPostsAndSettingsQueryVariables, SeoFragment } from '../../graphql/generated';
+import { TDefaultQueryProps } from '..';
+export default function CategoryPage({ posts, setting, variables }: TDefaultQueryProps) {
     const router = useRouter();
     const categoryName = useMemo(() => {
         return posts ? posts[0].categories.filter((category) => category.slug == router.query.slug)[0].name : '';
@@ -21,7 +22,7 @@ export default function CategoryPage({ posts, setting }: GetPostsAndSettingsQuer
     } as SeoFragment;
     return (
         <>
-            <PostsTemplate posts={posts} setting={setting} seo={SEO} />
+            <PostsTemplate posts={posts} setting={setting} seo={SEO} variables={variables} />
         </>
     );
 }
@@ -33,12 +34,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async (context) => {
+export const getStaticProps: GetStaticProps<TDefaultQueryProps> = async (context) => {
     let data = null;
     let variables = {} as GetPostsAndSettingsQueryVariables;
     try {
         if (context.params) {
-            variables = { where: { categories_every: { slug: context.params.slug as string } }, last: 6 };
+            variables = { where: { categories_some: { slug: context.params.slug as string } }, last: 6 };
             data = await loadPosts({
                 ...variables,
             });
@@ -54,6 +55,7 @@ export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async (c
     return {
         props: {
             ...data,
+            variables,
         },
         revalidate: 10 * 60 * 1000,
     };

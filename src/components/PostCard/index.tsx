@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import { memo } from 'react';
 import { PostFragment } from '../../graphql/generated';
 import { Heading } from '../Heading';
 import { HtmlContent } from '../HtmlContent';
 import { ContainerSlug, SlugCategory } from '../Slug';
 import * as S from './styles';
 
-export function PostCard({ categories, title, cover, excerpt, slug }: PostFragment) {
+function PostCard({ categories, title, cover, excerpt, slug }: PostFragment) {
     const variants = {
         hidden: { opacity: 0 },
         show: { opacity: 1 },
@@ -33,3 +34,5 @@ export function PostCard({ categories, title, cover, excerpt, slug }: PostFragme
         </S.Container>
     );
 }
+
+export default memo(PostCard);

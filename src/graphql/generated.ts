@@ -8278,7 +8278,7 @@ export type CreatorFragment = { __typename?: 'Creator', name: string, resume: { 
 
 export type SettingFragment = { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } };
 
-export type PostFragment = { __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } };
+export type PostFragment = { __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } };
 
 export type GetCategoriesAndAuthorsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8290,14 +8290,14 @@ export type GetPostByCategorySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetPostByCategorySlugQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
+export type GetPostByCategorySlugQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
 
 export type GetPostBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } } | null };
+export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } } | null };
 
 export type GetPostsQueryVariables = Exact<{
   orderBy?: InputMaybe<PostOrderByInput>;
@@ -8307,7 +8307,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
 
 export type GetPostsAndSettingsQueryVariables = Exact<{
   orderBy?: InputMaybe<PostOrderByInput>;
@@ -8321,7 +8321,7 @@ export type GetPostsAndSettingsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsAndSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } } | null, posts: Array<{ __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
+export type GetPostsAndSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } } | null, posts: Array<{ __typename?: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
 
 export type GetSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8413,6 +8413,7 @@ export const PostFragmentDoc = gql`
   }
   content {
     html
+    markdown
     text
   }
   author {
