@@ -5,6 +5,7 @@ import {
     PostOrderByInput,
 } from '../graphql/generated';
 import { client } from '../lib/apollo';
+import { gqlClient } from '../lib/gqlRequest';
 
 export const defaultVariablesRequestApi: GetPostsAndSettingsQueryVariables = {
     orderBy: PostOrderByInput.PublishedAtDesc,
@@ -23,5 +24,13 @@ export const loadPosts = async (variables: GetPostsAndSettingsQueryVariables): P
         posts: response.data.posts,
         setting: response.data.setting,
     } as GetPostsAndSettingsQuery;
+    return data;
+};
+
+export const loadPostsSrr = async (variables: GetPostsAndSettingsQueryVariables) => {
+    const data = await gqlClient.request(GetPostsAndSettingsDocument, {
+        ...defaultVariablesRequestApi,
+        ...variables,
+    });
     return data;
 };

@@ -8,5 +8,12 @@ export const client = new ApolloClient({
             authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
         },
     }),
+    defaultOptions: {
+        query: {
+            fetchPolicy: typeof window === 'undefined' ? 'no-cache' : 'cache-first',
+            errorPolicy: 'all',
+        },
+    },
+    ssrMode: typeof window === 'undefined',
     cache: new InMemoryCache(),
 });
