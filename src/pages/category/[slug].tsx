@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps<TDefaultQueryProps> = async (context
     let variables = {} as GetPostsAndSettingsQueryVariables;
     try {
         if (context.params) {
-            variables = { where: { categories_some: { slug: context.params.slug as string } }, last: 6 };
+            variables = { where: { categories_some: { slug: context.params.slug as string } }, first: 6 };
             data = await loadPosts({
                 ...variables,
             });

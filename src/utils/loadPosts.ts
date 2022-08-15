@@ -8,8 +8,8 @@ import { client } from '../lib/apollo';
 import { gqlClient } from '../lib/gqlRequest';
 
 export const defaultVariablesRequestApi: GetPostsAndSettingsQueryVariables = {
-    orderBy: PostOrderByInput.PublishedAtDesc,
-    last: 6,
+    orderBy: PostOrderByInput.DateDesc,
+    skip: 0,
     settingID: process.env.NEXT_PUBLIC_SETTINGS_API_ID,
 };
 export const loadPosts = async (variables: GetPostsAndSettingsQueryVariables): Promise<GetPostsAndSettingsQuery> => {

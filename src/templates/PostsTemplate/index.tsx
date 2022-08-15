@@ -4,7 +4,7 @@ import { SkeletonCardPost } from '../../components/Skeleton';
 import { BaseTemplate } from '../BaseTemplate';
 import * as S from './styles';
 import { PostNotFound } from '../../components/PostNotFound';
-import { SeoFragment, useGetPostsAndSettingsQuery } from '../../graphql/generated';
+import { PostEdge, PostOrderByInput, SeoFragment, useGetPostsPaginationQuery } from '../../graphql/generated';
 import { DefaultButton } from '../../components/DefaultButton';
 import { toast } from 'react-toastify';
 import Featured from '../../components/Featured';
@@ -14,23 +14,22 @@ export type TPostsTemplateProps = TDefaultQueryProps & {
     seo?: SeoFragment;
 };
 export function PostsTemplate({ setting, posts, seo, variables }: TPostsTemplateProps) {
-    const [statePosts, setStatePosts] = useState(posts);
-    const lastPostsId = statePosts[statePosts.length - 1] ? statePosts[statePosts.length - 1].id : '';
-    const { data, loading } = useGetPostsAndSettingsQuery({
-        variables: { ...variables, after: lastPostsId, last: 3 },
+    const [statePosts, setStatePosts] = useState([] as PostEdge[]);
+    const [skipPage, setSkipPage] = useState(5);
+    const { data, loading } = useGetPostsPaginationQuery({
+        variables: { ...variables, orderBy: PostOrderByInput.DateDesc, skip: skipPage, first: 3 },
     });
     useEffect(() => {
-        console.log(data);
-    }, [data]);
-    const handleMountPostGrid = useCallback(() => {
-        return <PostGrid posts={statePosts} />;
-    }, [statePosts]);
-
-    const handleMountNewPosts = useCallback(() => {
-        if (data && data.posts.length > 0) {
-            setStatePosts((state) => [...state, ...data.posts]);
+        if (data && data.postsConnection.edges.length > 0) {
+            console.log(data.postsConnection.edges);
+            setStatePosts((state) => [...state, ...(data.postsConnection.edges as PostEdge[])]);
         }
-        if (data && data.posts.length < 1) {
+    }, [data]);
+    const handleMountNewPosts = useCallback(() => {
+        if (data) {
+            setSkipPage((state) => state + 3);
+        }
+        if (data && data.postsConnection.edges.length < 1) {
             toast.warning('Sem posts para carregar', {
                 position: 'top-center',
             });
@@ -40,21 +39,24 @@ export function PostsTemplate({ setting, posts, seo, variables }: TPostsTemplate
     return (
         <BaseTemplate setting={setting} seo={seo}>
             <Featured posts={posts} />
-            {statePosts.length > 0 ? (
-                <S.Container>
-                    <h3>Posts</h3>
-                    {data && loading ? <SkeletonCardPost /> : handleMountPostGrid()}
-                    <DefaultButton
-                        onClickButton={handleMountNewPosts}
-                        disabled={(data && data.posts.length < 1) || loading}
-                        isLoading={loading}
-                    >
-                        Carregar mais posts
-                    </DefaultButton>
-                </S.Container>
-            ) : (
-                <PostNotFound />
-            )}
+            <S.Container>
+                {statePosts.length > 0 ? (
+                    <>
+                        <h3>Posts</h3>
+                        <PostGrid posts={statePosts} />
+                    </>
+                ) : (
+                    <>{!loading && <PostNotFound />}</>
+                )}
+                {loading && <SkeletonCardPost />}
+                <DefaultButton
+                    onClickButton={handleMountNewPosts}
+                    disabled={(data && !data.postsConnection.pageInfo.hasNextPage) || loading}
+                    isLoading={loading}
+                >
+                    Carregar mais posts
+                </DefaultButton>
+            </S.Container>
         </BaseTemplate>
     );
 }

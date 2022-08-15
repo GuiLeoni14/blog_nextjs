@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next';
-import { loadPosts } from '../utils/loadPosts';
+import { loadPostsSrr } from '../utils/loadPosts';
 import { PostsTemplate } from '../templates/PostsTemplate';
 import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../graphql/generated';
 
@@ -19,7 +19,7 @@ export default function Home({ posts, setting }: TDefaultQueryProps) {
 export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async () => {
     let data = null;
     try {
-        data = await loadPosts({ last: 6 });
+        data = await loadPostsSrr({ first: 6 });
     } catch (error) {
         data = null;
     }

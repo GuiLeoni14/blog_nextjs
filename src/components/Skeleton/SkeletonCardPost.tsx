@@ -38,36 +38,6 @@ export const SkeletonCardPost = ({ pageTypeSkeleton = 'POST' }: { pageTypeSkelet
                         <Skeleton width="30%" height={'5rem'} />
                         <Skeleton width="40%" height={'2rem'} />
                     </div>
-                    <div>
-                        <Skeleton
-                            variant="rectangular"
-                            width={'100%'}
-                            height={'15rem'}
-                            style={{ borderRadius: '1rem' }}
-                        />
-                        <Skeleton width="90%" height={'5rem'} />
-                        <Skeleton width="100%" height={'2rem'} />
-                    </div>
-                    <div>
-                        <Skeleton
-                            variant="rectangular"
-                            width={'100%'}
-                            height={'15rem'}
-                            style={{ borderRadius: '1rem' }}
-                        />
-                        <Skeleton width="10%" height={'5rem'} />
-                        <Skeleton width="70%" height={'2rem'} />
-                    </div>
-                    <div>
-                        <Skeleton
-                            variant="rectangular"
-                            width={'100%'}
-                            height={'15rem'}
-                            style={{ borderRadius: '1rem' }}
-                        />
-                        <Skeleton width="50%" height={'5rem'} />
-                        <Skeleton width="80%" />
-                    </div>
                 </div>
             </MainContainer>
         </S.ContainerSkeletonCardPost>

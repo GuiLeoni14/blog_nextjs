@@ -1,8 +1,8 @@
 import * as S from './styles';
 import PostCard from '../PostCard';
-import { GetPostsQuery } from '../../graphql/generated';
+import { PostEdge } from '../../graphql/generated';
 
-function PostGrid({ posts }: GetPostsQuery) {
+function PostGrid({ posts }: { posts: PostEdge[] }) {
     const variants = {
         show: {
             transition: {
@@ -19,7 +19,7 @@ function PostGrid({ posts }: GetPostsQuery) {
                 style={{ minHeight: posts.length > 3 ? '90rem' : '' }}
             >
                 {posts.map((post) => (
-                    <PostCard key={post.id} {...post} />
+                    <PostCard key={post.node.id} {...post.node} />
                 ))}
             </S.Grid>
         </S.Container>
