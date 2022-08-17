@@ -57,6 +57,7 @@ fragment setting on Setting {
 }
 
 fragment post on Post {
+    __typename
     id
     slug
     title
@@ -91,4 +92,3 @@ fragment post on Post {
     publishedAt
     publishedAt
 }
-

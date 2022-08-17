@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { GetPostsAndSettingsQuery, SeoFragment } from '../../graphql/generated';
 import Footer from '../../layout/Footer';
-import { Header } from '../../layout/Header';
+import Header from '../../layout/Header';
 import { MainContainer } from '../../styles/container';
 import { defaultValuesSeo } from '../../utils/defaultValuesSeo';
 import * as S from './styles';

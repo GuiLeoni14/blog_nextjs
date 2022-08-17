@@ -1,5 +1,5 @@
-query getSettings {
-    setting(where: { id: "cl6bd733396xd0akj28hd7cjc" }) {
+query getSettings($settingID: ID) {
+    setting(where: { id: $settingID }) {
         blogName
         blogDescription
         blogLogo {

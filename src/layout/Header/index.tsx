@@ -1,7 +1,7 @@
 import { LinearProgress } from '@mui/material';
 import { useScroll } from 'framer-motion';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { ButtonToggleTheme } from '../../components/ButtonToggleTheme';
 import { InputSearch } from '../../components/InputSearch';
 import { MenuMobile } from '../../components/MenuMobile';
@@ -9,7 +9,7 @@ import { GetSettingsQuery } from '../../graphql/generated';
 import { MainContainer } from '../../styles/container';
 import * as S from './styles';
 
-export function Header({ setting }: GetSettingsQuery) {
+function Header({ setting }: GetSettingsQuery) {
     const { scrollYProgress } = useScroll();
     const [percentualScroll, setPercentualScroll] = useState<number>(0);
     useEffect(() => {
@@ -44,3 +44,5 @@ export function Header({ setting }: GetSettingsQuery) {
         </S.Container>
     );
 }
+
+export default memo(Header);

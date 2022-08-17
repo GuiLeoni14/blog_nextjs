@@ -19,7 +19,7 @@ export default function Home({ posts, setting }: TDefaultQueryProps) {
 export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async () => {
     let data = null;
     try {
-        data = await loadPostsSrr({ first: 6 });
+        data = await loadPostsSrr({ first: 11 });
     } catch (error) {
         data = null;
     }
