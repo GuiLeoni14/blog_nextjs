@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { loadPosts } from '../../utils/loadPosts';
+import { loadPostsSrr } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { useMemo } from 'react';
 import { SkeletonCardPost } from '../../components/Skeleton';
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps<TDefaultQueryProps> = async (context
     try {
         if (context.params) {
             variables = { where: { categories_some: { slug: context.params.slug as string } }, first: 6 };
-            data = await loadPosts({
+            data = await loadPostsSrr({
                 ...variables,
             });
         }

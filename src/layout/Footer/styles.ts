@@ -46,7 +46,8 @@ export const BoxContent = styled.div`
         align-items: center;
         justify-content: center;
         a {
-            img {
+            img,
+            svg {
                 width: 5rem;
                 height: 5rem;
             }

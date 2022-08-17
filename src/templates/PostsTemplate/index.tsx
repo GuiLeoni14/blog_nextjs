@@ -9,13 +9,16 @@ import { DefaultButton } from '../../components/DefaultButton';
 import { toast } from 'react-toastify';
 import Featured from '../../components/Featured';
 import { TDefaultQueryProps } from '../../pages';
+import { useRouter } from 'next/router';
 
 export type TPostsTemplateProps = TDefaultQueryProps & {
     seo?: SeoFragment;
 };
 export function PostsTemplate({ setting, posts, seo, variables }: TPostsTemplateProps) {
-    const [statePosts, setStatePosts] = useState(posts.slice(5));
-    const [skipPage, setSkipPage] = useState(8);
+    const router = useRouter();
+    console.log(router.pathname);
+    const [statePosts, setStatePosts] = useState(router.pathname == '/' ? posts.slice(5) : posts);
+    const [skipPage, setSkipPage] = useState(router.pathname == '/' ? 8 : 3);
     const { data, loading } = useGetPostsAndSettingsQuery({
         variables: { ...variables, orderBy: PostOrderByInput.DateDesc, skip: skipPage, first: 3 },
     });
@@ -60,13 +63,15 @@ export function PostsTemplate({ setting, posts, seo, variables }: TPostsTemplate
                     <>{!loading && <PostNotFound />}</>
                 )}
                 {loading && <SkeletonCardPost />}
-                <DefaultButton
-                    onClickButton={handleMountNewPosts}
-                    disabled={loading || (data && data?.posts.length < 3)}
-                    isLoading={loading}
-                >
-                    Carregar mais posts
-                </DefaultButton>
+                {statePosts.length > 0 && (
+                    <DefaultButton
+                        onClickButton={handleMountNewPosts}
+                        disabled={loading || (data && data?.posts.length < 3)}
+                        isLoading={loading}
+                    >
+                        Carregar mais posts
+                    </DefaultButton>
+                )}
             </S.Container>
         </BaseTemplate>
     );

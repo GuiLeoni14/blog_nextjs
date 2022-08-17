@@ -36,14 +36,21 @@ function Footer({ setting }: Pick<GetPostsAndSettingsQuery, 'setting'>) {
                                 <img src="/images/icon-typescript.svg" />
                             </a>
                             <a href="https://strapi.io" target="_blank" rel="noopener noreferrer">
-                                <img src="/images/icon-strapi.svg" />
+                                <svg fill="none" viewBox="0 0 75 75" height="40px" width="40px">
+                                    <path
+                                        fill="currentColor"
+                                        fillRule="evenodd"
+                                        d="M50.92 10l-8.73 5-8.73 5-8.73 5v30l8.73-5 8.73-5V35l-8.73 5V30l8.73-5 8.73-5v30l-8.73 5-8.73 5-8.73 5L16 70l8.73 5 8.73-5 8.73-5 8.73-5 8.73-5V5l-8.73-5v10z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
                             </a>
                             <a href="https://graphql.org" target="_blank" rel="noopener noreferrer">
                                 <img src="/images/icon-graphql.svg" />
                             </a>
                         </div>
                         <Heading as="h4" size="small">
-                            <HtmlContent html={setting.creator.resume.html} />
+                            Projeto desenvolvido utilizando REACT + TYPESCRIPT + GRAPHCMS + GRAPHQL
                         </Heading>
                     </S.BoxContent>
                     <S.BoxContent className="about">
