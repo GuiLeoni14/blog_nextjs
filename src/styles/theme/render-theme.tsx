@@ -5,5 +5,5 @@ import '@testing-library/jest-dom';
 import light from './light';
 
 export const renderTheme = (children: ReactNode): RenderResult => {
-    return render(<ThemeProvider theme={light}>{children}</ThemeProvider>);
+  return render(<ThemeProvider theme={light}>{children}</ThemeProvider>);
 };

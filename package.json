@@ -7,6 +7,7 @@
     "test": "jest",
     "storybook": "start-storybook -p 6006 -s ./public",
     "codegen": "graphql-codegen",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
@@ -19,11 +20,12 @@
     "axios": "^0.27.2",
     "date-fns": "^2.29.1",
     "disqus-react": "^1.1.3",
+    "eslint-config-next": "^13.0.6",
     "eslint-plugin-react-hooks": "^4.5.0",
     "framer-motion": "^6.3.6",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
-    "next": "^12.2.4",
+    "next": "^13.0.6",
     "next-seo": "^5.5.0",
     "nprogress": "^0.2.0",
     "prismjs": "^1.28.0",

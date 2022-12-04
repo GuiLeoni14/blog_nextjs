@@ -1,7 +1,7 @@
 export type TMetadata = {
-    id: string;
-    attributes: {
-        name: string;
-        slug: string;
-    };
+  id: string;
+  attributes: {
+    name: string;
+    slug: string;
+  };
 };

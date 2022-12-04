@@ -9,37 +9,37 @@ import { defaultValuesSeo } from '../../utils/defaultValuesSeo';
 import * as S from './styles';
 
 export type TBaseTemplateProps = Pick<GetPostsAndSettingsQuery, 'setting'> & {
-    seo?: SeoFragment;
-    children: React.ReactNode;
+  seo?: SeoFragment;
+  children: React.ReactNode;
 };
 
 export function BaseTemplate({ children, setting, seo }: TBaseTemplateProps) {
-    const router = useRouter();
+  const router = useRouter();
 
-    if (router.isFallback) {
-        return <p>loading..</p>;
-    }
-    return (
-        <S.Container>
-            {seo && (
-                <NextSeo
-                    title={seo.title}
-                    description={seo.description}
-                    additionalMetaTags={[
-                        {
-                            name: 'keywords',
-                            content: seo.keywords,
-                        },
-                    ]}
-                    {...defaultValuesSeo}
-                />
-            )}
-            <Header setting={setting} />
-            <MainContainer>
-                <Breadcrumbs />
-                {children}
-            </MainContainer>
-            <Footer setting={setting} />
-        </S.Container>
-    );
+  if (router.isFallback) {
+    return <p>loading..</p>;
+  }
+  return (
+    <S.Container>
+      {seo && (
+        <NextSeo
+          title={seo.title}
+          description={seo.description}
+          additionalMetaTags={[
+            {
+              name: 'keywords',
+              content: seo.keywords,
+            },
+          ]}
+          {...defaultValuesSeo}
+        />
+      )}
+      <Header setting={setting} />
+      <MainContainer>
+        <Breadcrumbs />
+        {children}
+      </MainContainer>
+      <Footer setting={setting} />
+    </S.Container>
+  );
 }

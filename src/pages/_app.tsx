@@ -12,35 +12,35 @@ import { useEffect } from 'react';
 import '../../public/css/nprogress.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-    const router = useRouter();
+  const router = useRouter();
 
-    useEffect(() => {
-        const handleStart = () => {
-            NProgress.start();
-        };
-        const handleStop = () => {
-            NProgress.done();
-        };
+  useEffect(() => {
+    const handleStart = () => {
+      NProgress.start();
+    };
+    const handleStop = () => {
+      NProgress.done();
+    };
 
-        router.events.on('routeChangeStart', handleStart);
-        router.events.on('routeChangeComplete', handleStop);
-        router.events.on('routeChangeError', handleStop);
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleStop);
+    router.events.on('routeChangeError', handleStop);
 
-        return () => {
-            router.events.off('routeChangeStart', handleStart);
-            router.events.off('routeChangeComplete', handleStop);
-            router.events.off('routeChangeError', handleStop);
-        };
-    }, [router]);
-    return (
-        <ApolloProvider client={client}>
-            <BlogThemeProvider>
-                <PaginationProvider>
-                    <ToastContainer limit={5} style={{ fontSize: '1.4rem' }} />
-                    <GlobalStyle />
-                    <Component {...pageProps} key={router.asPath} />
-                </PaginationProvider>
-            </BlogThemeProvider>
-        </ApolloProvider>
-    );
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleStop);
+      router.events.off('routeChangeError', handleStop);
+    };
+  }, [router]);
+  return (
+    <ApolloProvider client={client}>
+      <BlogThemeProvider>
+        <PaginationProvider>
+          <ToastContainer limit={5} style={{ fontSize: '1.4rem' }} />
+          <GlobalStyle />
+          <Component {...pageProps} key={router.asPath} />
+        </PaginationProvider>
+      </BlogThemeProvider>
+    </ApolloProvider>
+  );
 }

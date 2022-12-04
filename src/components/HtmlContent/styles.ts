@@ -1,31 +1,31 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-    ${({ theme }) => css`
-        iframe[src*='ads'] {
-            display: none;
-        }
+  ${({ theme }) => css`
+    iframe[src*='ads'] {
+      display: none;
+    }
 
-        font-size: calc(${theme.font.sizes.small} + 0.2rem);
-        line-height: 1.5;
+    font-size: calc(${theme.font.sizes.small} + 0.2rem);
+    line-height: 1.5;
 
-        p {
-            margin: 1rem 0;
-        }
+    p {
+      margin: 1rem 0;
+    }
 
-        a,
-        a:visited,
-        a:link {
-            color: ${theme.colors.primary};
-            text-decoration: none;
-            transition: all 300ms ease-in-out;
-        }
+    a,
+    a:visited,
+    a:link {
+      color: ${theme.colors.primary};
+      text-decoration: none;
+      transition: all 300ms ease-in-out;
+    }
 
-        a:hover {
-            filter: brightness(50%);
-        }
+    a:hover {
+      filter: brightness(50%);
+    }
 
-        /* code {
+    /* code {
       font-family: monospace;
       color: ${theme.colors.secondary};
       font-size: ${theme.font.sizes.small};
@@ -50,84 +50,84 @@ export const Container = styled.div`
       background: inherit;
     } */
 
-        img {
-            max-width: 100%;
-        }
+    img {
+      max-width: 100%;
+    }
 
-        .image {
-            background: ${theme.colors.mediumGray};
-            line-height: 0;
-            margin: ${theme.spacings.medium} 0;
-        }
+    .image {
+      background: ${theme.colors.mediumGray};
+      line-height: 0;
+      margin: ${theme.spacings.medium} 0;
+    }
 
-        .image figcaption {
-            font-size: ${theme.font.sizes.small};
-            padding: ${theme.spacings.small};
-            text-align: center;
-            line-height: 1.3;
-        }
+    .image figcaption {
+      font-size: ${theme.font.sizes.small};
+      padding: ${theme.spacings.small};
+      text-align: center;
+      line-height: 1.3;
+    }
 
-        .image-style-side {
-            max-width: 50%;
-            float: right;
-            margin: ${theme.spacings.medium} 0;
-        }
+    .image-style-side {
+      max-width: 50%;
+      float: right;
+      margin: ${theme.spacings.medium} 0;
+    }
 
-        hr {
-            border: none;
-            border-bottom: 0.1rem solid ${theme.colors.mediumGray};
-        }
+    hr {
+      border: none;
+      border-bottom: 0.1rem solid ${theme.colors.mediumGray};
+    }
 
-        ul,
-        ol {
-            margin: ${theme.spacings.medium} ${theme.spacings.xlarge};
-        }
+    ul,
+    ol {
+      margin: ${theme.spacings.medium} ${theme.spacings.xlarge};
+    }
 
-        .table {
-            width: 100%;
-            overflow: hidden;
-            overflow-x: auto;
-        }
+    .table {
+      width: 100%;
+      overflow: hidden;
+      overflow-x: auto;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: ${theme.spacings.medium} 0;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: ${theme.spacings.medium} 0;
+    }
 
-        table td,
-        table th {
-            padding: ${theme.spacings.small};
-            border: 0.1rem solid ${theme.colors.mediumGray};
-        }
+    table td,
+    table th {
+      padding: ${theme.spacings.small};
+      border: 0.1rem solid ${theme.colors.mediumGray};
+    }
 
-        blockquote {
-            border-left: 0.5rem solid ${theme.colors.primary};
-            color: ${theme.colors.darkerGray};
-            filter: brightness(80%);
-            padding-left: ${theme.spacings.medium};
-            font-style: italic;
-            margin: ${theme.spacings.medium};
+    blockquote {
+      border-left: 0.5rem solid ${theme.colors.primary};
+      color: ${theme.colors.darkerGray};
+      filter: brightness(80%);
+      padding-left: ${theme.spacings.medium};
+      font-style: italic;
+      margin: ${theme.spacings.medium};
+    }
+    ul {
+      li {
+        list-style-type: disc;
+        font-weight: 400;
+        font-size: 1.8rem;
+        line-height: 175%;
+        &:not(:last-child) {
+          margin-bottom: 1.6rem;
         }
-        ul {
-            li {
-                list-style-type: disc;
-                font-weight: 400;
-                font-size: 1.8rem;
-                line-height: 175%;
-                &:not(:last-child) {
-                    margin-bottom: 1.6rem;
-                }
-            }
-        }
-        @media ${theme.media.lteMedium} {
-            font-size: 2rem;
+      }
+    }
+    @media ${theme.media.lteMedium} {
+      font-size: 2rem;
 
-            .image-style-side {
-                max-width: 100%;
-                float: none;
-                margin: 0;
-            }
-        }
-    `}
+      .image-style-side {
+        max-width: 100%;
+        float: none;
+        margin: 0;
+      }
+    }
+  `}
 `;

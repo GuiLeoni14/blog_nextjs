@@ -23,13 +23,13 @@ export default createGlobalStyle`
         }
         &::-webkit-scrollbar-track {
             background:  ${({ theme }) =>
-                theme.title === 'light'
-                    ? css`
-                          ${theme.colors.gray_5}
-                      `
-                    : css`
-                          ${theme.colors.gray_2}
-                      `};
+              theme.title === 'light'
+                ? css`
+                    ${theme.colors.gray_5}
+                  `
+                : css`
+                    ${theme.colors.gray_2}
+                  `};
         }
         &::-webkit-scrollbar-thumb {
             background-color: ${({ theme }) => theme.colors.primary};
