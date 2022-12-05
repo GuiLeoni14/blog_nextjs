@@ -57,3 +57,8 @@ export const Progress = styled.div`
     background-color: ${({ theme }) => theme.colors.background};
   }
 `;
+
+export const SearchInput = styled.div`
+  width: 100%;
+  max-width: 60rem;
+`;

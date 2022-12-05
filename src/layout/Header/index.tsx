@@ -25,7 +25,9 @@ function Header({ setting }: GetSettingsQuery) {
             <Image width={80} height={60} src={setting.blogLogo.url} alt="logo" />
           </S.Logo>
         </Link>
-        <InputSearch />
+        <S.SearchInput>
+          <InputSearch />
+        </S.SearchInput>
         <ButtonToggleTheme />
         <MenuMobile />
       </MainContainer>

@@ -1,10 +1,9 @@
-import { PostCardFeatured } from '../PostCardFeatured';
-import { PostFeatured } from '../PostFeatured';
-
-import * as S from './styles';
 import { useRouter } from 'next/router';
 import { memo } from 'react';
 import { GetPostsQuery } from '../../graphql/generated';
+import { PostCardFeatured } from '../PostCardFeatured';
+import { PostFeatured } from '../PostFeatured';
+import * as S from './styles';
 
 function Featured({ posts = [] }: GetPostsQuery) {
   const statePostCardFeatured = posts.slice(1, 5);

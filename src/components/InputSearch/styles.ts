@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 60rem;
   form {
     width: 100%;
     display: flex;

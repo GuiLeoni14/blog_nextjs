@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
-import { loadPostsSrr } from '../utils/loadPosts';
-import { PostsTemplate } from '../templates/PostsTemplate';
 import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../graphql/generated';
+import { PostsTemplate } from '../templates/PostsTemplate';
+import { loadPostsSrr } from '../utils/loadPosts';
 
 export type TDefaultQueryProps = GetPostsAndSettingsQuery & {
   variables?: GetPostsAndSettingsQueryVariables;
@@ -28,6 +28,7 @@ export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async ()
       notFound: true,
     };
   }
+  console.log(data);
   return {
     props: {
       ...data,
