@@ -37,3 +37,4 @@ package-lock.json
 storybook-static/
 
 query.txt
+yarn.lock
