@@ -35,5 +35,6 @@ yarn-error.log*
 
 package-lock.json
 storybook-static/
-
+.storybook/
 query.txt
+yarn.lock

@@ -1,58 +1,8 @@
-query GET_POSTS_AND_SETTINGS_AND_CONTENT_TEXT(
-    $categorySlug: StringFilterInput
-    $postSlug: StringFilterInput
-    $postSearch: StringFilterInput
-    $authorSlug: StringFilterInput
-    $tagSlug: StringFilterInput
-    $sort: [String] = "createdAt:desc"
-    $start: Int
-    $limit: Int
-    $pageSize: Int
-    $page: Int
-) {
-    setting {
-        data {
-            id
-            attributes {
-                ...settings
-            }
-        }
+query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int,$after: String,$before: String, $settingID: ID) {
+    setting(where: { id: $settingID }) {
+        ...setting
     }
-    posts(
-        pagination: { start: $start, limit: $limit, pageSize: $pageSize, page: $page }
-        sort: $sort
-        filters: {
-            slug: $postSlug
-            or: [{ title: $postSearch }, { content: $postSearch }, { excerpt: $postSearch }]
-            categories: { slug: $categorySlug }
-            autor: { slug: $authorSlug }
-            tags: { slug: $tagSlug }
-        }
-    ) {
-        data {
-            id
-            attributes {
-                ...post
-            }
-        }
-        meta {
-            pagination {
-                ...pagination
-            }
-        }
-    }
-    footer {
-        data {
-            id
-            attributes {
-                Author {
-                    id
-                    description
-                    title
-                }
-                languagesUsing
-                lastText
-            }
-        }
+    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where, last: $last,after: $after,before: $before) {
+        ...post
     }
 }

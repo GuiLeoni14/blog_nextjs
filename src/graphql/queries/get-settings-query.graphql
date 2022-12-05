@@ -1,0 +1,9 @@
+query getSettings($settingID: ID) {
+    setting(where: { id: $settingID }) {
+        blogName
+        blogDescription
+        blogLogo {
+            url
+        }
+    }
+}

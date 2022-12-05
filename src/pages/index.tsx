@@ -1,38 +1,37 @@
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
-import { defaultLoadPostsVariables, loadPosts, StrapiPostAndSettings } from '../utils/loadPosts';
+import { loadPostsSrr } from '../utils/loadPosts';
 import { PostsTemplate } from '../templates/PostsTemplate';
-export default function Home({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
-    return (
-        <>
-            <Head>
-                <title>{setting.data.attributes.blogName}</title>
-                <meta name="description" content={setting.data.attributes.blogDescription} />
-            </Head>
-            <PostsTemplate posts={posts} setting={setting} variables={variables} contentPage={contentPage} />
-        </>
-    );
+import { GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables, SeoFragment } from '../graphql/generated';
+
+export type TDefaultQueryProps = GetPostsAndSettingsQuery & {
+  variables?: GetPostsAndSettingsQueryVariables;
+};
+
+export default function Home({ posts, setting }: TDefaultQueryProps) {
+  const SEO = setting?.seo as SeoFragment;
+  return (
+    <>
+      <PostsTemplate posts={posts} setting={setting} seo={SEO} />
+    </>
+  );
 }
 
-export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async () => {
-    let data = null;
-    try {
-        data = await loadPosts({ limit: 6 });
-    } catch (error) {
-        data = null;
-    }
-    if (!data || !data.posts || !data.posts.data.length) {
-        return {
-            notFound: true,
-        };
-    }
+export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async () => {
+  let data = null;
+  try {
+    data = await loadPostsSrr({ first: 11 });
+  } catch (error) {
+    data = null;
+  }
+  if (!data || !data.posts || !data.posts.length) {
     return {
-        props: {
-            ...data,
-            variables: {
-                ...defaultLoadPostsVariables,
-            },
-        },
-        revalidate: 10 * 60 * 1000,
+      notFound: true,
     };
+  }
+  return {
+    props: {
+      ...data,
+    },
+    revalidate: 10 * 60 * 1000,
+  };
 };

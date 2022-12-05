@@ -1,34 +1,36 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import { FcCalendar } from 'react-icons/fc';
+import { PostFragment } from '../../graphql/generated';
 import { TPostStrapi } from '../../shared-typed/post-strapi';
 import { formatDate } from '../../utils/format-date';
 import * as S from './styles';
-import { FcCalendar } from 'react-icons/fc';
 export type TPostCardFeaturedProps = TPostStrapi;
 
-export function PostCardFeatured({ attributes: { cover, slug, title, autor, createdAt } }: TPostCardFeaturedProps) {
-    return (
-        <S.Container>
-            <Link href={`/post/${slug}`}>
-                <a>
-                    <S.Left>
-                        <S.Image>
-                            <img src={cover.data.attributes.url} alt={cover.data.attributes.alternativeText} />
-                        </S.Image>
-                    </S.Left>
-                    <S.Right>
-                        <S.Title>{title}</S.Title>
-                        <S.Info>
-                            <span>
-                                Por <strong>{autor.data.attributes.name}</strong>
-                            </span>
-                            <span>
-                                <FcCalendar />
-                                {formatDate(createdAt)}
-                            </span>
-                        </S.Info>
-                    </S.Right>
-                </a>
-            </Link>
-        </S.Container>
-    );
+export function PostCardFeatured({ title, cover, slug, author, publishedAt }: PostFragment) {
+  return (
+    <S.Container>
+      <Link prefetch={false} href={`/post/${slug}`}>
+        <S.Left>
+          <S.Image>
+            <Image width={140} height={100} src={cover.url} alt="imagem do post" />
+          </S.Image>
+        </S.Left>
+        <S.Right>
+          <S.Title>{title}</S.Title>
+          <S.Info>
+            {author && (
+              <span>
+                Por <strong>{author.name}</strong>
+              </span>
+            )}
+            <span>
+              <FcCalendar />
+              {formatDate(publishedAt)}
+            </span>
+          </S.Info>
+        </S.Right>
+      </Link>
+    </S.Container>
+  );
 }

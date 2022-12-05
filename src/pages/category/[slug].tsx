@@ -1,70 +1,62 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import {
-    defaultLoadPostsVariables,
-    loadPosts,
-    StrapiPostAndSettings,
-    TLoadPostsVariables,
-} from '../../utils/loadPosts';
+import { loadPostsSrr } from '../../utils/loadPosts';
 import { PostsTemplate } from '../../templates/PostsTemplate';
 import { useMemo } from 'react';
 import { SkeletonCardPost } from '../../components/Skeleton';
-export default function CategoryPage({ posts, setting, variables, contentPage }: StrapiPostAndSettings) {
-    const router = useRouter();
-    let categoryName = '';
-    categoryName = useMemo(() => {
-        if (posts) {
-            return posts.data[0].attributes.categories.data.filter(
-                (category) => category.attributes.slug == router.query.slug,
-            )[0].attributes.name;
-        }
-        return '';
-    }, [posts, router.query.slug]);
+import { GetPostsAndSettingsQueryVariables, SeoFragment } from '../../graphql/generated';
+import { TDefaultQueryProps } from '..';
+export default function CategoryPage({ posts, setting, variables }: TDefaultQueryProps) {
+  const router = useRouter();
+  const categoryName = useMemo(() => {
+    return posts ? posts[0].categories.filter((category) => category.slug == router.query.slug)[0].name : '';
+  }, [posts, router.query.slug]);
 
-    if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
-    const titleHead = `Category: ${categoryName} - ${setting.data.attributes.blogName}`;
-    return (
-        <>
-            <Head>
-                <title>{titleHead}</title>
-            </Head>
-            <PostsTemplate contentPage={contentPage} posts={posts} setting={setting} variables={variables} />
-        </>
-    );
+  if (router.isFallback) return <SkeletonCardPost pageTypeSkeleton="TEMPLATE_POST" />;
+  const titleHead = `Category: ${categoryName} - ${setting?.blogName}`;
+  const SEO = {
+    description: '',
+    keywords: '',
+    ...setting?.seo,
+    title: titleHead,
+  } as SeoFragment;
+  return (
+    <>
+      <PostsTemplate posts={posts} setting={setting} seo={SEO} variables={variables} />
+    </>
+  );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    return {
-        paths: [],
-        fallback: true,
-    };
+  return {
+    paths: [],
+    fallback: true,
+  };
 };
 
-export const getStaticProps: GetStaticProps<StrapiPostAndSettings> = async (context) => {
-    let data = null;
-    let variables = {} as TLoadPostsVariables;
-    try {
-        if (context.params) {
-            variables = { categorySlug: { contains: context.params.slug as string }, limit: 6 };
-            data = await loadPosts(variables);
-        }
-    } catch (error) {
-        data = null;
+export const getStaticProps: GetStaticProps<TDefaultQueryProps> = async (context) => {
+  let data = null;
+  let variables = {} as GetPostsAndSettingsQueryVariables;
+  try {
+    if (context.params) {
+      variables = { where: { categories_some: { slug: context.params.slug as string } }, first: 6 };
+      data = await loadPostsSrr({
+        ...variables,
+      });
     }
-    if (!data || !data.posts || !data.posts.data.length) {
-        return {
-            notFound: true,
-        };
-    }
+  } catch (error) {
+    data = null;
+  }
+  if (!data || !data.posts || !data.posts.length) {
     return {
-        props: {
-            ...data,
-            variables: {
-                ...defaultLoadPostsVariables,
-                ...variables,
-            },
-        },
-        revalidate: 10 * 60 * 1000,
+      notFound: true,
     };
+  }
+  return {
+    props: {
+      ...data,
+      variables,
+    },
+    revalidate: 10 * 60 * 1000,
+  };
 };

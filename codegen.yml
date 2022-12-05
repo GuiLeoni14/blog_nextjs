@@ -1,4 +1,4 @@
-schema: http://localhost:1337/graphql
+schema: https://api-sa-east-1.hygraph.com/v2/cl6ba1tfl0t0j01rr5kfk1vrp/master
 documents: './src/graphql/**/*.graphql'
 generates:
   ./src/graphql/generated.ts:

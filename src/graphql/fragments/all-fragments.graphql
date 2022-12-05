@@ -1,116 +1,94 @@
-fragment image on UploadFile {
-    alternativeText
-    url
+fragment seo on Seo {
+    title
+    description
+    keywords
 }
 
-fragment cover on Post {
+fragment author on Author {
+    name
+    biography
+    title
+    slug
+    picture {
+        id
+    }
+}
+fragment category on Category {
+    slug
+    name
+    id
     cover {
-        data {
-            id
-            attributes {
-                ...image
-            }
-        }
+        url
     }
 }
 
 fragment tag on Tag {
     name
     slug
-}
-
-fragment author on Autor {
-    name
-    slug
-}
-fragment coverCategory on Category {
-    cover {
-        data {
-            id
-            attributes {
-                ...image
-            }
-        }
-    }
-}
-fragment category on Category {
-    name
-    slug
-    ...coverCategory
-}
-
-fragment tags on Post {
-    tags {
-        data {
-            id
-            attributes {
-                ...tag
-            }
-        }
-    }
-}
-
-fragment authorPost on Post {
-    autor {
-        data {
-            id
-            attributes {
-                ...author
-            }
-        }
-    }
-}
-
-fragment categories on Post {
-    categories {
-        data {
-            id
-            attributes {
-                ...category
-            }
-        }
-    }
-}
-
-fragment menuLink on ComponentMenuMenuLink {
     id
-    link
-    text
-    newTab
+}
+fragment creator on Creator {
+    name
+    resume {
+        html
+        text
+    }
+    biography {
+        html
+        text
+    }
+    picture {
+        url
+    }
+}
+
+fragment setting on Setting {
+    blogName
+    blogDescription
+    creator {
+        ...creator
+    }
+    seo {
+        ...seo
+    }
+    blogLogo {
+        url
+    }
 }
 
 fragment post on Post {
+    __typename
+    id
     slug
     title
     excerpt
-    content
     allowComments
-    createdAt
-    ...cover
-    ...categories
-    ...tags
-    ...authorPost
-}
-
-fragment settings on Setting {
-    blogName
-    blogDescription
-    blogLogo {
-        data {
-            id
-            attributes {
-                ...image
-            }
-        }
+    categories {
+        ...category
     }
-    menuLink {
-        ...menuLink
+    cover {
+        url
     }
-    text
-}
-fragment pagination on Pagination {
-    total
-    page
-    pageSize
-    pageCount
+    tags {
+        ...tag
+    }
+    content {
+        html
+        markdown
+        text
+    }
+    author {
+        ...author
+    }
+    categories {
+        ...category
+    }
+    tags {
+        ...tag
+    }
+    seo {
+        ...seo
+    }
+    publishedAt
+    publishedAt
 }
