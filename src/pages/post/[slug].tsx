@@ -1,8 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { SkeletonCardPost } from '../../components/Skeleton';
-import { GetPostsAndSettingsQuery, GetPostsDocument, GetPostsQuery, PostFragment } from '../../graphql/generated';
-import { client } from '../../lib/apollo';
+import { GetPostsAndSettingsQuery, PostFragment } from '../../graphql/generated';
 import { PostTemplate } from '../../templates/PostTemplate';
 import { loadPostsSrr } from '../../utils/loadPosts';
 
@@ -21,22 +20,8 @@ export default function PostPage({ posts, posts_related, setting }: TPostStaticP
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let data: GetPostsQuery | null = null;
-  let paths: { params: { slug: string } }[] = [];
-  try {
-    const response = await client.query<GetPostsQuery>({
-      query: GetPostsDocument,
-    });
-    data = response.data;
-    paths = response.data.posts.map((post) => ({ params: { slug: post.slug } }));
-  } catch (error) {
-    data = null;
-  }
-  if (!data || !data.posts || !data.posts.length) {
-    paths = [];
-  }
   return {
-    paths: paths,
+    paths: [],
     fallback: true,
   };
 };
