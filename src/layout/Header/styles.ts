@@ -25,11 +25,6 @@ export const Container = styled.header`
       : css`
           background: rgba(0, 0, 0, 0.35);
         `}
-  @media ${({ theme }) => theme.media.lteMedium} {
-    & > div > div.search {
-      display: none;
-    }
-  }
 `;
 
 export const Logo = styled.div`
@@ -61,4 +56,7 @@ export const Progress = styled.div`
 export const SearchInput = styled.div`
   width: 100%;
   max-width: 60rem;
+  @media ${({ theme }) => theme.media.lteMedium} {
+    display: none;
+  }
 `;

@@ -7,10 +7,20 @@ export const Container = styled.div`
     }
 
     font-size: calc(${theme.font.sizes.small} + 0.2rem);
-    line-height: 1.5;
+    line-height: 2.8rem;
+
+    h2 {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 0.1rem solid ${theme.colors.gray_5};
+    }
+
+    h2:not(#topic-0) {
+      margin-top: 4rem;
+    }
 
     p {
-      margin: 1rem 0;
+      margin: 1.6rem 0;
     }
 
     a,
@@ -50,7 +60,25 @@ export const Container = styled.div`
       background: inherit;
     } */
 
+    p > code {
+      border-radius: 4px;
+      font-size: 1.4rem;
+      font-family: 'Fira code', 'Inter', sans-serif;
+      padding: 3px 6px;
+      color: ${theme.colors.gray_2};
+      background-color: ${theme.colors.gray_5};
+      transition: color 0.5s, background-color 0.5s;
+      .token.operator {
+        color: ${theme.colors.gray_1};
+      }
+      .token.punctuation {
+        color: ${theme.colors.gray_1};
+      }
+    }
+
     img {
+      margin: 0 auto;
+      display: block;
       max-width: 100%;
     }
 

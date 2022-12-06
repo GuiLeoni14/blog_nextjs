@@ -12,6 +12,9 @@ export const Content = styled(motion.button)`
     font-size: 4rem;
     transition: all 0.3s;
   }
+  svg:last-of-type {
+    color: ${(props) => props.theme.colors.gray_6};
+  }
   svg:first-of-type {
     color: #dfaf20;
   }

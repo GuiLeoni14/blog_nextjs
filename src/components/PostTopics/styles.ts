@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 4rem 0rem;
+  padding-bottom: 4rem;
   border-bottom: 0.2rem solid ${({ theme: { colors } }) => colors.primary};
 `;
 export const Topics = styled.div`
