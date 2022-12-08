@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2rem;
   & > div {
     display: flex;
     align-items: center;
@@ -31,9 +32,12 @@ export const Container = styled.div`
     font-weight: bold;
     cursor: pointer;
   }
-  @media ${({ theme }) => theme.media.lteSmall} {
+  @media ${({ theme }) => theme.media.lteLarge} {
     span {
       font-size: 1.4rem;
     }
+  }
+  @media ${({ theme }) => theme.media.lteMedium} {
+    display: none;
   }
 `;

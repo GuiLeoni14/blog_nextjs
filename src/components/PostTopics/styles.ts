@@ -17,6 +17,7 @@ export const Topics = styled.div`
     display: inline-block;
     cursor: pointer;
     padding-left: 2rem;
+    color: ${(props) => props.theme.colors.text};
     &::after {
       content: '';
       position: absolute;

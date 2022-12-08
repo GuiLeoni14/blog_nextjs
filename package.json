@@ -8,6 +8,7 @@
     "storybook": "start-storybook -p 6006 -s ./public",
     "codegen": "graphql-codegen",
     "lint": "eslint \"**/*.{ts,tsx}\"",
+    "postbuild": "next-sitemap",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "graphql-request": "^4.2.0",
     "next": "^13.0.6",
     "next-seo": "^5.5.0",
+    "next-sitemap": "^3.1.32",
     "nprogress": "^0.2.0",
     "prismjs": "^1.28.0",
     "query-string": "^7.1.1",

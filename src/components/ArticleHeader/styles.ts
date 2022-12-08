@@ -6,7 +6,7 @@ export const Container = styled.header`
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  padding: ${({ theme: { spacings } }) => spacings.medium} 0rem;
+  padding-bottom: ${({ theme: { spacings } }) => spacings.medium};
   margin-bottom: ${({ theme: { spacings } }) => spacings.medium};
   border-bottom: 0.2rem solid ${({ theme: { colors } }) => colors.mediumGray};
 `;
@@ -31,9 +31,6 @@ export const Content = styled.div`
   margin-top: -10.6rem;
   @media ${({ theme }) => theme.media.lteSmall} {
     padding: 2.5rem;
-    h1 {
-      font-size: 2.5rem;
-    }
   }
 `;
 

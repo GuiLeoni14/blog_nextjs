@@ -20,4 +20,4 @@ export default {
     darkerGray: '#AAAAAA',
   },
   ...standard,
-};
+} as const;

@@ -2,11 +2,15 @@ import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
 export const Container = styled(motion.div)``;
+
 export const Content = styled(motion.button)`
+  width: 4rem;
+  height: 4rem;
+  background: none;
   position: relative;
   svg {
     position: absolute;
-    left: 0;
+    left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     font-size: 4rem;
