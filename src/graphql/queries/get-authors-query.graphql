@@ -1,0 +1,5 @@
+query getAuthors($orderBy: AuthorOrderByInput, $first: Int, $last: Int, $skip: Int, $where: AuthorWhereInput) {
+  authors(orderBy: $orderBy, last: $last, first: $first, skip: $skip, where: $where) {
+    ...author
+  }
+}

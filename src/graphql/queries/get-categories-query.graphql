@@ -1,0 +1,5 @@
+query getCategories($orderBy: CategoryOrderByInput, $first: Int, $last: Int, $skip: Int, $where: CategoryWhereInput) {
+  categories(orderBy: $orderBy, last: $last, first: $first, skip: $skip, where: $where) {
+    ...category
+  }
+}

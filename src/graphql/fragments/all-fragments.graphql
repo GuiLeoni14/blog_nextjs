@@ -1,94 +1,95 @@
 fragment seo on Seo {
-    title
-    description
-    keywords
+  title
+  description
+  keywords
 }
 
 fragment author on Author {
-    name
-    biography
-    title
-    slug
-    picture {
-        id
-    }
+  name
+  biography
+  title
+  slug
+  picture {
+    id
+  }
 }
 fragment category on Category {
-    slug
-    name
-    id
-    cover {
-        url
-    }
+  slug
+  name
+  id
+  cover {
+    url
+  }
 }
 
 fragment tag on Tag {
-    name
-    slug
-    id
+  name
+  slug
+  id
 }
 fragment creator on Creator {
-    name
-    resume {
-        html
-        text
-    }
-    biography {
-        html
-        text
-    }
-    picture {
-        url
-    }
+  name
+  resume {
+    html
+    text
+  }
+  biography {
+    html
+    text
+  }
+  picture {
+    url
+  }
 }
 
 fragment setting on Setting {
-    blogName
-    blogDescription
-    creator {
-        ...creator
-    }
-    seo {
-        ...seo
-    }
-    blogLogo {
-        url
-    }
+  blogName
+  blogDescription
+  creator {
+    ...creator
+  }
+  seo {
+    ...seo
+  }
+  blogLogo {
+    url
+  }
 }
 
 fragment post on Post {
-    __typename
-    id
-    slug
-    title
-    excerpt
-    allowComments
-    categories {
-        ...category
-    }
-    cover {
-        url
-    }
-    tags {
-        ...tag
-    }
-    content {
-        html
-        markdown
-        text
-    }
-    author {
-        ...author
-    }
-    categories {
-        ...category
-    }
-    tags {
-        ...tag
-    }
-    seo {
-        ...seo
-    }
-    publishedAt
-    publishedAt
+  __typename
+  id
+  slug
+  title
+  excerpt
+  allowComments
+  id
+  categories {
+    ...category
+  }
+  cover {
+    url
+  }
+  tags {
+    ...tag
+  }
+  content {
+    html
+    markdown
+    text
+  }
+  author {
+    ...author
+  }
+  categories {
+    ...category
+  }
+  tags {
+    ...tag
+  }
+  seo {
+    ...seo
+  }
+  publishedAt
+  publishedAt
 }

@@ -76,11 +76,13 @@ export type Asset = Node & {
   width?: Maybe<Scalars['Float']>;
 };
 
+
 /** Asset system model */
 export type AssetAuthorAvatarArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   orderBy?: InputMaybe<AuthorOrderByInput>;
@@ -88,11 +90,13 @@ export type AssetAuthorAvatarArgs = {
   where?: InputMaybe<AuthorWhereInput>;
 };
 
+
 /** Asset system model */
 export type AssetBlogLogoSettingArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   orderBy?: InputMaybe<SettingOrderByInput>;
@@ -100,11 +104,13 @@ export type AssetBlogLogoSettingArgs = {
   where?: InputMaybe<SettingWhereInput>;
 };
 
+
 /** Asset system model */
 export type AssetCoverCategoryArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   orderBy?: InputMaybe<CategoryOrderByInput>;
@@ -112,11 +118,13 @@ export type AssetCoverCategoryArgs = {
   where?: InputMaybe<CategoryWhereInput>;
 };
 
+
 /** Asset system model */
 export type AssetCoverImagePostArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   orderBy?: InputMaybe<PostOrderByInput>;
@@ -124,15 +132,19 @@ export type AssetCoverImagePostArgs = {
   where?: InputMaybe<PostWhereInput>;
 };
 
+
 /** Asset system model */
 export type AssetCreatedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
 };
 
+
 /** Asset system model */
 export type AssetCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Asset system model */
 export type AssetDocumentInStagesArgs = {
@@ -141,6 +153,7 @@ export type AssetDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 /** Asset system model */
 export type AssetHistoryArgs = {
   limit?: Scalars['Int'];
@@ -148,42 +161,52 @@ export type AssetHistoryArgs = {
   stageOverride?: InputMaybe<Stage>;
 };
 
+
 /** Asset system model */
 export type AssetLocalizationsArgs = {
   includeCurrent?: Scalars['Boolean'];
   locales?: Array<Locale>;
 };
 
+
 /** Asset system model */
 export type AssetPublishedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
 };
 
+
 /** Asset system model */
 export type AssetPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Asset system model */
 export type AssetScheduledInArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 /** Asset system model */
 export type AssetUpdatedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
 };
 
+
 /** Asset system model */
 export type AssetUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Asset system model */
 export type AssetUrlArgs = {
@@ -308,6 +331,9 @@ export type AssetManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<AssetWhereStageInput>;
+  documentInStages_none?: InputMaybe<AssetWhereStageInput>;
+  documentInStages_some?: InputMaybe<AssetWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -384,7 +410,7 @@ export enum AssetOrderByInput {
   UpdatedAtAsc = 'updatedAt_ASC',
   UpdatedAtDesc = 'updatedAt_DESC',
   WidthAsc = 'width_ASC',
-  WidthDesc = 'width_DESC',
+  WidthDesc = 'width_DESC'
 }
 
 /** Transformations for Assets */
@@ -529,6 +555,12 @@ export type AssetUpsertWithNestedWhereUniqueInput = {
   where: AssetWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type AssetWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type AssetWhereInput = {
   /** Logical AND on all given filters. */
@@ -567,6 +599,9 @@ export type AssetWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<AssetWhereStageInput>;
+  documentInStages_none?: InputMaybe<AssetWhereStageInput>;
+  documentInStages_some?: InputMaybe<AssetWhereStageInput>;
   fileName?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   fileName_contains?: InputMaybe<Scalars['String']>;
@@ -725,6 +760,20 @@ export type AssetWhereInput = {
   width_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type AssetWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<AssetWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<AssetWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<AssetWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<AssetWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Asset record uniquely */
 export type AssetWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -765,9 +814,12 @@ export type Author = Node & {
   updatedBy?: Maybe<User>;
 };
 
+
 export type AuthorCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type AuthorDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
@@ -775,20 +827,25 @@ export type AuthorDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 export type AuthorHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
 };
 
+
 export type AuthorPictureArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type AuthorPostsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   orderBy?: InputMaybe<PostOrderByInput>;
@@ -796,21 +853,27 @@ export type AuthorPostsArgs = {
   where?: InputMaybe<PostWhereInput>;
 };
 
+
 export type AuthorPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type AuthorScheduledInArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 export type AuthorUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -910,6 +973,9 @@ export type AuthorManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<AuthorWhereStageInput>;
+  documentInStages_none?: InputMaybe<AuthorWhereStageInput>;
+  documentInStages_some?: InputMaybe<AuthorWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -1043,7 +1109,7 @@ export enum AuthorOrderByInput {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type AuthorUpdateInput = {
@@ -1121,6 +1187,12 @@ export type AuthorUpsertWithNestedWhereUniqueInput = {
   where: AuthorWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type AuthorWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type AuthorWhereInput = {
   /** Logical AND on all given filters. */
@@ -1166,6 +1238,9 @@ export type AuthorWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<AuthorWhereStageInput>;
+  documentInStages_none?: InputMaybe<AuthorWhereStageInput>;
+  documentInStages_some?: InputMaybe<AuthorWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -1283,6 +1358,20 @@ export type AuthorWhereInput = {
   updatedBy?: InputMaybe<UserWhereInput>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type AuthorWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<AuthorWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<AuthorWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<AuthorWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<AuthorWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Author record uniquely */
 export type AuthorWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -1325,15 +1414,20 @@ export type Category = Node & {
   updatedBy?: Maybe<User>;
 };
 
+
 /** Categorias */
 export type CategoryCoverArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
+
 /** Categorias */
 export type CategoryCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Categorias */
 export type CategoryDocumentInStagesArgs = {
@@ -1342,6 +1436,7 @@ export type CategoryDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 /** Categorias */
 export type CategoryHistoryArgs = {
   limit?: Scalars['Int'];
@@ -1349,34 +1444,42 @@ export type CategoryHistoryArgs = {
   stageOverride?: InputMaybe<Stage>;
 };
 
+
 /** Categorias */
 export type CategoryPostsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Categorias */
 export type CategoryPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Categorias */
 export type CategoryScheduledInArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 /** Categorias */
 export type CategoryUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -1456,6 +1559,9 @@ export type CategoryManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<CategoryWhereStageInput>;
+  documentInStages_none?: InputMaybe<CategoryWhereStageInput>;
+  documentInStages_some?: InputMaybe<CategoryWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -1562,7 +1668,7 @@ export enum CategoryOrderByInput {
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type CategoryPosts = Post;
@@ -1716,6 +1822,12 @@ export type CategoryUpsertWithNestedWhereUniqueInput = {
   where: CategoryWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type CategoryWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type CategoryWhereInput = {
   /** Logical AND on all given filters. */
@@ -1743,6 +1855,9 @@ export type CategoryWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<CategoryWhereStageInput>;
+  documentInStages_none?: InputMaybe<CategoryWhereStageInput>;
+  documentInStages_some?: InputMaybe<CategoryWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -1837,6 +1952,20 @@ export type CategoryWhereInput = {
   updatedBy?: InputMaybe<UserWhereInput>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type CategoryWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<CategoryWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<CategoryWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<CategoryWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<CategoryWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Category record uniquely */
 export type CategoryWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -1884,8 +2013,10 @@ export type Creator = {
   stage: Stage;
 };
 
+
 /** Criador do blog */
 export type CreatorPictureArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -1994,7 +2125,7 @@ export enum CreatorOrderByInput {
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
   NameAsc = 'name_ASC',
-  NameDesc = 'name_DESC',
+  NameDesc = 'name_DESC'
 }
 
 export type CreatorParent = Setting;
@@ -2230,7 +2361,7 @@ export enum DocumentFileTypes {
   Txt = 'txt',
   Webp = 'webp',
   Xls = 'xls',
-  Xlsx = 'xlsx',
+  Xlsx = 'xlsx'
 }
 
 export type DocumentOutputInput = {
@@ -2286,7 +2417,7 @@ export enum ImageFit {
   /** Resizes the image to fit within the parameters, but as opposed to 'fit:clip' will not scale the image if the image is smaller than the output size. */
   Max = 'max',
   /** Resizes the image to fit the specified parameters exactly by scaling the image to the desired size. The aspect ratio of the image is not respected and the image can be distorted using this method. */
-  Scale = 'scale',
+  Scale = 'scale'
 }
 
 export type ImageResizeInput = {
@@ -2307,7 +2438,7 @@ export type ImageTransformationInput = {
 /** Locale system enumeration */
 export enum Locale {
   /** System locale */
-  En = 'en',
+  En = 'en'
 }
 
 /** Representing a geolocation point with latitude and longitude */
@@ -2317,6 +2448,7 @@ export type Location = {
   latitude: Scalars['Float'];
   longitude: Scalars['Float'];
 };
+
 
 /** Representing a geolocation point with latitude and longitude */
 export type LocationDistanceArgs = {
@@ -2652,53 +2784,66 @@ export type Mutation = {
   upsertTag?: Maybe<Tag>;
 };
 
+
 export type MutationCreateAssetArgs = {
   data: AssetCreateInput;
 };
+
 
 export type MutationCreateAuthorArgs = {
   data: AuthorCreateInput;
 };
 
+
 export type MutationCreateCategoryArgs = {
   data: CategoryCreateInput;
 };
+
 
 export type MutationCreatePageArgs = {
   data: PageCreateInput;
 };
 
+
 export type MutationCreatePostArgs = {
   data: PostCreateInput;
 };
+
 
 export type MutationCreateScheduledReleaseArgs = {
   data: ScheduledReleaseCreateInput;
 };
 
+
 export type MutationCreateSettingArgs = {
   data: SettingCreateInput;
 };
+
 
 export type MutationCreateTagArgs = {
   data: TagCreateInput;
 };
 
+
 export type MutationDeleteAssetArgs = {
   where: AssetWhereUniqueInput;
 };
+
 
 export type MutationDeleteAuthorArgs = {
   where: AuthorWhereUniqueInput;
 };
 
+
 export type MutationDeleteCategoryArgs = {
   where: CategoryWhereUniqueInput;
 };
 
+
 export type MutationDeleteManyAssetsArgs = {
   where?: InputMaybe<AssetManyWhereInput>;
 };
+
 
 export type MutationDeleteManyAssetsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2709,9 +2854,11 @@ export type MutationDeleteManyAssetsConnectionArgs = {
   where?: InputMaybe<AssetManyWhereInput>;
 };
 
+
 export type MutationDeleteManyAuthorsArgs = {
   where?: InputMaybe<AuthorManyWhereInput>;
 };
+
 
 export type MutationDeleteManyAuthorsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2722,9 +2869,11 @@ export type MutationDeleteManyAuthorsConnectionArgs = {
   where?: InputMaybe<AuthorManyWhereInput>;
 };
 
+
 export type MutationDeleteManyCategoriesArgs = {
   where?: InputMaybe<CategoryManyWhereInput>;
 };
+
 
 export type MutationDeleteManyCategoriesConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2735,9 +2884,11 @@ export type MutationDeleteManyCategoriesConnectionArgs = {
   where?: InputMaybe<CategoryManyWhereInput>;
 };
 
+
 export type MutationDeleteManyPagesArgs = {
   where?: InputMaybe<PageManyWhereInput>;
 };
+
 
 export type MutationDeleteManyPagesConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2748,9 +2899,11 @@ export type MutationDeleteManyPagesConnectionArgs = {
   where?: InputMaybe<PageManyWhereInput>;
 };
 
+
 export type MutationDeleteManyPostsArgs = {
   where?: InputMaybe<PostManyWhereInput>;
 };
+
 
 export type MutationDeleteManyPostsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2761,9 +2914,11 @@ export type MutationDeleteManyPostsConnectionArgs = {
   where?: InputMaybe<PostManyWhereInput>;
 };
 
+
 export type MutationDeleteManySettingsArgs = {
   where?: InputMaybe<SettingManyWhereInput>;
 };
+
 
 export type MutationDeleteManySettingsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2774,9 +2929,11 @@ export type MutationDeleteManySettingsConnectionArgs = {
   where?: InputMaybe<SettingManyWhereInput>;
 };
 
+
 export type MutationDeleteManyTagsArgs = {
   where?: InputMaybe<TagManyWhereInput>;
 };
+
 
 export type MutationDeleteManyTagsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2787,29 +2944,36 @@ export type MutationDeleteManyTagsConnectionArgs = {
   where?: InputMaybe<TagManyWhereInput>;
 };
 
+
 export type MutationDeletePageArgs = {
   where: PageWhereUniqueInput;
 };
+
 
 export type MutationDeletePostArgs = {
   where: PostWhereUniqueInput;
 };
 
+
 export type MutationDeleteScheduledOperationArgs = {
   where: ScheduledOperationWhereUniqueInput;
 };
+
 
 export type MutationDeleteScheduledReleaseArgs = {
   where: ScheduledReleaseWhereUniqueInput;
 };
 
+
 export type MutationDeleteSettingArgs = {
   where: SettingWhereUniqueInput;
 };
 
+
 export type MutationDeleteTagArgs = {
   where: TagWhereUniqueInput;
 };
+
 
 export type MutationPublishAssetArgs = {
   locales?: InputMaybe<Array<Locale>>;
@@ -2819,15 +2983,18 @@ export type MutationPublishAssetArgs = {
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 export type MutationPublishAuthorArgs = {
   to?: Array<Stage>;
   where: AuthorWhereUniqueInput;
 };
 
+
 export type MutationPublishCategoryArgs = {
   to?: Array<Stage>;
   where: CategoryWhereUniqueInput;
 };
+
 
 export type MutationPublishManyAssetsArgs = {
   locales?: InputMaybe<Array<Locale>>;
@@ -2836,6 +3003,7 @@ export type MutationPublishManyAssetsArgs = {
   where?: InputMaybe<AssetManyWhereInput>;
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type MutationPublishManyAssetsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2851,10 +3019,12 @@ export type MutationPublishManyAssetsConnectionArgs = {
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 export type MutationPublishManyAuthorsArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<AuthorManyWhereInput>;
 };
+
 
 export type MutationPublishManyAuthorsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2867,10 +3037,12 @@ export type MutationPublishManyAuthorsConnectionArgs = {
   where?: InputMaybe<AuthorManyWhereInput>;
 };
 
+
 export type MutationPublishManyCategoriesArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<CategoryManyWhereInput>;
 };
+
 
 export type MutationPublishManyCategoriesConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2883,10 +3055,12 @@ export type MutationPublishManyCategoriesConnectionArgs = {
   where?: InputMaybe<CategoryManyWhereInput>;
 };
 
+
 export type MutationPublishManyPagesArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<PageManyWhereInput>;
 };
+
 
 export type MutationPublishManyPagesConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2899,10 +3073,12 @@ export type MutationPublishManyPagesConnectionArgs = {
   where?: InputMaybe<PageManyWhereInput>;
 };
 
+
 export type MutationPublishManyPostsArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<PostManyWhereInput>;
 };
+
 
 export type MutationPublishManyPostsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2915,10 +3091,12 @@ export type MutationPublishManyPostsConnectionArgs = {
   where?: InputMaybe<PostManyWhereInput>;
 };
 
+
 export type MutationPublishManySettingsArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<SettingManyWhereInput>;
 };
+
 
 export type MutationPublishManySettingsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2931,10 +3109,12 @@ export type MutationPublishManySettingsConnectionArgs = {
   where?: InputMaybe<SettingManyWhereInput>;
 };
 
+
 export type MutationPublishManyTagsArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<TagManyWhereInput>;
 };
+
 
 export type MutationPublishManyTagsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -2947,25 +3127,30 @@ export type MutationPublishManyTagsConnectionArgs = {
   where?: InputMaybe<TagManyWhereInput>;
 };
 
+
 export type MutationPublishPageArgs = {
   to?: Array<Stage>;
   where: PageWhereUniqueInput;
 };
+
 
 export type MutationPublishPostArgs = {
   to?: Array<Stage>;
   where: PostWhereUniqueInput;
 };
 
+
 export type MutationPublishSettingArgs = {
   to?: Array<Stage>;
   where: SettingWhereUniqueInput;
 };
 
+
 export type MutationPublishTagArgs = {
   to?: Array<Stage>;
   where: TagWhereUniqueInput;
 };
+
 
 export type MutationSchedulePublishAssetArgs = {
   locales?: InputMaybe<Array<Locale>>;
@@ -2977,12 +3162,14 @@ export type MutationSchedulePublishAssetArgs = {
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 export type MutationSchedulePublishAuthorArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   to?: Array<Stage>;
   where: AuthorWhereUniqueInput;
 };
+
 
 export type MutationSchedulePublishCategoryArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -2991,12 +3178,14 @@ export type MutationSchedulePublishCategoryArgs = {
   where: CategoryWhereUniqueInput;
 };
 
+
 export type MutationSchedulePublishPageArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   to?: Array<Stage>;
   where: PageWhereUniqueInput;
 };
+
 
 export type MutationSchedulePublishPostArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -3005,6 +3194,7 @@ export type MutationSchedulePublishPostArgs = {
   where: PostWhereUniqueInput;
 };
 
+
 export type MutationSchedulePublishSettingArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
@@ -3012,12 +3202,14 @@ export type MutationSchedulePublishSettingArgs = {
   where: SettingWhereUniqueInput;
 };
 
+
 export type MutationSchedulePublishTagArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   to?: Array<Stage>;
   where: TagWhereUniqueInput;
 };
+
 
 export type MutationScheduleUnpublishAssetArgs = {
   from?: Array<Stage>;
@@ -3028,12 +3220,14 @@ export type MutationScheduleUnpublishAssetArgs = {
   where: AssetWhereUniqueInput;
 };
 
+
 export type MutationScheduleUnpublishAuthorArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   where: AuthorWhereUniqueInput;
 };
+
 
 export type MutationScheduleUnpublishCategoryArgs = {
   from?: Array<Stage>;
@@ -3042,12 +3236,14 @@ export type MutationScheduleUnpublishCategoryArgs = {
   where: CategoryWhereUniqueInput;
 };
 
+
 export type MutationScheduleUnpublishPageArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   where: PageWhereUniqueInput;
 };
+
 
 export type MutationScheduleUnpublishPostArgs = {
   from?: Array<Stage>;
@@ -3056,12 +3252,14 @@ export type MutationScheduleUnpublishPostArgs = {
   where: PostWhereUniqueInput;
 };
 
+
 export type MutationScheduleUnpublishSettingArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   where: SettingWhereUniqueInput;
 };
+
 
 export type MutationScheduleUnpublishTagArgs = {
   from?: Array<Stage>;
@@ -3070,6 +3268,7 @@ export type MutationScheduleUnpublishTagArgs = {
   where: TagWhereUniqueInput;
 };
 
+
 export type MutationUnpublishAssetArgs = {
   from?: Array<Stage>;
   locales?: InputMaybe<Array<Locale>>;
@@ -3077,15 +3276,18 @@ export type MutationUnpublishAssetArgs = {
   where: AssetWhereUniqueInput;
 };
 
+
 export type MutationUnpublishAuthorArgs = {
   from?: Array<Stage>;
   where: AuthorWhereUniqueInput;
 };
 
+
 export type MutationUnpublishCategoryArgs = {
   from?: Array<Stage>;
   where: CategoryWhereUniqueInput;
 };
+
 
 export type MutationUnpublishManyAssetsArgs = {
   from?: Array<Stage>;
@@ -3093,6 +3295,7 @@ export type MutationUnpublishManyAssetsArgs = {
   unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where?: InputMaybe<AssetManyWhereInput>;
 };
+
 
 export type MutationUnpublishManyAssetsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3107,10 +3310,12 @@ export type MutationUnpublishManyAssetsConnectionArgs = {
   where?: InputMaybe<AssetManyWhereInput>;
 };
 
+
 export type MutationUnpublishManyAuthorsArgs = {
   from?: Array<Stage>;
   where?: InputMaybe<AuthorManyWhereInput>;
 };
+
 
 export type MutationUnpublishManyAuthorsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3123,10 +3328,12 @@ export type MutationUnpublishManyAuthorsConnectionArgs = {
   where?: InputMaybe<AuthorManyWhereInput>;
 };
 
+
 export type MutationUnpublishManyCategoriesArgs = {
   from?: Array<Stage>;
   where?: InputMaybe<CategoryManyWhereInput>;
 };
+
 
 export type MutationUnpublishManyCategoriesConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3139,10 +3346,12 @@ export type MutationUnpublishManyCategoriesConnectionArgs = {
   where?: InputMaybe<CategoryManyWhereInput>;
 };
 
+
 export type MutationUnpublishManyPagesArgs = {
   from?: Array<Stage>;
   where?: InputMaybe<PageManyWhereInput>;
 };
+
 
 export type MutationUnpublishManyPagesConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3155,10 +3364,12 @@ export type MutationUnpublishManyPagesConnectionArgs = {
   where?: InputMaybe<PageManyWhereInput>;
 };
 
+
 export type MutationUnpublishManyPostsArgs = {
   from?: Array<Stage>;
   where?: InputMaybe<PostManyWhereInput>;
 };
+
 
 export type MutationUnpublishManyPostsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3171,10 +3382,12 @@ export type MutationUnpublishManyPostsConnectionArgs = {
   where?: InputMaybe<PostManyWhereInput>;
 };
 
+
 export type MutationUnpublishManySettingsArgs = {
   from?: Array<Stage>;
   where?: InputMaybe<SettingManyWhereInput>;
 };
+
 
 export type MutationUnpublishManySettingsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3187,10 +3400,12 @@ export type MutationUnpublishManySettingsConnectionArgs = {
   where?: InputMaybe<SettingManyWhereInput>;
 };
 
+
 export type MutationUnpublishManyTagsArgs = {
   from?: Array<Stage>;
   where?: InputMaybe<TagManyWhereInput>;
 };
+
 
 export type MutationUnpublishManyTagsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3203,45 +3418,54 @@ export type MutationUnpublishManyTagsConnectionArgs = {
   where?: InputMaybe<TagManyWhereInput>;
 };
 
+
 export type MutationUnpublishPageArgs = {
   from?: Array<Stage>;
   where: PageWhereUniqueInput;
 };
+
 
 export type MutationUnpublishPostArgs = {
   from?: Array<Stage>;
   where: PostWhereUniqueInput;
 };
 
+
 export type MutationUnpublishSettingArgs = {
   from?: Array<Stage>;
   where: SettingWhereUniqueInput;
 };
+
 
 export type MutationUnpublishTagArgs = {
   from?: Array<Stage>;
   where: TagWhereUniqueInput;
 };
 
+
 export type MutationUpdateAssetArgs = {
   data: AssetUpdateInput;
   where: AssetWhereUniqueInput;
 };
+
 
 export type MutationUpdateAuthorArgs = {
   data: AuthorUpdateInput;
   where: AuthorWhereUniqueInput;
 };
 
+
 export type MutationUpdateCategoryArgs = {
   data: CategoryUpdateInput;
   where: CategoryWhereUniqueInput;
 };
 
+
 export type MutationUpdateManyAssetsArgs = {
   data: AssetUpdateManyInput;
   where?: InputMaybe<AssetManyWhereInput>;
 };
+
 
 export type MutationUpdateManyAssetsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3253,10 +3477,12 @@ export type MutationUpdateManyAssetsConnectionArgs = {
   where?: InputMaybe<AssetManyWhereInput>;
 };
 
+
 export type MutationUpdateManyAuthorsArgs = {
   data: AuthorUpdateManyInput;
   where?: InputMaybe<AuthorManyWhereInput>;
 };
+
 
 export type MutationUpdateManyAuthorsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3268,10 +3494,12 @@ export type MutationUpdateManyAuthorsConnectionArgs = {
   where?: InputMaybe<AuthorManyWhereInput>;
 };
 
+
 export type MutationUpdateManyCategoriesArgs = {
   data: CategoryUpdateManyInput;
   where?: InputMaybe<CategoryManyWhereInput>;
 };
+
 
 export type MutationUpdateManyCategoriesConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3283,10 +3511,12 @@ export type MutationUpdateManyCategoriesConnectionArgs = {
   where?: InputMaybe<CategoryManyWhereInput>;
 };
 
+
 export type MutationUpdateManyPagesArgs = {
   data: PageUpdateManyInput;
   where?: InputMaybe<PageManyWhereInput>;
 };
+
 
 export type MutationUpdateManyPagesConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3298,10 +3528,12 @@ export type MutationUpdateManyPagesConnectionArgs = {
   where?: InputMaybe<PageManyWhereInput>;
 };
 
+
 export type MutationUpdateManyPostsArgs = {
   data: PostUpdateManyInput;
   where?: InputMaybe<PostManyWhereInput>;
 };
+
 
 export type MutationUpdateManyPostsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3313,10 +3545,12 @@ export type MutationUpdateManyPostsConnectionArgs = {
   where?: InputMaybe<PostManyWhereInput>;
 };
 
+
 export type MutationUpdateManySettingsArgs = {
   data: SettingUpdateManyInput;
   where?: InputMaybe<SettingManyWhereInput>;
 };
+
 
 export type MutationUpdateManySettingsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3328,10 +3562,12 @@ export type MutationUpdateManySettingsConnectionArgs = {
   where?: InputMaybe<SettingManyWhereInput>;
 };
 
+
 export type MutationUpdateManyTagsArgs = {
   data: TagUpdateManyInput;
   where?: InputMaybe<TagManyWhereInput>;
 };
+
 
 export type MutationUpdateManyTagsConnectionArgs = {
   after?: InputMaybe<Scalars['ID']>;
@@ -3343,60 +3579,72 @@ export type MutationUpdateManyTagsConnectionArgs = {
   where?: InputMaybe<TagManyWhereInput>;
 };
 
+
 export type MutationUpdatePageArgs = {
   data: PageUpdateInput;
   where: PageWhereUniqueInput;
 };
+
 
 export type MutationUpdatePostArgs = {
   data: PostUpdateInput;
   where: PostWhereUniqueInput;
 };
 
+
 export type MutationUpdateScheduledReleaseArgs = {
   data: ScheduledReleaseUpdateInput;
   where: ScheduledReleaseWhereUniqueInput;
 };
+
 
 export type MutationUpdateSettingArgs = {
   data: SettingUpdateInput;
   where: SettingWhereUniqueInput;
 };
 
+
 export type MutationUpdateTagArgs = {
   data: TagUpdateInput;
   where: TagWhereUniqueInput;
 };
+
 
 export type MutationUpsertAssetArgs = {
   upsert: AssetUpsertInput;
   where: AssetWhereUniqueInput;
 };
 
+
 export type MutationUpsertAuthorArgs = {
   upsert: AuthorUpsertInput;
   where: AuthorWhereUniqueInput;
 };
+
 
 export type MutationUpsertCategoryArgs = {
   upsert: CategoryUpsertInput;
   where: CategoryWhereUniqueInput;
 };
 
+
 export type MutationUpsertPageArgs = {
   upsert: PageUpsertInput;
   where: PageWhereUniqueInput;
 };
+
 
 export type MutationUpsertPostArgs = {
   upsert: PostUpsertInput;
   where: PostWhereUniqueInput;
 };
 
+
 export type MutationUpsertSettingArgs = {
   upsert: SettingUpsertInput;
   where: SettingWhereUniqueInput;
 };
+
 
 export type MutationUpsertTagArgs = {
   upsert: TagUpsertInput;
@@ -3444,9 +3692,12 @@ export type Page = Node & {
   updatedBy?: Maybe<User>;
 };
 
+
 export type PageCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type PageDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
@@ -3454,27 +3705,34 @@ export type PageDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 export type PageHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
 };
 
+
 export type PagePublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type PageScheduledInArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 export type PageUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -3568,6 +3826,9 @@ export type PageManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<PageWhereStageInput>;
+  documentInStages_none?: InputMaybe<PageWhereStageInput>;
+  documentInStages_some?: InputMaybe<PageWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -3695,7 +3956,7 @@ export enum PageOrderByInput {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type PageUpdateInput = {
@@ -3771,6 +4032,12 @@ export type PageUpsertWithNestedWhereUniqueInput = {
   where: PageWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type PageWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type PageWhereInput = {
   /** Logical AND on all given filters. */
@@ -3797,6 +4064,9 @@ export type PageWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<PageWhereStageInput>;
+  documentInStages_none?: InputMaybe<PageWhereStageInput>;
+  documentInStages_some?: InputMaybe<PageWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -3910,6 +4180,20 @@ export type PageWhereInput = {
   updatedBy?: InputMaybe<UserWhereInput>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type PageWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<PageWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<PageWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<PageWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<PageWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Page record uniquely */
 export type PageWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -3946,7 +4230,6 @@ export type Post = Node & {
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
   seo: Seo;
-  /** Select a slug for this blog post, such as post-1, post-2, etc. */
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
@@ -3959,27 +4242,36 @@ export type Post = Node & {
   updatedBy?: Maybe<User>;
 };
 
+
 export type PostAuthorArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type PostCategoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<CategoryWhereInput>;
 };
 
+
 export type PostCoverArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
+
 export type PostCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type PostDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
@@ -3987,41 +4279,52 @@ export type PostDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 export type PostHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
 };
 
+
 export type PostPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type PostScheduledInArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 export type PostSeoArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 export type PostTagsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TagWhereInput>;
 };
 
+
 export type PostUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -4130,6 +4433,9 @@ export type PostManyWhereInput = {
   date_not?: InputMaybe<Scalars['Date']>;
   /** All values that are not contained in given list. */
   date_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  documentInStages_every?: InputMaybe<PostWhereStageInput>;
+  documentInStages_none?: InputMaybe<PostWhereStageInput>;
+  documentInStages_some?: InputMaybe<PostWhereStageInput>;
   excerpt?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   excerpt_contains?: InputMaybe<Scalars['String']>;
@@ -4265,7 +4571,7 @@ export enum PostOrderByInput {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type PostUpdateInput = {
@@ -4350,6 +4656,12 @@ export type PostUpsertWithNestedWhereUniqueInput = {
   where: PostWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type PostWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type PostWhereInput = {
   /** Logical AND on all given filters. */
@@ -4399,6 +4711,9 @@ export type PostWhereInput = {
   date_not?: InputMaybe<Scalars['Date']>;
   /** All values that are not contained in given list. */
   date_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  documentInStages_every?: InputMaybe<PostWhereStageInput>;
+  documentInStages_none?: InputMaybe<PostWhereStageInput>;
+  documentInStages_some?: InputMaybe<PostWhereStageInput>;
   excerpt?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   excerpt_contains?: InputMaybe<Scalars['String']>;
@@ -4516,6 +4831,20 @@ export type PostWhereInput = {
   updatedBy?: InputMaybe<UserWhereInput>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type PostWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<PostWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<PostWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<PostWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<PostWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Post record uniquely */
 export type PostWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -4609,15 +4938,18 @@ export type Query = {
   usersConnection: UserConnection;
 };
 
+
 export type QueryAssetArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: AssetWhereUniqueInput;
 };
 
+
 export type QueryAssetVersionArgs = {
   where: VersionWhereInput;
 };
+
 
 export type QueryAssetsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4631,6 +4963,7 @@ export type QueryAssetsArgs = {
   where?: InputMaybe<AssetWhereInput>;
 };
 
+
 export type QueryAssetsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4643,15 +4976,18 @@ export type QueryAssetsConnectionArgs = {
   where?: InputMaybe<AssetWhereInput>;
 };
 
+
 export type QueryAuthorArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: AuthorWhereUniqueInput;
 };
 
+
 export type QueryAuthorVersionArgs = {
   where: VersionWhereInput;
 };
+
 
 export type QueryAuthorsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4665,6 +5001,7 @@ export type QueryAuthorsArgs = {
   where?: InputMaybe<AuthorWhereInput>;
 };
 
+
 export type QueryAuthorsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4676,6 +5013,7 @@ export type QueryAuthorsConnectionArgs = {
   stage?: Stage;
   where?: InputMaybe<AuthorWhereInput>;
 };
+
 
 export type QueryCategoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4689,6 +5027,7 @@ export type QueryCategoriesArgs = {
   where?: InputMaybe<CategoryWhereInput>;
 };
 
+
 export type QueryCategoriesConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4701,15 +5040,18 @@ export type QueryCategoriesConnectionArgs = {
   where?: InputMaybe<CategoryWhereInput>;
 };
 
+
 export type QueryCategoryArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: CategoryWhereUniqueInput;
 };
 
+
 export type QueryCategoryVersionArgs = {
   where: VersionWhereInput;
 };
+
 
 export type QueryNodeArgs = {
   id: Scalars['ID'];
@@ -4717,15 +5059,18 @@ export type QueryNodeArgs = {
   stage?: Stage;
 };
 
+
 export type QueryPageArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: PageWhereUniqueInput;
 };
 
+
 export type QueryPageVersionArgs = {
   where: VersionWhereInput;
 };
+
 
 export type QueryPagesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4739,6 +5084,7 @@ export type QueryPagesArgs = {
   where?: InputMaybe<PageWhereInput>;
 };
 
+
 export type QueryPagesConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4751,15 +5097,18 @@ export type QueryPagesConnectionArgs = {
   where?: InputMaybe<PageWhereInput>;
 };
 
+
 export type QueryPostArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: PostWhereUniqueInput;
 };
 
+
 export type QueryPostVersionArgs = {
   where: VersionWhereInput;
 };
+
 
 export type QueryPostsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4773,6 +5122,7 @@ export type QueryPostsArgs = {
   where?: InputMaybe<PostWhereInput>;
 };
 
+
 export type QueryPostsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4785,11 +5135,13 @@ export type QueryPostsConnectionArgs = {
   where?: InputMaybe<PostWhereInput>;
 };
 
+
 export type QueryScheduledOperationArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: ScheduledOperationWhereUniqueInput;
 };
+
 
 export type QueryScheduledOperationsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4803,6 +5155,7 @@ export type QueryScheduledOperationsArgs = {
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 export type QueryScheduledOperationsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4815,11 +5168,13 @@ export type QueryScheduledOperationsConnectionArgs = {
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 export type QueryScheduledReleaseArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: ScheduledReleaseWhereUniqueInput;
 };
+
 
 export type QueryScheduledReleasesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4833,6 +5188,7 @@ export type QueryScheduledReleasesArgs = {
   where?: InputMaybe<ScheduledReleaseWhereInput>;
 };
 
+
 export type QueryScheduledReleasesConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4845,15 +5201,18 @@ export type QueryScheduledReleasesConnectionArgs = {
   where?: InputMaybe<ScheduledReleaseWhereInput>;
 };
 
+
 export type QuerySettingArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: SettingWhereUniqueInput;
 };
 
+
 export type QuerySettingVersionArgs = {
   where: VersionWhereInput;
 };
+
 
 export type QuerySettingsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4867,6 +5226,7 @@ export type QuerySettingsArgs = {
   where?: InputMaybe<SettingWhereInput>;
 };
 
+
 export type QuerySettingsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4879,15 +5239,18 @@ export type QuerySettingsConnectionArgs = {
   where?: InputMaybe<SettingWhereInput>;
 };
 
+
 export type QueryTagArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: TagWhereUniqueInput;
 };
 
+
 export type QueryTagVersionArgs = {
   where: VersionWhereInput;
 };
+
 
 export type QueryTagsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4901,6 +5264,7 @@ export type QueryTagsArgs = {
   where?: InputMaybe<TagWhereInput>;
 };
 
+
 export type QueryTagsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -4913,11 +5277,13 @@ export type QueryTagsConnectionArgs = {
   where?: InputMaybe<TagWhereInput>;
 };
 
+
 export type QueryUserArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
   where: UserWhereUniqueInput;
 };
+
 
 export type QueryUsersArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -4930,6 +5296,7 @@ export type QueryUsersArgs = {
   stage?: Stage;
   where?: InputMaybe<UserWhereInput>;
 };
+
 
 export type QueryUsersConnectionArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -5007,20 +5374,25 @@ export type ScheduledOperation = Node & {
   updatedBy?: Maybe<User>;
 };
 
+
 /** Scheduled Operation system model */
 export type ScheduledOperationAffectedDocumentsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Scheduled Operation system model */
 export type ScheduledOperationCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Scheduled Operation system model */
 export type ScheduledOperationDocumentInStagesArgs = {
@@ -5029,18 +5401,24 @@ export type ScheduledOperationDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 /** Scheduled Operation system model */
 export type ScheduledOperationPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Scheduled Operation system model */
 export type ScheduledOperationReleaseArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
+
 /** Scheduled Operation system model */
 export type ScheduledOperationUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -5221,7 +5599,7 @@ export enum ScheduledOperationOrderByInput {
   StatusAsc = 'status_ASC',
   StatusDesc = 'status_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** System Scheduled Operation Status */
@@ -5230,7 +5608,7 @@ export enum ScheduledOperationStatus {
   Completed = 'COMPLETED',
   Failed = 'FAILED',
   InProgress = 'IN_PROGRESS',
-  Pending = 'PENDING',
+  Pending = 'PENDING'
 }
 
 export type ScheduledOperationUpdateManyInlineInput = {
@@ -5418,10 +5796,13 @@ export type ScheduledRelease = Node & {
   updatedBy?: Maybe<User>;
 };
 
+
 /** Scheduled Release system model */
 export type ScheduledReleaseCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Scheduled Release system model */
 export type ScheduledReleaseDocumentInStagesArgs = {
@@ -5430,11 +5811,13 @@ export type ScheduledReleaseDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 /** Scheduled Release system model */
 export type ScheduledReleaseOperationsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   orderBy?: InputMaybe<ScheduledOperationOrderByInput>;
@@ -5442,13 +5825,17 @@ export type ScheduledReleaseOperationsArgs = {
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 /** Scheduled Release system model */
 export type ScheduledReleasePublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
+
 /** Scheduled Release system model */
 export type ScheduledReleaseUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -5691,7 +6078,7 @@ export enum ScheduledReleaseOrderByInput {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** System Scheduled Release Status */
@@ -5699,7 +6086,7 @@ export enum ScheduledReleaseStatus {
   Completed = 'COMPLETED',
   Failed = 'FAILED',
   InProgress = 'IN_PROGRESS',
-  Pending = 'PENDING',
+  Pending = 'PENDING'
 }
 
 export type ScheduledReleaseUpdateInput = {
@@ -6106,7 +6493,7 @@ export enum SeoOrderByInput {
   KeywordsAsc = 'keywords_ASC',
   KeywordsDesc = 'keywords_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export type SeoParent = Post | Setting;
@@ -6402,20 +6789,27 @@ export type Setting = Node & {
   updatedBy?: Maybe<User>;
 };
 
+
 /** Configurações básicas do blog */
 export type SettingBlogLogoArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Configurações básicas do blog */
 export type SettingCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
+
 /** Configurações básicas do blog */
 export type SettingCreatorArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Configurações básicas do blog */
 export type SettingDocumentInStagesArgs = {
@@ -6424,6 +6818,7 @@ export type SettingDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 /** Configurações básicas do blog */
 export type SettingHistoryArgs = {
   limit?: Scalars['Int'];
@@ -6431,29 +6826,37 @@ export type SettingHistoryArgs = {
   stageOverride?: InputMaybe<Stage>;
 };
 
+
 /** Configurações básicas do blog */
 export type SettingPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** Configurações básicas do blog */
 export type SettingScheduledInArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 /** Configurações básicas do blog */
 export type SettingSeoArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
+
 /** Configurações básicas do blog */
 export type SettingUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -6573,6 +6976,9 @@ export type SettingManyWhereInput = {
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
   creator?: InputMaybe<CreatorWhereInput>;
+  documentInStages_every?: InputMaybe<SettingWhereStageInput>;
+  documentInStages_none?: InputMaybe<SettingWhereStageInput>;
+  documentInStages_some?: InputMaybe<SettingWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -6642,7 +7048,7 @@ export enum SettingOrderByInput {
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type SettingUpdateInput = {
@@ -6718,6 +7124,12 @@ export type SettingUpsertWithNestedWhereUniqueInput = {
   where: SettingWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type SettingWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type SettingWhereInput = {
   /** Logical AND on all given filters. */
@@ -6784,6 +7196,9 @@ export type SettingWhereInput = {
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
   creator?: InputMaybe<CreatorWhereInput>;
+  documentInStages_every?: InputMaybe<SettingWhereStageInput>;
+  documentInStages_none?: InputMaybe<SettingWhereStageInput>;
+  documentInStages_some?: InputMaybe<SettingWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -6839,6 +7254,20 @@ export type SettingWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type SettingWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SettingWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SettingWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SettingWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<SettingWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
 };
 
 /** References Setting record uniquely */
@@ -6922,7 +7351,7 @@ export type SocialManyWhereInput = {
 
 export enum SocialOrderByInput {
   IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
+  IdDesc = 'id_DESC'
 }
 
 export type SocialUpdateInput = {
@@ -7022,13 +7451,13 @@ export enum Stage {
   /** The Draft is the default stage for all your content. */
   Draft = 'DRAFT',
   /** The Published stage is where you can publish your content to. */
-  Published = 'PUBLISHED',
+  Published = 'PUBLISHED'
 }
 
 export enum SystemDateTimeFieldVariation {
   Base = 'BASE',
   Combined = 'COMBINED',
-  Localization = 'LOCALIZATION',
+  Localization = 'LOCALIZATION'
 }
 
 /** tags */
@@ -7061,10 +7490,13 @@ export type Tag = Node & {
   updatedBy?: Maybe<User>;
 };
 
+
 /** tags */
 export type TagCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** tags */
 export type TagDocumentInStagesArgs = {
@@ -7073,6 +7505,7 @@ export type TagDocumentInStagesArgs = {
   stages?: Array<Stage>;
 };
 
+
 /** tags */
 export type TagHistoryArgs = {
   limit?: Scalars['Int'];
@@ -7080,34 +7513,42 @@ export type TagHistoryArgs = {
   stageOverride?: InputMaybe<Stage>;
 };
 
+
 /** tags */
 export type TagPostsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** tags */
 export type TagPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
+
 
 /** tags */
 export type TagScheduledInArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
 };
 
+
 /** tags */
 export type TagUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
 
@@ -7185,6 +7626,9 @@ export type TagManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<TagWhereStageInput>;
+  documentInStages_none?: InputMaybe<TagWhereStageInput>;
+  documentInStages_some?: InputMaybe<TagWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -7291,7 +7735,7 @@ export enum TagOrderByInput {
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type TagPosts = Post;
@@ -7444,6 +7888,12 @@ export type TagUpsertWithNestedWhereUniqueInput = {
   where: TagWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type TagWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type TagWhereInput = {
   /** Logical AND on all given filters. */
@@ -7470,6 +7920,9 @@ export type TagWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<TagWhereStageInput>;
+  documentInStages_none?: InputMaybe<TagWhereStageInput>;
+  documentInStages_some?: InputMaybe<TagWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -7564,6 +8017,20 @@ export type TagWhereInput = {
   updatedBy?: InputMaybe<UserWhereInput>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type TagWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<TagWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<TagWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<TagWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<TagWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Tag record uniquely */
 export type TagWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -7601,6 +8068,7 @@ export type User = Node & {
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
 };
+
 
 /** User system model */
 export type UserDocumentInStagesArgs = {
@@ -7650,7 +8118,7 @@ export enum UserKind {
   Member = 'MEMBER',
   Pat = 'PAT',
   Public = 'PUBLIC',
-  Webhook = 'WEBHOOK',
+  Webhook = 'WEBHOOK'
 }
 
 /** Identifies documents */
@@ -7678,6 +8146,9 @@ export type UserManyWhereInput = {
   createdAt_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  documentInStages_every?: InputMaybe<UserWhereStageInput>;
+  documentInStages_none?: InputMaybe<UserWhereStageInput>;
+  documentInStages_some?: InputMaybe<UserWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -7793,7 +8264,7 @@ export enum UserOrderByInput {
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type UserUpdateManyInlineInput = {
@@ -7810,6 +8281,12 @@ export type UserUpdateOneInlineInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   /** Disconnect currently connected User document */
   disconnect?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type UserWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Identifies documents */
@@ -7837,6 +8314,9 @@ export type UserWhereInput = {
   createdAt_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  documentInStages_every?: InputMaybe<UserWhereStageInput>;
+  documentInStages_none?: InputMaybe<UserWhereStageInput>;
+  documentInStages_some?: InputMaybe<UserWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -7936,6 +8416,20 @@ export type UserWhereInput = {
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type UserWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<UserWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<UserWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<UserWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<UserWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References User record uniquely */
 export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -7980,7 +8474,7 @@ export enum _FilterKind {
   RelationalSingle = 'relational_single',
   RelationalSome = 'relational_some',
   Search = 'search',
-  StartsWith = 'starts_with',
+  StartsWith = 'starts_with'
 }
 
 export enum _MutationInputFieldKind {
@@ -7990,7 +8484,7 @@ export enum _MutationInputFieldKind {
   RichTextWithEmbeds = 'richTextWithEmbeds',
   Scalar = 'scalar',
   Union = 'union',
-  Virtual = 'virtual',
+  Virtual = 'virtual'
 }
 
 export enum _MutationKind {
@@ -8005,200 +8499,89 @@ export enum _MutationKind {
   UnpublishMany = 'unpublishMany',
   Update = 'update',
   UpdateMany = 'updateMany',
-  Upsert = 'upsert',
+  Upsert = 'upsert'
 }
 
 export enum _OrderDirection {
   Asc = 'asc',
-  Desc = 'desc',
+  Desc = 'desc'
 }
 
 export enum _RelationInputCardinality {
   Many = 'many',
-  One = 'one',
+  One = 'one'
 }
 
 export enum _RelationInputKind {
   Create = 'create',
-  Update = 'update',
+  Update = 'update'
 }
 
 export enum _RelationKind {
   Regular = 'regular',
-  Union = 'union',
+  Union = 'union'
 }
 
 export enum _SystemDateTimeFieldVariation {
   Base = 'base',
   Combined = 'combined',
-  Localization = 'localization',
+  Localization = 'localization'
 }
 
-export type SeoFragment = { __typename?: 'Seo'; title: string; description: string; keywords: string };
+export type SeoFragment = { __typename?: 'Seo', title: string, description: string, keywords: string };
 
-export type AuthorFragment = {
-  __typename?: 'Author';
-  name: string;
-  biography?: string | null;
-  title?: string | null;
-  slug: string;
-  picture?: { __typename?: 'Asset'; id: string } | null;
-};
+export type AuthorFragment = { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null };
 
-export type CategoryFragment = {
-  __typename?: 'Category';
-  slug: string;
-  name: string;
-  id: string;
-  cover: { __typename?: 'Asset'; url: string };
-};
+export type CategoryFragment = { __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } };
 
-export type TagFragment = { __typename?: 'Tag'; name: string; slug: string; id: string };
+export type TagFragment = { __typename?: 'Tag', name: string, slug: string, id: string };
 
-export type CreatorFragment = {
-  __typename?: 'Creator';
-  name: string;
-  resume: { __typename?: 'RichText'; html: string; text: string };
-  biography: { __typename?: 'RichText'; html: string; text: string };
-  picture: { __typename?: 'Asset'; url: string };
-};
+export type CreatorFragment = { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } };
 
-export type SettingFragment = {
-  __typename?: 'Setting';
-  blogName: string;
-  blogDescription: string;
-  creator: {
-    __typename?: 'Creator';
-    name: string;
-    resume: { __typename?: 'RichText'; html: string; text: string };
-    biography: { __typename?: 'RichText'; html: string; text: string };
-    picture: { __typename?: 'Asset'; url: string };
-  };
-  seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-  blogLogo: { __typename?: 'Asset'; url: string };
-};
+export type SettingFragment = { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } };
 
-export type PostFragment = {
-  __typename: 'Post';
-  id: string;
-  slug: string;
-  title: string;
-  excerpt?: string | null;
-  allowComments: boolean;
-  publishedAt?: any | null;
-  categories: Array<{
-    __typename?: 'Category';
-    slug: string;
-    name: string;
-    id: string;
-    cover: { __typename?: 'Asset'; url: string };
-  }>;
-  cover: { __typename?: 'Asset'; url: string };
-  tags: Array<{ __typename?: 'Tag'; name: string; slug: string; id: string }>;
-  content: { __typename?: 'RichText'; html: string; markdown: string; text: string };
-  author?: {
-    __typename?: 'Author';
-    name: string;
-    biography?: string | null;
-    title?: string | null;
-    slug: string;
-    picture?: { __typename?: 'Asset'; id: string } | null;
-  } | null;
-  seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-};
+export type PostFragment = { __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } };
 
-export type GetCategoriesAndAuthorsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetAuthorsQueryVariables = Exact<{
+  orderBy?: InputMaybe<AuthorOrderByInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AuthorWhereInput>;
+}>;
 
-export type GetCategoriesAndAuthorsQuery = {
-  __typename?: 'Query';
-  categories: Array<{
-    __typename?: 'Category';
-    slug: string;
-    name: string;
-    id: string;
-    cover: { __typename?: 'Asset'; url: string };
-  }>;
-  authors: Array<{
-    __typename?: 'Author';
-    name: string;
-    biography?: string | null;
-    title?: string | null;
-    slug: string;
-    picture?: { __typename?: 'Asset'; id: string } | null;
-  }>;
-};
+
+export type GetAuthorsQuery = { __typename?: 'Query', authors: Array<{ __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null }> };
+
+export type GetCategoriesAndAuthorsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCategoriesAndAuthorsQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, authors: Array<{ __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null }> };
+
+export type GetCategoriesQueryVariables = Exact<{
+  orderBy?: InputMaybe<CategoryOrderByInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<CategoryWhereInput>;
+}>;
+
+
+export type GetCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }> };
 
 export type GetPostByCategorySlugQueryVariables = Exact<{
   categorySlug?: InputMaybe<Scalars['String']>;
 }>;
 
-export type GetPostByCategorySlugQuery = {
-  __typename?: 'Query';
-  posts: Array<{
-    __typename: 'Post';
-    id: string;
-    slug: string;
-    title: string;
-    excerpt?: string | null;
-    allowComments: boolean;
-    publishedAt?: any | null;
-    categories: Array<{
-      __typename?: 'Category';
-      slug: string;
-      name: string;
-      id: string;
-      cover: { __typename?: 'Asset'; url: string };
-    }>;
-    cover: { __typename?: 'Asset'; url: string };
-    tags: Array<{ __typename?: 'Tag'; name: string; slug: string; id: string }>;
-    content: { __typename?: 'RichText'; html: string; markdown: string; text: string };
-    author?: {
-      __typename?: 'Author';
-      name: string;
-      biography?: string | null;
-      title?: string | null;
-      slug: string;
-      picture?: { __typename?: 'Asset'; id: string } | null;
-    } | null;
-    seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-  }>;
-};
+
+export type GetPostByCategorySlugQuery = { __typename?: 'Query', posts: Array<{ __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
 
 export type GetPostBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
-export type GetPostBySlugQuery = {
-  __typename?: 'Query';
-  post?: {
-    __typename: 'Post';
-    id: string;
-    slug: string;
-    title: string;
-    excerpt?: string | null;
-    allowComments: boolean;
-    publishedAt?: any | null;
-    categories: Array<{
-      __typename?: 'Category';
-      slug: string;
-      name: string;
-      id: string;
-      cover: { __typename?: 'Asset'; url: string };
-    }>;
-    cover: { __typename?: 'Asset'; url: string };
-    tags: Array<{ __typename?: 'Tag'; name: string; slug: string; id: string }>;
-    content: { __typename?: 'RichText'; html: string; markdown: string; text: string };
-    author?: {
-      __typename?: 'Author';
-      name: string;
-      biography?: string | null;
-      title?: string | null;
-      slug: string;
-      picture?: { __typename?: 'Asset'; id: string } | null;
-    } | null;
-    seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-  } | null;
-};
+
+export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } } | null };
 
 export type GetPostsPaginationQueryVariables = Exact<{
   orderBy?: InputMaybe<PostOrderByInput>;
@@ -8211,105 +8594,19 @@ export type GetPostsPaginationQueryVariables = Exact<{
   settingID?: InputMaybe<Scalars['ID']>;
 }>;
 
-export type GetPostsPaginationQuery = {
-  __typename?: 'Query';
-  postsConnection: {
-    __typename?: 'PostConnection';
-    edges: Array<{
-      __typename?: 'PostEdge';
-      cursor: string;
-      node: {
-        __typename: 'Post';
-        id: string;
-        slug: string;
-        title: string;
-        excerpt?: string | null;
-        allowComments: boolean;
-        publishedAt?: any | null;
-        categories: Array<{
-          __typename?: 'Category';
-          slug: string;
-          name: string;
-          id: string;
-          cover: { __typename?: 'Asset'; url: string };
-        }>;
-        cover: { __typename?: 'Asset'; url: string };
-        tags: Array<{ __typename?: 'Tag'; name: string; slug: string; id: string }>;
-        content: { __typename?: 'RichText'; html: string; markdown: string; text: string };
-        author?: {
-          __typename?: 'Author';
-          name: string;
-          biography?: string | null;
-          title?: string | null;
-          slug: string;
-          picture?: { __typename?: 'Asset'; id: string } | null;
-        } | null;
-        seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-      };
-    }>;
-    pageInfo: {
-      __typename?: 'PageInfo';
-      hasNextPage: boolean;
-      hasPreviousPage: boolean;
-      startCursor?: string | null;
-      endCursor?: string | null;
-      pageSize?: number | null;
-    };
-  };
-  setting?: {
-    __typename?: 'Setting';
-    blogName: string;
-    blogDescription: string;
-    creator: {
-      __typename?: 'Creator';
-      name: string;
-      resume: { __typename?: 'RichText'; html: string; text: string };
-      biography: { __typename?: 'RichText'; html: string; text: string };
-      picture: { __typename?: 'Asset'; url: string };
-    };
-    seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-    blogLogo: { __typename?: 'Asset'; url: string };
-  } | null;
-};
+
+export type GetPostsPaginationQuery = { __typename?: 'Query', postsConnection: { __typename?: 'PostConnection', edges: Array<{ __typename?: 'PostEdge', cursor: string, node: { __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null, pageSize?: number | null } }, setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } } | null };
 
 export type GetPostsQueryVariables = Exact<{
   orderBy?: InputMaybe<PostOrderByInput>;
   first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<PostWhereInput>;
 }>;
 
-export type GetPostsQuery = {
-  __typename?: 'Query';
-  posts: Array<{
-    __typename: 'Post';
-    id: string;
-    slug: string;
-    title: string;
-    excerpt?: string | null;
-    allowComments: boolean;
-    publishedAt?: any | null;
-    categories: Array<{
-      __typename?: 'Category';
-      slug: string;
-      name: string;
-      id: string;
-      cover: { __typename?: 'Asset'; url: string };
-    }>;
-    cover: { __typename?: 'Asset'; url: string };
-    tags: Array<{ __typename?: 'Tag'; name: string; slug: string; id: string }>;
-    content: { __typename?: 'RichText'; html: string; markdown: string; text: string };
-    author?: {
-      __typename?: 'Author';
-      name: string;
-      biography?: string | null;
-      title?: string | null;
-      slug: string;
-      picture?: { __typename?: 'Asset'; id: string } | null;
-    } | null;
-    seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-  }>;
-};
+
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
 
 export type GetPostsAndSettingsQueryVariables = Exact<{
   orderBy?: InputMaybe<PostOrderByInput>;
@@ -8322,188 +8619,181 @@ export type GetPostsAndSettingsQueryVariables = Exact<{
   settingID?: InputMaybe<Scalars['ID']>;
 }>;
 
-export type GetPostsAndSettingsQuery = {
-  __typename?: 'Query';
-  setting?: {
-    __typename?: 'Setting';
-    blogName: string;
-    blogDescription: string;
-    creator: {
-      __typename?: 'Creator';
-      name: string;
-      resume: { __typename?: 'RichText'; html: string; text: string };
-      biography: { __typename?: 'RichText'; html: string; text: string };
-      picture: { __typename?: 'Asset'; url: string };
-    };
-    seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-    blogLogo: { __typename?: 'Asset'; url: string };
-  } | null;
-  posts: Array<{
-    __typename: 'Post';
-    id: string;
-    slug: string;
-    title: string;
-    excerpt?: string | null;
-    allowComments: boolean;
-    publishedAt?: any | null;
-    categories: Array<{
-      __typename?: 'Category';
-      slug: string;
-      name: string;
-      id: string;
-      cover: { __typename?: 'Asset'; url: string };
-    }>;
-    cover: { __typename?: 'Asset'; url: string };
-    tags: Array<{ __typename?: 'Tag'; name: string; slug: string; id: string }>;
-    content: { __typename?: 'RichText'; html: string; markdown: string; text: string };
-    author?: {
-      __typename?: 'Author';
-      name: string;
-      biography?: string | null;
-      title?: string | null;
-      slug: string;
-      picture?: { __typename?: 'Asset'; id: string } | null;
-    } | null;
-    seo: { __typename?: 'Seo'; title: string; description: string; keywords: string };
-  }>;
-};
+
+export type GetPostsAndSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } } | null, posts: Array<{ __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
 
 export type GetSettingsQueryVariables = Exact<{
   settingID?: InputMaybe<Scalars['ID']>;
 }>;
 
-export type GetSettingsQuery = {
-  __typename?: 'Query';
-  setting?: {
-    __typename?: 'Setting';
-    blogName: string;
-    blogDescription: string;
-    blogLogo: { __typename?: 'Asset'; url: string };
-  } | null;
-};
+
+export type GetSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, blogLogo: { __typename?: 'Asset', url: string } } | null };
 
 export const CreatorFragmentDoc = gql`
-  fragment creator on Creator {
-    name
-    resume {
-      html
-      text
-    }
-    biography {
-      html
-      text
-    }
-    picture {
-      url
-    }
+    fragment creator on Creator {
+  name
+  resume {
+    html
+    text
   }
-`;
+  biography {
+    html
+    text
+  }
+  picture {
+    url
+  }
+}
+    `;
 export const SeoFragmentDoc = gql`
-  fragment seo on Seo {
-    title
-    description
-    keywords
-  }
-`;
+    fragment seo on Seo {
+  title
+  description
+  keywords
+}
+    `;
 export const SettingFragmentDoc = gql`
-  fragment setting on Setting {
-    blogName
-    blogDescription
-    creator {
-      ...creator
-    }
-    seo {
-      ...seo
-    }
-    blogLogo {
-      url
-    }
+    fragment setting on Setting {
+  blogName
+  blogDescription
+  creator {
+    ...creator
   }
-  ${CreatorFragmentDoc}
-  ${SeoFragmentDoc}
-`;
+  seo {
+    ...seo
+  }
+  blogLogo {
+    url
+  }
+}
+    ${CreatorFragmentDoc}
+${SeoFragmentDoc}`;
 export const CategoryFragmentDoc = gql`
-  fragment category on Category {
-    slug
-    name
-    id
-    cover {
-      url
-    }
+    fragment category on Category {
+  slug
+  name
+  id
+  cover {
+    url
   }
-`;
+}
+    `;
 export const TagFragmentDoc = gql`
-  fragment tag on Tag {
-    name
-    slug
-    id
-  }
-`;
+    fragment tag on Tag {
+  name
+  slug
+  id
+}
+    `;
 export const AuthorFragmentDoc = gql`
-  fragment author on Author {
-    name
-    biography
-    title
-    slug
-    picture {
-      id
-    }
-  }
-`;
-export const PostFragmentDoc = gql`
-  fragment post on Post {
-    __typename
+    fragment author on Author {
+  name
+  biography
+  title
+  slug
+  picture {
     id
-    slug
-    title
-    excerpt
-    allowComments
-    categories {
-      ...category
-    }
-    cover {
-      url
-    }
-    tags {
-      ...tag
-    }
-    content {
-      html
-      markdown
-      text
-    }
-    author {
-      ...author
-    }
-    categories {
-      ...category
-    }
-    tags {
-      ...tag
-    }
-    seo {
-      ...seo
-    }
-    publishedAt
-    publishedAt
   }
-  ${CategoryFragmentDoc}
-  ${TagFragmentDoc}
-  ${AuthorFragmentDoc}
-  ${SeoFragmentDoc}
-`;
+}
+    `;
+export const PostFragmentDoc = gql`
+    fragment post on Post {
+  __typename
+  id
+  slug
+  title
+  excerpt
+  allowComments
+  id
+  categories {
+    ...category
+  }
+  cover {
+    url
+  }
+  tags {
+    ...tag
+  }
+  content {
+    html
+    markdown
+    text
+  }
+  author {
+    ...author
+  }
+  categories {
+    ...category
+  }
+  tags {
+    ...tag
+  }
+  seo {
+    ...seo
+  }
+  publishedAt
+  publishedAt
+}
+    ${CategoryFragmentDoc}
+${TagFragmentDoc}
+${AuthorFragmentDoc}
+${SeoFragmentDoc}`;
+export const GetAuthorsDocument = gql`
+    query getAuthors($orderBy: AuthorOrderByInput, $first: Int, $last: Int, $skip: Int, $where: AuthorWhereInput) {
+  authors(
+    orderBy: $orderBy
+    last: $last
+    first: $first
+    skip: $skip
+    where: $where
+  ) {
+    ...author
+  }
+}
+    ${AuthorFragmentDoc}`;
+
+/**
+ * __useGetAuthorsQuery__
+ *
+ * To run a query within a React component, call `useGetAuthorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAuthorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAuthorsQuery({
+ *   variables: {
+ *      orderBy: // value for 'orderBy'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      skip: // value for 'skip'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetAuthorsQuery(baseOptions?: Apollo.QueryHookOptions<GetAuthorsQuery, GetAuthorsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAuthorsQuery, GetAuthorsQueryVariables>(GetAuthorsDocument, options);
+      }
+export function useGetAuthorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAuthorsQuery, GetAuthorsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAuthorsQuery, GetAuthorsQueryVariables>(GetAuthorsDocument, options);
+        }
+export type GetAuthorsQueryHookResult = ReturnType<typeof useGetAuthorsQuery>;
+export type GetAuthorsLazyQueryHookResult = ReturnType<typeof useGetAuthorsLazyQuery>;
+export type GetAuthorsQueryResult = Apollo.QueryResult<GetAuthorsQuery, GetAuthorsQueryVariables>;
 export const GetCategoriesAndAuthorsDocument = gql`
-  query getCategoriesAndAuthors {
-    categories {
-      ...category
-    }
-    authors {
-      ...author
-    }
+    query getCategoriesAndAuthors {
+  categories {
+    ...category
   }
-  ${CategoryFragmentDoc}
-  ${AuthorFragmentDoc}
-`;
+  authors {
+    ...author
+  }
+}
+    ${CategoryFragmentDoc}
+${AuthorFragmentDoc}`;
 
 /**
  * __useGetCategoriesAndAuthorsQuery__
@@ -8520,38 +8810,69 @@ export const GetCategoriesAndAuthorsDocument = gql`
  *   },
  * });
  */
-export function useGetCategoriesAndAuthorsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>(
-    GetCategoriesAndAuthorsDocument,
-    options,
-  );
-}
-export function useGetCategoriesAndAuthorsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>(
-    GetCategoriesAndAuthorsDocument,
-    options,
-  );
-}
+export function useGetCategoriesAndAuthorsQuery(baseOptions?: Apollo.QueryHookOptions<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>(GetCategoriesAndAuthorsDocument, options);
+      }
+export function useGetCategoriesAndAuthorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>(GetCategoriesAndAuthorsDocument, options);
+        }
 export type GetCategoriesAndAuthorsQueryHookResult = ReturnType<typeof useGetCategoriesAndAuthorsQuery>;
 export type GetCategoriesAndAuthorsLazyQueryHookResult = ReturnType<typeof useGetCategoriesAndAuthorsLazyQuery>;
-export type GetCategoriesAndAuthorsQueryResult = Apollo.QueryResult<
-  GetCategoriesAndAuthorsQuery,
-  GetCategoriesAndAuthorsQueryVariables
->;
-export const GetPostByCategorySlugDocument = gql`
-  query getPostByCategorySlug($categorySlug: String) {
-    posts(where: { categories_every: { slug: $categorySlug } }) {
-      ...post
-    }
+export type GetCategoriesAndAuthorsQueryResult = Apollo.QueryResult<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>;
+export const GetCategoriesDocument = gql`
+    query getCategories($orderBy: CategoryOrderByInput, $first: Int, $last: Int, $skip: Int, $where: CategoryWhereInput) {
+  categories(
+    orderBy: $orderBy
+    last: $last
+    first: $first
+    skip: $skip
+    where: $where
+  ) {
+    ...category
   }
-  ${PostFragmentDoc}
-`;
+}
+    ${CategoryFragmentDoc}`;
+
+/**
+ * __useGetCategoriesQuery__
+ *
+ * To run a query within a React component, call `useGetCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoriesQuery({
+ *   variables: {
+ *      orderBy: // value for 'orderBy'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      skip: // value for 'skip'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetCategoriesQuery, GetCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, options);
+      }
+export function useGetCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoriesQuery, GetCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, options);
+        }
+export type GetCategoriesQueryHookResult = ReturnType<typeof useGetCategoriesQuery>;
+export type GetCategoriesLazyQueryHookResult = ReturnType<typeof useGetCategoriesLazyQuery>;
+export type GetCategoriesQueryResult = Apollo.QueryResult<GetCategoriesQuery, GetCategoriesQueryVariables>;
+export const GetPostByCategorySlugDocument = gql`
+    query getPostByCategorySlug($categorySlug: String) {
+  posts(where: {categories_every: {slug: $categorySlug}}) {
+    ...post
+  }
+}
+    ${PostFragmentDoc}`;
 
 /**
  * __useGetPostByCategorySlugQuery__
@@ -8569,38 +8890,24 @@ export const GetPostByCategorySlugDocument = gql`
  *   },
  * });
  */
-export function useGetPostByCategorySlugQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>(
-    GetPostByCategorySlugDocument,
-    options,
-  );
-}
-export function useGetPostByCategorySlugLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>(
-    GetPostByCategorySlugDocument,
-    options,
-  );
-}
+export function useGetPostByCategorySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>(GetPostByCategorySlugDocument, options);
+      }
+export function useGetPostByCategorySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>(GetPostByCategorySlugDocument, options);
+        }
 export type GetPostByCategorySlugQueryHookResult = ReturnType<typeof useGetPostByCategorySlugQuery>;
 export type GetPostByCategorySlugLazyQueryHookResult = ReturnType<typeof useGetPostByCategorySlugLazyQuery>;
-export type GetPostByCategorySlugQueryResult = Apollo.QueryResult<
-  GetPostByCategorySlugQuery,
-  GetPostByCategorySlugQueryVariables
->;
+export type GetPostByCategorySlugQueryResult = Apollo.QueryResult<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>;
 export const GetPostBySlugDocument = gql`
-  query getPostBySlug($slug: String) {
-    post(where: { slug: $slug }) {
-      ...post
-    }
+    query getPostBySlug($slug: String) {
+  post(where: {slug: $slug}) {
+    ...post
   }
-  ${PostFragmentDoc}
-`;
+}
+    ${PostFragmentDoc}`;
 
 /**
  * __useGetPostBySlugQuery__
@@ -8618,62 +8925,48 @@ export const GetPostBySlugDocument = gql`
  *   },
  * });
  */
-export function useGetPostBySlugQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
-}
-export function useGetPostBySlugLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
-}
+export function useGetPostBySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+      }
+export function useGetPostBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+        }
 export type GetPostBySlugQueryHookResult = ReturnType<typeof useGetPostBySlugQuery>;
 export type GetPostBySlugLazyQueryHookResult = ReturnType<typeof useGetPostBySlugLazyQuery>;
 export type GetPostBySlugQueryResult = Apollo.QueryResult<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
 export const GetPostsPaginationDocument = gql`
-  query getPostsPagination(
-    $orderBy: PostOrderByInput
-    $first: Int
-    $skip: Int
-    $where: PostWhereInput
-    $last: Int
-    $after: String
-    $before: String
-    $settingID: ID
+    query getPostsPagination($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int, $after: String, $before: String, $settingID: ID) {
+  postsConnection(
+    orderBy: $orderBy
+    first: $first
+    skip: $skip
+    where: $where
+    last: $last
+    after: $after
+    before: $before
   ) {
-    postsConnection(
-      orderBy: $orderBy
-      first: $first
-      skip: $skip
-      where: $where
-      last: $last
-      after: $after
-      before: $before
-    ) {
-      edges {
-        cursor
-        node {
-          ...post
-        }
-      }
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-        pageSize
+    edges {
+      cursor
+      node {
+        ...post
       }
     }
-    setting(where: { id: $settingID }) {
-      ...setting
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+      pageSize
     }
   }
-  ${PostFragmentDoc}
-  ${SettingFragmentDoc}
-`;
+  setting(where: {id: $settingID}) {
+    ...setting
+  }
+}
+    ${PostFragmentDoc}
+${SettingFragmentDoc}`;
 
 /**
  * __useGetPostsPaginationQuery__
@@ -8698,38 +8991,24 @@ export const GetPostsPaginationDocument = gql`
  *   },
  * });
  */
-export function useGetPostsPaginationQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>(
-    GetPostsPaginationDocument,
-    options,
-  );
-}
-export function useGetPostsPaginationLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>(
-    GetPostsPaginationDocument,
-    options,
-  );
-}
+export function useGetPostsPaginationQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>(GetPostsPaginationDocument, options);
+      }
+export function useGetPostsPaginationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>(GetPostsPaginationDocument, options);
+        }
 export type GetPostsPaginationQueryHookResult = ReturnType<typeof useGetPostsPaginationQuery>;
 export type GetPostsPaginationLazyQueryHookResult = ReturnType<typeof useGetPostsPaginationLazyQuery>;
-export type GetPostsPaginationQueryResult = Apollo.QueryResult<
-  GetPostsPaginationQuery,
-  GetPostsPaginationQueryVariables
->;
+export type GetPostsPaginationQueryResult = Apollo.QueryResult<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>;
 export const GetPostsDocument = gql`
-  query getPosts($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput) {
-    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where) {
-      ...post
-    }
+    query getPosts($orderBy: PostOrderByInput, $first: Int, $last: Int, $skip: Int, $where: PostWhereInput) {
+  posts(orderBy: $orderBy, last: $last, first: $first, skip: $skip, where: $where) {
+    ...post
   }
-  ${PostFragmentDoc}
-`;
+}
+    ${PostFragmentDoc}`;
 
 /**
  * __useGetPostsQuery__
@@ -8745,43 +9024,42 @@ export const GetPostsDocument = gql`
  *   variables: {
  *      orderBy: // value for 'orderBy'
  *      first: // value for 'first'
+ *      last: // value for 'last'
  *      skip: // value for 'skip'
  *      where: // value for 'where'
  *   },
  * });
  */
 export function useGetPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+      }
 export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+        }
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const GetPostsAndSettingsDocument = gql`
-  query getPostsAndSettings(
-    $orderBy: PostOrderByInput
-    $first: Int
-    $skip: Int
-    $where: PostWhereInput
-    $last: Int
-    $after: String
-    $before: String
-    $settingID: ID
-  ) {
-    setting(where: { id: $settingID }) {
-      ...setting
-    }
-    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where, last: $last, after: $after, before: $before) {
-      ...post
-    }
+    query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int, $after: String, $before: String, $settingID: ID) {
+  setting(where: {id: $settingID}) {
+    ...setting
   }
-  ${SettingFragmentDoc}
-  ${PostFragmentDoc}
-`;
+  posts(
+    orderBy: $orderBy
+    first: $first
+    skip: $skip
+    where: $where
+    last: $last
+    after: $after
+    before: $before
+  ) {
+    ...post
+  }
+}
+    ${SettingFragmentDoc}
+${PostFragmentDoc}`;
 
 /**
  * __useGetPostsAndSettingsQuery__
@@ -8806,41 +9084,28 @@ export const GetPostsAndSettingsDocument = gql`
  *   },
  * });
  */
-export function useGetPostsAndSettingsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>(
-    GetPostsAndSettingsDocument,
-    options,
-  );
-}
-export function useGetPostsAndSettingsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>(
-    GetPostsAndSettingsDocument,
-    options,
-  );
-}
+export function useGetPostsAndSettingsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>(GetPostsAndSettingsDocument, options);
+      }
+export function useGetPostsAndSettingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>(GetPostsAndSettingsDocument, options);
+        }
 export type GetPostsAndSettingsQueryHookResult = ReturnType<typeof useGetPostsAndSettingsQuery>;
 export type GetPostsAndSettingsLazyQueryHookResult = ReturnType<typeof useGetPostsAndSettingsLazyQuery>;
-export type GetPostsAndSettingsQueryResult = Apollo.QueryResult<
-  GetPostsAndSettingsQuery,
-  GetPostsAndSettingsQueryVariables
->;
+export type GetPostsAndSettingsQueryResult = Apollo.QueryResult<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>;
 export const GetSettingsDocument = gql`
-  query getSettings($settingID: ID) {
-    setting(where: { id: $settingID }) {
-      blogName
-      blogDescription
-      blogLogo {
-        url
-      }
+    query getSettings($settingID: ID) {
+  setting(where: {id: $settingID}) {
+    blogName
+    blogDescription
+    blogLogo {
+      url
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetSettingsQuery__
@@ -8858,18 +9123,14 @@ export const GetSettingsDocument = gql`
  *   },
  * });
  */
-export function useGetSettingsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetSettingsQuery, GetSettingsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetSettingsQuery, GetSettingsQueryVariables>(GetSettingsDocument, options);
-}
-export function useGetSettingsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetSettingsQuery, GetSettingsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetSettingsQuery, GetSettingsQueryVariables>(GetSettingsDocument, options);
-}
+export function useGetSettingsQuery(baseOptions?: Apollo.QueryHookOptions<GetSettingsQuery, GetSettingsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSettingsQuery, GetSettingsQueryVariables>(GetSettingsDocument, options);
+      }
+export function useGetSettingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSettingsQuery, GetSettingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSettingsQuery, GetSettingsQueryVariables>(GetSettingsDocument, options);
+        }
 export type GetSettingsQueryHookResult = ReturnType<typeof useGetSettingsQuery>;
 export type GetSettingsLazyQueryHookResult = ReturnType<typeof useGetSettingsLazyQuery>;
 export type GetSettingsQueryResult = Apollo.QueryResult<GetSettingsQuery, GetSettingsQueryVariables>;

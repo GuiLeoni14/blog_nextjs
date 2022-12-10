@@ -34,7 +34,7 @@ export function BaseTemplate({ children, setting, seo }: TBaseTemplateProps) {
           {...defaultValuesSeo}
         />
       )}
-      <Header setting={setting} />
+      <Header />
       <MainContainer>
         <Breadcrumbs />
         {children}

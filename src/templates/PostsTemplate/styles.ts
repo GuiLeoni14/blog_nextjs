@@ -30,3 +30,18 @@ export const ButtonMorePosts = styled.button<{ isLoading: boolean }>`
       opacity: 0.6;
     `}
 `;
+
+interface ObservableContentProps {
+  close: boolean;
+}
+export const ObservableContent = styled.div<ObservableContentProps>`
+  width: 100%;
+  height: 10rem;
+  ${(props) =>
+    props.close &&
+    css`
+      width: 0;
+      height: 0;
+      display: none;
+    `}
+`;

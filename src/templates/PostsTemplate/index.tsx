@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { DefaultButton } from '../../components/DefaultButton';
 import Featured from '../../components/Featured';
 import PostGrid from '../../components/PostGrid';
 import { PostNotFound } from '../../components/PostNotFound';
 import { SkeletonCardPost } from '../../components/Skeleton';
-import { PostOrderByInput, SeoFragment, useGetPostsAndSettingsQuery } from '../../graphql/generated';
+import { GetPostsQuery, SeoFragment } from '../../graphql/generated';
+import { usePosts } from '../../hooks/fetch/usePosts';
 import { TDefaultQueryProps } from '../../pages';
 import { BaseTemplate } from '../BaseTemplate';
 import * as S from './styles';
@@ -14,36 +14,57 @@ import * as S from './styles';
 export type TPostsTemplateProps = TDefaultQueryProps & {
   seo?: SeoFragment;
 };
+
 export function PostsTemplate({ setting, posts, seo, variables }: TPostsTemplateProps) {
+  const loaderNewPostsObserverRef = useRef<null | HTMLDivElement>(null);
+  const [skipPage, setSkipPage] = useState(0);
+
   const router = useRouter();
-  const [statePosts, setStatePosts] = useState(router.pathname == '/' ? posts.slice(5) : posts);
-  const [skipPage, setSkipPage] = useState(router.pathname == '/' ? 8 : 3);
-  const { data, loading } = useGetPostsAndSettingsQuery({
-    variables: { ...variables, orderBy: PostOrderByInput.DateDesc, skip: skipPage, first: 3 },
+  const searchQuery = router.query.q ?? null;
+  const keyReactQuery = searchQuery ? searchQuery : router.asPath;
+  const [postsGrid, setPostsGrid] = useState<GetPostsQuery['posts']>([]);
+
+  const { data, isLoading } = usePosts({
+    params: {
+      skip: skipPage,
+      first: 3,
+      ...variables,
+    },
+    identifier: [String(skipPage), String(keyReactQuery)],
   });
 
-  // está variável controla para que não haja renderização de posts na primeira renderização, já que o data recebe novos valores
-  const isNotRenderNewPosts = useMemo(() => {
-    if (data && data.posts.length > 0) {
-      return statePosts.slice(-1)[0].id === data.posts.slice(-1)[0].id ? true : false;
-    }
-    return false;
-  }, [data, statePosts]);
+  const isNotRenderNewPosts = data ? data.posts.length < 1 : false;
+
+  const handleMountNewPosts = useCallback(
+    async (entries: IntersectionObserverEntryInit[]) => {
+      const target = entries[0];
+      if (target.isIntersecting) {
+        if (data) {
+          setSkipPage((state) => state + 3);
+        }
+        if (data && data.posts.length < 1) {
+          toast.warning('Sem posts para carregar', {
+            position: 'top-center',
+          });
+        }
+      }
+    },
+    [data],
+  );
 
   useEffect(() => {
-    if (data && data.posts.length > 0 && !isNotRenderNewPosts) {
-      setStatePosts((state) => [...state, ...data.posts]);
-    }
-  }, [data, isNotRenderNewPosts]);
+    const option = {
+      root: null,
+      rootMargin: '20px',
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver(handleMountNewPosts, option);
+    if (loaderNewPostsObserverRef.current) observer.observe(loaderNewPostsObserverRef.current);
+  }, [handleMountNewPosts]);
 
-  const handleMountNewPosts = useCallback(() => {
-    if (data) {
-      setSkipPage((state) => state + 3);
-    }
-    if (data && data.posts.length < 1) {
-      toast.warning('Sem posts para carregar', {
-        position: 'top-center',
-      });
+  useEffect(() => {
+    if (data && data.posts.length > 0) {
+      setPostsGrid((state) => [...state, ...data.posts]);
     }
   }, [data]);
 
@@ -51,24 +72,12 @@ export function PostsTemplate({ setting, posts, seo, variables }: TPostsTemplate
     <BaseTemplate setting={setting} seo={seo}>
       <Featured posts={posts} />
       <S.Container>
-        {statePosts.length > 0 ? (
-          <>
-            <h3>Posts</h3>
-            <PostGrid posts={statePosts} />
-          </>
-        ) : (
-          <>{!loading && <PostNotFound />}</>
-        )}
-        {loading && <SkeletonCardPost />}
-        {statePosts.length > 0 && (
-          <DefaultButton
-            onClickButton={handleMountNewPosts}
-            disabled={loading || (data && data?.posts.length < 3)}
-            isLoading={loading}
-          >
-            Carregar mais posts
-          </DefaultButton>
-        )}
+        <>
+          <h3>Posts</h3>
+          {postsGrid ? <PostGrid posts={postsGrid} /> : <>{!isLoading && <PostNotFound />}</>}
+          {isLoading && <SkeletonCardPost />}
+        </>
+        <S.ObservableContent close={isNotRenderNewPosts || isLoading} ref={loaderNewPostsObserverRef} />
       </S.Container>
     </BaseTemplate>
   );

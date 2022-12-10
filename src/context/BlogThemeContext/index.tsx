@@ -22,7 +22,7 @@ export function BlogThemeProvider({ children }: { children: ReactNode }) {
   const toggleTheme = useCallback(() => {
     setTheme(theme.title === 'light' ? dark : light);
     postStorage({ name: 'theme', values: theme.title === 'light' ? 'dark' : 'light' });
-  }, [setTheme, theme]);
+  }, [theme]);
 
   return (
     <ThemeProvider theme={theme}>

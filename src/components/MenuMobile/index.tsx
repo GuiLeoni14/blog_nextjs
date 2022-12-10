@@ -1,15 +1,21 @@
 import { Variants } from 'framer-motion';
-import { MainContainer } from '../../styles/container';
-import * as S from './styles';
-import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
+import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
+import { useAuthors } from '../../hooks/fetch/useAuthors';
+import { useCategories } from '../../hooks/fetch/useCategories';
+import { MainContainer } from '../../styles/container';
 import { InputSearch } from '../InputSearch';
 import { Accordion } from './Accordion';
-import { useGetCategoriesAndAuthorsQuery } from '../../graphql/generated';
+import * as S from './styles';
 
 export function MenuMobile() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const { data, loading } = useGetCategoriesAndAuthorsQuery();
+  const { data: authorsData, isLoading: isLoadingAuthors } = useAuthors({
+    identifier: 'authors-menu',
+  });
+  const { data: categoriesData, isLoading: isLoadingCategories } = useCategories({
+    identifier: 'categories-menu',
+  });
   useEffect(() => {
     const element_to_not_scroll = document.querySelector('body');
     if (!element_to_not_scroll || typeof window === 'undefined') return;
@@ -53,12 +59,14 @@ export function MenuMobile() {
           }}
         >
           <MainContainer>
-            {loading ? (
+            {isLoadingAuthors || isLoadingCategories ? (
               <p>carregando</p>
             ) : (
               <>
                 <InputSearch />
-                {data && <Accordion categories={data.categories} authors={data.authors} />}
+                {categoriesData && authorsData && (
+                  <Accordion categories={categoriesData.categories} authors={authorsData.authors} />
+                )}
               </>
             )}
           </MainContainer>

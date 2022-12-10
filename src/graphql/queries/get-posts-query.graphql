@@ -1,9 +1,5 @@
-query getPosts(
-      $orderBy: PostOrderByInput
-  $first: Int
-  $skip: Int
-  $where: PostWhereInput){
-    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where){
-        ...post
-    }
+query getPosts($orderBy: PostOrderByInput, $first: Int, $last: Int, $skip: Int, $where: PostWhereInput) {
+  posts(orderBy: $orderBy, last: $last, first: $first, skip: $skip, where: $where) {
+    ...post
+  }
 }

@@ -1,6 +1,6 @@
-import * as S from './styles';
-import PostCard from '../PostCard';
 import { PostFragment } from '../../graphql/generated';
+import PostCard from '../PostCard';
+import * as S from './styles';
 
 function PostGrid({ posts }: { posts: PostFragment[] }) {
   const variants = {

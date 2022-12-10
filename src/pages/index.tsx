@@ -28,7 +28,6 @@ export const getStaticProps: GetStaticProps<GetPostsAndSettingsQuery> = async ()
       notFound: true,
     };
   }
-  console.log(data);
   return {
     props: {
       ...data,

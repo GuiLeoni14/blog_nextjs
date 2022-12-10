@@ -1,15 +1,14 @@
+import { QueryClientProvider } from '@tanstack/react-query';
 import { AppProps } from 'next/app';
-import { BlogThemeProvider } from '../context/BlogThemeContext';
-import { PaginationProvider } from '../context/PaginationContext';
-import GlobalStyle from '../styles/global';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
-import { ApolloProvider } from '@apollo/client';
-import { client } from '../lib/apollo';
 import NProgress from 'nprogress';
 import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../public/css/nprogress.css';
+import { BlogThemeProvider } from '../context/BlogThemeContext';
+import { queryClient } from '../lib/queryClient';
+import GlobalStyle from '../styles/global';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -33,14 +32,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     };
   }, [router]);
   return (
-    <ApolloProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       <BlogThemeProvider>
-        <PaginationProvider>
-          <ToastContainer limit={5} style={{ fontSize: '1.4rem' }} />
-          <GlobalStyle />
-          <Component {...pageProps} key={router.asPath} />
-        </PaginationProvider>
+        <ToastContainer limit={5} style={{ fontSize: '1.4rem' }} />
+        <GlobalStyle />
+        <Component {...pageProps} key={router.asPath} />
       </BlogThemeProvider>
-    </ApolloProvider>
+    </QueryClientProvider>
   );
 }
