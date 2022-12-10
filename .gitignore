@@ -39,3 +39,4 @@ storybook-static/
 query.txt
 yarn.lock
 .jest/
+robots.txt
