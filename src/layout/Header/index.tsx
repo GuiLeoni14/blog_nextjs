@@ -20,7 +20,7 @@ function Header() {
       <MainContainer>
         <Link prefetch={false} href="/">
           <S.Logo>
-            <Image width={80} height={60} src="/img/logo" alt="logo" />
+            <Image width={80} height={60} src="/images/logo.png" alt="logo" />
           </S.Logo>
         </Link>
         <S.SearchInput>

@@ -9,9 +9,6 @@ export const Container = styled(motion.div)`
   flex-direction: column;
   border-radius: 0.5rem;
   overflow: hidden;
-  & > a {
-    width: 100%;
-  }
   &:hover {
     img {
       transform: scale(1.05);
@@ -37,9 +34,9 @@ export const Text = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: ${({ theme: { spacings } }) => spacings.small};
-  padding: 1rem;
+  margin-top: 1rem;
   p {
+    margin-top: 1rem;
     font-size: 1.6rem;
   }
 `;

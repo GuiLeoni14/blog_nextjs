@@ -4,16 +4,17 @@ import styled, { css } from 'styled-components';
 export const Container = styled(motion.div)``;
 
 export const Content = styled(motion.button)`
-  width: 4rem;
-  height: 4rem;
+  width: 8rem;
+  border-radius: 4rem;
+  border: 0.2rem solid ${(props) => props.theme.colors.gray_4};
+  height: 3.2rem;
   background: none;
   position: relative;
   svg {
     position: absolute;
-    left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
+    transform: translateY(-50%);
+    font-size: 3rem;
     transition: all 0.3s;
   }
   svg:last-of-type {
@@ -27,13 +28,23 @@ export const Content = styled(motion.button)`
       ? css`
           svg + svg {
             opacity: 0;
+            left: 50%;
             pointer-events: none;
+          }
+          svg:first-of-type {
+            right: 0rem;
+            left: initial;
           }
         `
       : css`
           svg:first-of-type {
             opacity: 0;
+            right: 50%;
             pointer-events: none;
+          }
+          svg:last-of-type {
+            right: initial;
+            left: 0rem;
           }
         `}
 `;

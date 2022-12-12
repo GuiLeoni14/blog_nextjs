@@ -30,7 +30,7 @@ export const SearchInput = styled.input<{ searchDisable: boolean }>`
   color: ${({ theme }) => theme.colors.text};
   border-radius: 0.5rem;
   font-size: 1.6rem;
-  padding: 1rem ${({ theme }) => theme.spacings.large};
+  padding: 1rem 2rem;
   transition: all 0.3s;
   &:hover,
   &:focus {

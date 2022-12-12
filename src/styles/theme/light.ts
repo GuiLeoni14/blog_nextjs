@@ -2,8 +2,8 @@ import standard from './standard';
 export default {
   title: 'light',
   colors: {
-    primary: '#F67ACB',
-    second: '#5B1FA6',
+    primary: '#208fdf',
+    second: '#208fdf',
     gray_1: '#1C1B25',
     gray_2: '#2C343E',
     gray_3: '#596573',

@@ -10,7 +10,7 @@ export function ButtonToggleTheme() {
       <S.Content
         onClick={toggleTheme}
         whileHover={{
-          scale: 1.1,
+          scale: 1.01,
         }}
         whileTap={{
           scale: 0.9,
