@@ -3,12 +3,9 @@ import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import '../../public/css/nprogress.css';
-import { BlogThemeProvider } from '../context/BlogThemeContext';
 import { queryClient } from '../lib/queryClient';
-import GlobalStyle from '../styles/global';
+import '../styles/main.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -33,11 +30,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, [router]);
   return (
     <QueryClientProvider client={queryClient}>
-      <BlogThemeProvider>
-        <ToastContainer limit={5} style={{ fontSize: '1.4rem' }} />
-        <GlobalStyle />
-        <Component {...pageProps} key={router.asPath} />
-      </BlogThemeProvider>
+      <Component {...pageProps} key={router.asPath} />
     </QueryClientProvider>
   );
 }

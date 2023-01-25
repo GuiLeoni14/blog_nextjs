@@ -1,8 +1,0 @@
-query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int,$after: String,$before: String, $settingID: ID) {
-    setting(where: { id: $settingID }) {
-        ...setting
-    }
-    posts(orderBy: $orderBy, first: $first, skip: $skip, where: $where, last: $last,after: $after,before: $before) {
-        ...post
-    }
-}

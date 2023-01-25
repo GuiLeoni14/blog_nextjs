@@ -1,5 +1,0 @@
-query getPostBySlug($slug: String){
-    post(where: { slug: $slug}){
-        ...post
-    }
-}

@@ -8542,6 +8542,18 @@ export type SettingFragment = { __typename?: 'Setting', blogName: string, blogDe
 
 export type PostFragment = { __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } };
 
+export type GetAuthorsAndSettingsQueryVariables = Exact<{
+  orderBy?: InputMaybe<AuthorOrderByInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AuthorWhereInput>;
+  settingID?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type GetAuthorsAndSettingsQuery = { __typename?: 'Query', authors: Array<{ __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null }>, setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } } | null };
+
 export type GetAuthorsQueryVariables = Exact<{
   orderBy?: InputMaybe<AuthorOrderByInput>;
   first?: InputMaybe<Scalars['Int']>;
@@ -8738,6 +8750,56 @@ export const PostFragmentDoc = gql`
 ${TagFragmentDoc}
 ${AuthorFragmentDoc}
 ${SeoFragmentDoc}`;
+export const GetAuthorsAndSettingsDocument = gql`
+    query getAuthorsAndSettings($orderBy: AuthorOrderByInput, $first: Int, $last: Int, $skip: Int, $where: AuthorWhereInput, $settingID: ID) {
+  authors(
+    orderBy: $orderBy
+    last: $last
+    first: $first
+    skip: $skip
+    where: $where
+  ) {
+    ...author
+  }
+  setting(where: {id: $settingID}) {
+    ...setting
+  }
+}
+    ${AuthorFragmentDoc}
+${SettingFragmentDoc}`;
+
+/**
+ * __useGetAuthorsAndSettingsQuery__
+ *
+ * To run a query within a React component, call `useGetAuthorsAndSettingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAuthorsAndSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAuthorsAndSettingsQuery({
+ *   variables: {
+ *      orderBy: // value for 'orderBy'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      skip: // value for 'skip'
+ *      where: // value for 'where'
+ *      settingID: // value for 'settingID'
+ *   },
+ * });
+ */
+export function useGetAuthorsAndSettingsQuery(baseOptions?: Apollo.QueryHookOptions<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>(GetAuthorsAndSettingsDocument, options);
+      }
+export function useGetAuthorsAndSettingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>(GetAuthorsAndSettingsDocument, options);
+        }
+export type GetAuthorsAndSettingsQueryHookResult = ReturnType<typeof useGetAuthorsAndSettingsQuery>;
+export type GetAuthorsAndSettingsLazyQueryHookResult = ReturnType<typeof useGetAuthorsAndSettingsLazyQuery>;
+export type GetAuthorsAndSettingsQueryResult = Apollo.QueryResult<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>;
 export const GetAuthorsDocument = gql`
     query getAuthors($orderBy: AuthorOrderByInput, $first: Int, $last: Int, $skip: Int, $where: AuthorWhereInput) {
   authors(

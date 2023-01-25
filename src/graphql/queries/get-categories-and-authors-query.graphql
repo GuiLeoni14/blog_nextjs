@@ -1,8 +1,0 @@
-query getCategoriesAndAuthors {
-    categories {
-        ...category
-    }
-    authors {
-        ...author
-    }
-}
