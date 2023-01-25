@@ -10,7 +10,7 @@ interface UsePostsParams {
 
 export const getPosts = async (params?: GetPostsQueryVariables) => {
   const response = await gqlClient.request<GetPostsQuery>(GetPostsDocument, params);
-  return response;
+  return response.posts;
 };
 
 export const usePosts = ({ params, identifier, options }: UsePostsParams) => {

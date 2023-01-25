@@ -66,6 +66,7 @@ export type Asset = Node & {
   size?: Maybe<Scalars['Float']>;
   /** System stage field */
   stage: Stage;
+  thumbnailPost: Array<Post>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
@@ -196,6 +197,20 @@ export type AssetScheduledInArgs = {
 
 
 /** Asset system model */
+export type AssetThumbnailPostArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<PostOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PostWhereInput>;
+};
+
+
+/** Asset system model */
 export type AssetUpdatedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
 };
@@ -244,6 +259,7 @@ export type AssetCreateInput = {
   mimeType?: InputMaybe<Scalars['String']>;
   pictureCreator?: InputMaybe<CreatorCreateManyInlineInput>;
   size?: InputMaybe<Scalars['Float']>;
+  thumbnailPost?: InputMaybe<PostCreateManyInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   width?: InputMaybe<Scalars['Float']>;
 };
@@ -372,6 +388,9 @@ export type AssetManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  thumbnailPost_every?: InputMaybe<PostWhereInput>;
+  thumbnailPost_none?: InputMaybe<PostWhereInput>;
+  thumbnailPost_some?: InputMaybe<PostWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -434,6 +453,7 @@ export type AssetUpdateInput = {
   mimeType?: InputMaybe<Scalars['String']>;
   pictureCreator?: InputMaybe<CreatorUpdateManyInlineInput>;
   size?: InputMaybe<Scalars['Float']>;
+  thumbnailPost?: InputMaybe<PostUpdateManyInlineInput>;
   width?: InputMaybe<Scalars['Float']>;
 };
 
@@ -727,6 +747,9 @@ export type AssetWhereInput = {
   size_not?: InputMaybe<Scalars['Float']>;
   /** All values that are not contained in given list. */
   size_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+  thumbnailPost_every?: InputMaybe<PostWhereInput>;
+  thumbnailPost_none?: InputMaybe<PostWhereInput>;
+  thumbnailPost_some?: InputMaybe<PostWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -4219,7 +4242,7 @@ export type Post = Node & {
   /** Get the document in other stages */
   documentInStages: Array<Post>;
   /** Add a short excerpt to summarize this post */
-  excerpt?: Maybe<Scalars['String']>;
+  excerpt: Scalars['String'];
   /** List of Post versions */
   history: Array<Version>;
   /** The unique identifier */
@@ -4234,6 +4257,7 @@ export type Post = Node & {
   /** System stage field */
   stage: Stage;
   tags: Array<Tag>;
+  thumbnail: Asset;
   /** Name your blog post! */
   title: Scalars['String'];
   /** The time the document was updated */
@@ -4323,6 +4347,12 @@ export type PostTagsArgs = {
 };
 
 
+export type PostThumbnailArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
 export type PostUpdatedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -4353,10 +4383,11 @@ export type PostCreateInput = {
   cover: AssetCreateOneInlineInput;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date: Scalars['Date'];
-  excerpt?: InputMaybe<Scalars['String']>;
+  excerpt: Scalars['String'];
   seo: SeoCreateOneInlineInput;
   slug: Scalars['String'];
   tags?: InputMaybe<TagCreateManyInlineInput>;
+  thumbnail: AssetCreateOneInlineInput;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -4516,6 +4547,7 @@ export type PostManyWhereInput = {
   tags_every?: InputMaybe<TagWhereInput>;
   tags_none?: InputMaybe<TagWhereInput>;
   tags_some?: InputMaybe<TagWhereInput>;
+  thumbnail?: InputMaybe<AssetWhereInput>;
   title?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   title_contains?: InputMaybe<Scalars['String']>;
@@ -4585,6 +4617,7 @@ export type PostUpdateInput = {
   seo?: InputMaybe<SeoUpdateOneInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
   tags?: InputMaybe<TagUpdateManyInlineInput>;
+  thumbnail?: InputMaybe<AssetUpdateOneInlineInput>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -4794,6 +4827,7 @@ export type PostWhereInput = {
   tags_every?: InputMaybe<TagWhereInput>;
   tags_none?: InputMaybe<TagWhereInput>;
   tags_some?: InputMaybe<TagWhereInput>;
+  thumbnail?: InputMaybe<AssetWhereInput>;
   title?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   title_contains?: InputMaybe<Scalars['String']>;
@@ -8540,19 +8574,7 @@ export type CreatorFragment = { __typename?: 'Creator', name: string, resume: { 
 
 export type SettingFragment = { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } };
 
-export type PostFragment = { __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } };
-
-export type GetAuthorsAndSettingsQueryVariables = Exact<{
-  orderBy?: InputMaybe<AuthorOrderByInput>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<AuthorWhereInput>;
-  settingID?: InputMaybe<Scalars['ID']>;
-}>;
-
-
-export type GetAuthorsAndSettingsQuery = { __typename?: 'Query', authors: Array<{ __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null }>, setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } } | null };
+export type PostFragment = { __typename: 'Post', id: string, slug: string, title: string, excerpt: string, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', name: string, slug: string }>, thumbnail: { __typename?: 'Asset', url: string }, cover: { __typename?: 'Asset', url: string }, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', slug: string, name: string } | null, tags: Array<{ __typename?: 'Tag', name: string, slug: string }>, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } };
 
 export type GetAuthorsQueryVariables = Exact<{
   orderBy?: InputMaybe<AuthorOrderByInput>;
@@ -8565,11 +8587,6 @@ export type GetAuthorsQueryVariables = Exact<{
 
 export type GetAuthorsQuery = { __typename?: 'Query', authors: Array<{ __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null }> };
 
-export type GetCategoriesAndAuthorsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCategoriesAndAuthorsQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, authors: Array<{ __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null }> };
-
 export type GetCategoriesQueryVariables = Exact<{
   orderBy?: InputMaybe<CategoryOrderByInput>;
   first?: InputMaybe<Scalars['Int']>;
@@ -8581,34 +8598,6 @@ export type GetCategoriesQueryVariables = Exact<{
 
 export type GetCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }> };
 
-export type GetPostByCategorySlugQueryVariables = Exact<{
-  categorySlug?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type GetPostByCategorySlugQuery = { __typename?: 'Query', posts: Array<{ __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
-
-export type GetPostBySlugQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } } | null };
-
-export type GetPostsPaginationQueryVariables = Exact<{
-  orderBy?: InputMaybe<PostOrderByInput>;
-  first?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<PostWhereInput>;
-  last?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  settingID?: InputMaybe<Scalars['ID']>;
-}>;
-
-
-export type GetPostsPaginationQuery = { __typename?: 'Query', postsConnection: { __typename?: 'PostConnection', edges: Array<{ __typename?: 'PostEdge', cursor: string, node: { __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null, pageSize?: number | null } }, setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } } | null };
-
 export type GetPostsQueryVariables = Exact<{
   orderBy?: InputMaybe<PostOrderByInput>;
   first?: InputMaybe<Scalars['Int']>;
@@ -8618,21 +8607,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
-
-export type GetPostsAndSettingsQueryVariables = Exact<{
-  orderBy?: InputMaybe<PostOrderByInput>;
-  first?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<PostWhereInput>;
-  last?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  settingID?: InputMaybe<Scalars['ID']>;
-}>;
-
-
-export type GetPostsAndSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, creator: { __typename?: 'Creator', name: string, resume: { __typename?: 'RichText', html: string, text: string }, biography: { __typename?: 'RichText', html: string, text: string }, picture: { __typename?: 'Asset', url: string } }, seo: { __typename?: 'Seo', title: string, description: string, keywords: string }, blogLogo: { __typename?: 'Asset', url: string } } | null, posts: Array<{ __typename: 'Post', id: string, slug: string, title: string, excerpt?: string | null, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', slug: string, name: string, id: string, cover: { __typename?: 'Asset', url: string } }>, cover: { __typename?: 'Asset', url: string }, tags: Array<{ __typename?: 'Tag', name: string, slug: string, id: string }>, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', name: string, biography?: string | null, title?: string | null, slug: string, picture?: { __typename?: 'Asset', id: string } | null } | null, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename: 'Post', id: string, slug: string, title: string, excerpt: string, allowComments: boolean, publishedAt?: any | null, categories: Array<{ __typename?: 'Category', name: string, slug: string }>, thumbnail: { __typename?: 'Asset', url: string }, cover: { __typename?: 'Asset', url: string }, content: { __typename?: 'RichText', html: string, markdown: string, text: string }, author?: { __typename?: 'Author', slug: string, name: string } | null, tags: Array<{ __typename?: 'Tag', name: string, slug: string }>, seo: { __typename?: 'Seo', title: string, description: string, keywords: string } }> };
 
 export type GetSettingsQueryVariables = Exact<{
   settingID?: InputMaybe<Scalars['ID']>;
@@ -8641,6 +8616,34 @@ export type GetSettingsQueryVariables = Exact<{
 
 export type GetSettingsQuery = { __typename?: 'Query', setting?: { __typename?: 'Setting', blogName: string, blogDescription: string, blogLogo: { __typename?: 'Asset', url: string } } | null };
 
+export const AuthorFragmentDoc = gql`
+    fragment author on Author {
+  name
+  biography
+  title
+  slug
+  picture {
+    id
+  }
+}
+    `;
+export const CategoryFragmentDoc = gql`
+    fragment category on Category {
+  slug
+  name
+  id
+  cover {
+    url
+  }
+}
+    `;
+export const TagFragmentDoc = gql`
+    fragment tag on Tag {
+  name
+  slug
+  id
+}
+    `;
 export const CreatorFragmentDoc = gql`
     fragment creator on Creator {
   name
@@ -8680,34 +8683,6 @@ export const SettingFragmentDoc = gql`
 }
     ${CreatorFragmentDoc}
 ${SeoFragmentDoc}`;
-export const CategoryFragmentDoc = gql`
-    fragment category on Category {
-  slug
-  name
-  id
-  cover {
-    url
-  }
-}
-    `;
-export const TagFragmentDoc = gql`
-    fragment tag on Tag {
-  name
-  slug
-  id
-}
-    `;
-export const AuthorFragmentDoc = gql`
-    fragment author on Author {
-  name
-  biography
-  title
-  slug
-  picture {
-    id
-  }
-}
-    `;
 export const PostFragmentDoc = gql`
     fragment post on Post {
   __typename
@@ -8718,13 +8693,14 @@ export const PostFragmentDoc = gql`
   allowComments
   id
   categories {
-    ...category
+    name
+    slug
+  }
+  thumbnail {
+    url
   }
   cover {
     url
-  }
-  tags {
-    ...tag
   }
   content {
     html
@@ -8732,74 +8708,23 @@ export const PostFragmentDoc = gql`
     text
   }
   author {
-    ...author
+    slug
+    name
   }
   categories {
-    ...category
+    name
+    slug
   }
   tags {
-    ...tag
+    name
+    slug
   }
   seo {
     ...seo
   }
   publishedAt
-  publishedAt
 }
-    ${CategoryFragmentDoc}
-${TagFragmentDoc}
-${AuthorFragmentDoc}
-${SeoFragmentDoc}`;
-export const GetAuthorsAndSettingsDocument = gql`
-    query getAuthorsAndSettings($orderBy: AuthorOrderByInput, $first: Int, $last: Int, $skip: Int, $where: AuthorWhereInput, $settingID: ID) {
-  authors(
-    orderBy: $orderBy
-    last: $last
-    first: $first
-    skip: $skip
-    where: $where
-  ) {
-    ...author
-  }
-  setting(where: {id: $settingID}) {
-    ...setting
-  }
-}
-    ${AuthorFragmentDoc}
-${SettingFragmentDoc}`;
-
-/**
- * __useGetAuthorsAndSettingsQuery__
- *
- * To run a query within a React component, call `useGetAuthorsAndSettingsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAuthorsAndSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAuthorsAndSettingsQuery({
- *   variables: {
- *      orderBy: // value for 'orderBy'
- *      first: // value for 'first'
- *      last: // value for 'last'
- *      skip: // value for 'skip'
- *      where: // value for 'where'
- *      settingID: // value for 'settingID'
- *   },
- * });
- */
-export function useGetAuthorsAndSettingsQuery(baseOptions?: Apollo.QueryHookOptions<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>(GetAuthorsAndSettingsDocument, options);
-      }
-export function useGetAuthorsAndSettingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>(GetAuthorsAndSettingsDocument, options);
-        }
-export type GetAuthorsAndSettingsQueryHookResult = ReturnType<typeof useGetAuthorsAndSettingsQuery>;
-export type GetAuthorsAndSettingsLazyQueryHookResult = ReturnType<typeof useGetAuthorsAndSettingsLazyQuery>;
-export type GetAuthorsAndSettingsQueryResult = Apollo.QueryResult<GetAuthorsAndSettingsQuery, GetAuthorsAndSettingsQueryVariables>;
+    ${SeoFragmentDoc}`;
 export const GetAuthorsDocument = gql`
     query getAuthors($orderBy: AuthorOrderByInput, $first: Int, $last: Int, $skip: Int, $where: AuthorWhereInput) {
   authors(
@@ -8845,44 +8770,6 @@ export function useGetAuthorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetAuthorsQueryHookResult = ReturnType<typeof useGetAuthorsQuery>;
 export type GetAuthorsLazyQueryHookResult = ReturnType<typeof useGetAuthorsLazyQuery>;
 export type GetAuthorsQueryResult = Apollo.QueryResult<GetAuthorsQuery, GetAuthorsQueryVariables>;
-export const GetCategoriesAndAuthorsDocument = gql`
-    query getCategoriesAndAuthors {
-  categories {
-    ...category
-  }
-  authors {
-    ...author
-  }
-}
-    ${CategoryFragmentDoc}
-${AuthorFragmentDoc}`;
-
-/**
- * __useGetCategoriesAndAuthorsQuery__
- *
- * To run a query within a React component, call `useGetCategoriesAndAuthorsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCategoriesAndAuthorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCategoriesAndAuthorsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetCategoriesAndAuthorsQuery(baseOptions?: Apollo.QueryHookOptions<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>(GetCategoriesAndAuthorsDocument, options);
-      }
-export function useGetCategoriesAndAuthorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>(GetCategoriesAndAuthorsDocument, options);
-        }
-export type GetCategoriesAndAuthorsQueryHookResult = ReturnType<typeof useGetCategoriesAndAuthorsQuery>;
-export type GetCategoriesAndAuthorsLazyQueryHookResult = ReturnType<typeof useGetCategoriesAndAuthorsLazyQuery>;
-export type GetCategoriesAndAuthorsQueryResult = Apollo.QueryResult<GetCategoriesAndAuthorsQuery, GetCategoriesAndAuthorsQueryVariables>;
 export const GetCategoriesDocument = gql`
     query getCategories($orderBy: CategoryOrderByInput, $first: Int, $last: Int, $skip: Int, $where: CategoryWhereInput) {
   categories(
@@ -8928,142 +8815,6 @@ export function useGetCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetCategoriesQueryHookResult = ReturnType<typeof useGetCategoriesQuery>;
 export type GetCategoriesLazyQueryHookResult = ReturnType<typeof useGetCategoriesLazyQuery>;
 export type GetCategoriesQueryResult = Apollo.QueryResult<GetCategoriesQuery, GetCategoriesQueryVariables>;
-export const GetPostByCategorySlugDocument = gql`
-    query getPostByCategorySlug($categorySlug: String) {
-  posts(where: {categories_every: {slug: $categorySlug}}) {
-    ...post
-  }
-}
-    ${PostFragmentDoc}`;
-
-/**
- * __useGetPostByCategorySlugQuery__
- *
- * To run a query within a React component, call `useGetPostByCategorySlugQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostByCategorySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPostByCategorySlugQuery({
- *   variables: {
- *      categorySlug: // value for 'categorySlug'
- *   },
- * });
- */
-export function useGetPostByCategorySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>(GetPostByCategorySlugDocument, options);
-      }
-export function useGetPostByCategorySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>(GetPostByCategorySlugDocument, options);
-        }
-export type GetPostByCategorySlugQueryHookResult = ReturnType<typeof useGetPostByCategorySlugQuery>;
-export type GetPostByCategorySlugLazyQueryHookResult = ReturnType<typeof useGetPostByCategorySlugLazyQuery>;
-export type GetPostByCategorySlugQueryResult = Apollo.QueryResult<GetPostByCategorySlugQuery, GetPostByCategorySlugQueryVariables>;
-export const GetPostBySlugDocument = gql`
-    query getPostBySlug($slug: String) {
-  post(where: {slug: $slug}) {
-    ...post
-  }
-}
-    ${PostFragmentDoc}`;
-
-/**
- * __useGetPostBySlugQuery__
- *
- * To run a query within a React component, call `useGetPostBySlugQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPostBySlugQuery({
- *   variables: {
- *      slug: // value for 'slug'
- *   },
- * });
- */
-export function useGetPostBySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
-      }
-export function useGetPostBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
-        }
-export type GetPostBySlugQueryHookResult = ReturnType<typeof useGetPostBySlugQuery>;
-export type GetPostBySlugLazyQueryHookResult = ReturnType<typeof useGetPostBySlugLazyQuery>;
-export type GetPostBySlugQueryResult = Apollo.QueryResult<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
-export const GetPostsPaginationDocument = gql`
-    query getPostsPagination($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int, $after: String, $before: String, $settingID: ID) {
-  postsConnection(
-    orderBy: $orderBy
-    first: $first
-    skip: $skip
-    where: $where
-    last: $last
-    after: $after
-    before: $before
-  ) {
-    edges {
-      cursor
-      node {
-        ...post
-      }
-    }
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-      startCursor
-      endCursor
-      pageSize
-    }
-  }
-  setting(where: {id: $settingID}) {
-    ...setting
-  }
-}
-    ${PostFragmentDoc}
-${SettingFragmentDoc}`;
-
-/**
- * __useGetPostsPaginationQuery__
- *
- * To run a query within a React component, call `useGetPostsPaginationQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostsPaginationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPostsPaginationQuery({
- *   variables: {
- *      orderBy: // value for 'orderBy'
- *      first: // value for 'first'
- *      skip: // value for 'skip'
- *      where: // value for 'where'
- *      last: // value for 'last'
- *      after: // value for 'after'
- *      before: // value for 'before'
- *      settingID: // value for 'settingID'
- *   },
- * });
- */
-export function useGetPostsPaginationQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>(GetPostsPaginationDocument, options);
-      }
-export function useGetPostsPaginationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>(GetPostsPaginationDocument, options);
-        }
-export type GetPostsPaginationQueryHookResult = ReturnType<typeof useGetPostsPaginationQuery>;
-export type GetPostsPaginationLazyQueryHookResult = ReturnType<typeof useGetPostsPaginationLazyQuery>;
-export type GetPostsPaginationQueryResult = Apollo.QueryResult<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>;
 export const GetPostsDocument = gql`
     query getPosts($orderBy: PostOrderByInput, $first: Int, $last: Int, $skip: Int, $where: PostWhereInput) {
   posts(orderBy: $orderBy, last: $last, first: $first, skip: $skip, where: $where) {
@@ -9103,60 +8854,6 @@ export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
-export const GetPostsAndSettingsDocument = gql`
-    query getPostsAndSettings($orderBy: PostOrderByInput, $first: Int, $skip: Int, $where: PostWhereInput, $last: Int, $after: String, $before: String, $settingID: ID) {
-  setting(where: {id: $settingID}) {
-    ...setting
-  }
-  posts(
-    orderBy: $orderBy
-    first: $first
-    skip: $skip
-    where: $where
-    last: $last
-    after: $after
-    before: $before
-  ) {
-    ...post
-  }
-}
-    ${SettingFragmentDoc}
-${PostFragmentDoc}`;
-
-/**
- * __useGetPostsAndSettingsQuery__
- *
- * To run a query within a React component, call `useGetPostsAndSettingsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostsAndSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPostsAndSettingsQuery({
- *   variables: {
- *      orderBy: // value for 'orderBy'
- *      first: // value for 'first'
- *      skip: // value for 'skip'
- *      where: // value for 'where'
- *      last: // value for 'last'
- *      after: // value for 'after'
- *      before: // value for 'before'
- *      settingID: // value for 'settingID'
- *   },
- * });
- */
-export function useGetPostsAndSettingsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>(GetPostsAndSettingsDocument, options);
-      }
-export function useGetPostsAndSettingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>(GetPostsAndSettingsDocument, options);
-        }
-export type GetPostsAndSettingsQueryHookResult = ReturnType<typeof useGetPostsAndSettingsQuery>;
-export type GetPostsAndSettingsLazyQueryHookResult = ReturnType<typeof useGetPostsAndSettingsLazyQuery>;
-export type GetPostsAndSettingsQueryResult = Apollo.QueryResult<GetPostsAndSettingsQuery, GetPostsAndSettingsQueryVariables>;
 export const GetSettingsDocument = gql`
     query getSettings($settingID: ID) {
   setting(where: {id: $settingID}) {

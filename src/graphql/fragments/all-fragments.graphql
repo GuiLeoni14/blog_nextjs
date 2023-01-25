@@ -65,13 +65,14 @@ fragment post on Post {
   allowComments
   id
   categories {
-    ...category
+    name
+    slug
+  }
+  thumbnail{
+    url
   }
   cover {
     url
-  }
-  tags {
-    ...tag
   }
   content {
     html
@@ -79,17 +80,19 @@ fragment post on Post {
     text
   }
   author {
-    ...author
+    slug
+    name
   }
   categories {
-    ...category
+    name
+    slug
   }
   tags {
-    ...tag
+    name
+    slug
   }
   seo {
     ...seo
   }
-  publishedAt
   publishedAt
 }
